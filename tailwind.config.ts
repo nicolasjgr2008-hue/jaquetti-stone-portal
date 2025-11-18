@@ -50,10 +50,6 @@ export default {
         marble: {
           light: "hsl(var(--marble-light))",
         },
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          muted: "hsl(var(--gold-muted))",
-        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
