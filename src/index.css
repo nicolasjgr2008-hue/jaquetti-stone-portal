@@ -127,6 +127,18 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes marbleMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 /* Scroll Reveal Classes */
 .scroll-reveal {
   opacity: 0;

@@ -30,14 +30,19 @@ const Case = () => {
       {/* Hero Section */}
       <section 
         className="relative pt-32 pb-20 overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.9)), url(${marbleBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
       >
-        <div className="container mx-auto px-6">
+        {/* Animated Marble Background */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${marbleBg})`,
+            backgroundSize: '120%',
+            backgroundPosition: 'center',
+            animation: 'marbleMove 60s ease-in-out infinite',
+          }}
+        />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/85 to-black/90" />
+        <div className="container mx-auto px-6 relative z-10">
           {/* Back Button */}
           <Link to="/#cases">
             <Button variant="outline" className="mb-8 group border-primary/30 hover:border-primary">

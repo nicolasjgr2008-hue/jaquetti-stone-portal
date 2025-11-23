@@ -17,15 +17,20 @@ const Hero = () => {
   return (
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url(${marbleBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      {/* Animated Marble Background */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${marbleBg})`,
+          backgroundSize: '120%',
+          backgroundPosition: 'center',
+          animation: 'marbleMove 60s ease-in-out infinite',
+        }}
+      />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 to-black/80" />
       {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         <div 
           className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-[float_6s_ease-in-out_infinite]"
           style={{ transform: `translateY(${scrollY * 0.1}px)` }}
