@@ -5,10 +5,26 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import marbleBg from "@/assets/marble-bg.jpg";
+import { useState, useEffect } from "react";
 
 const Case = () => {
   const { id } = useParams();
   const caseData = cases.find((c) => c.id === id);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 15;
+      const y = (e.clientY / window.innerHeight - 0.5) * 15;
+      setMousePosition({ x, y });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   if (!caseData) {
     return (
@@ -31,14 +47,15 @@ const Case = () => {
       <section 
         className="relative pt-32 pb-20 overflow-hidden"
       >
-        {/* Animated Marble Background */}
+        {/* Animated Marble Background with Mouse Parallax */}
         <div 
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 z-0 transition-transform duration-300 ease-out"
           style={{
             backgroundImage: `url(${marbleBg})`,
             backgroundSize: '120%',
             backgroundPosition: 'center',
             animation: 'marbleMove 60s ease-in-out infinite',
+            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
           }}
         />
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/85 to-black/90" />
