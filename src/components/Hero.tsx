@@ -5,27 +5,41 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      setMousePosition({ x, y });
+    };
+    
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Animated Marble Background */}
+      {/* Animated Marble Background with Mouse Parallax */}
       <div 
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 transition-transform duration-300 ease-out"
         style={{
           backgroundImage: `url(${marbleBg})`,
           backgroundSize: '120%',
           backgroundPosition: 'center',
           animation: 'marbleMove 60s ease-in-out infinite',
+          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
         }}
       />
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 to-black/80" />
