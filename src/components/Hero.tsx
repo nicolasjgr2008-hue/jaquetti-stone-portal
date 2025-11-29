@@ -38,13 +38,23 @@ const Hero = () => {
           backgroundImage: `url(${marbleBg})`,
           backgroundSize: '120%',
           backgroundPosition: 'center',
-          animation: 'marbleMove 60s ease-in-out infinite',
+          animation: 'marbleMove 30s ease-in-out infinite',
           transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
         }}
       />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/70 to-black/80" />
+      {/* Golden Marble Veins Overlay */}
+      <div 
+        className="absolute inset-0 z-[1] opacity-30 transition-transform duration-500 ease-out"
+        style={{
+          background: 'radial-gradient(circle at 20% 30%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 80% 70%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 50% 50%, hsl(43, 80%, 50%) 0%, transparent 30%)',
+          backgroundSize: '200% 200%',
+          animation: 'marbleMove 40s ease-in-out infinite reverse',
+          transform: `translate(${-mousePosition.x * 0.5}px, ${-mousePosition.y * 0.5}px)`,
+        }}
+      />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/70 to-black/80" />
       {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[3]">
         <div 
           className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-[float_6s_ease-in-out_infinite]"
           style={{ transform: `translateY(${scrollY * 0.1}px)` }}
