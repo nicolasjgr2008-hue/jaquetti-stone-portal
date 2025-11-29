@@ -27,9 +27,10 @@ const Navbar = () => {
     const targetElement = document.getElementById(targetId);
     
     if (targetElement) {
-      targetElement.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      const offsetTop = targetElement.offsetTop - 80; // Offset para o navbar fixo
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
       });
       setIsMobileMenuOpen(false);
     }
