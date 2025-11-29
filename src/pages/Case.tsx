@@ -60,10 +60,16 @@ const Case = () => {
         />
         {/* Golden Marble Veins Overlay */}
         <div 
-          className="absolute inset-0 z-[1] opacity-30 transition-transform duration-500 ease-out"
+          className="absolute inset-0 z-[1] opacity-20 mix-blend-overlay transition-transform duration-500 ease-out"
           style={{
-            background: 'radial-gradient(circle at 20% 30%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 80% 70%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 50% 50%, hsl(43, 80%, 50%) 0%, transparent 30%)',
-            backgroundSize: '200% 200%',
+            background: `
+              linear-gradient(135deg, transparent 30%, hsl(43, 96%, 56%) 45%, transparent 50%),
+              linear-gradient(-45deg, transparent 35%, hsl(43, 90%, 60%) 48%, transparent 52%),
+              linear-gradient(65deg, transparent 40%, hsl(43, 85%, 55%) 50%, transparent 55%),
+              linear-gradient(-120deg, transparent 38%, hsl(43, 92%, 58%) 48%, transparent 53%)
+            `,
+            backgroundSize: '400% 400%, 350% 350%, 300% 300%, 450% 450%',
+            backgroundPosition: '0% 0%, 100% 100%, 50% 50%, 25% 75%',
             animation: 'marbleMove 40s ease-in-out infinite reverse',
             transform: `translate(${-mousePosition.x * 0.5}px, ${-mousePosition.y * 0.5}px)`,
           }}
