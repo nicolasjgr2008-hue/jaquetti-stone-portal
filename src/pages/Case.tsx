@@ -54,11 +54,21 @@ const Case = () => {
             backgroundImage: `url(${marbleBg})`,
             backgroundSize: '120%',
             backgroundPosition: 'center',
-            animation: 'marbleMove 60s ease-in-out infinite',
+            animation: 'marbleMove 30s ease-in-out infinite',
             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
           }}
         />
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/85 to-black/90" />
+        {/* Golden Marble Veins Overlay */}
+        <div 
+          className="absolute inset-0 z-[1] opacity-30 transition-transform duration-500 ease-out"
+          style={{
+            background: 'radial-gradient(circle at 20% 30%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 80% 70%, hsl(43, 96%, 56%) 0%, transparent 25%), radial-gradient(circle at 50% 50%, hsl(43, 80%, 50%) 0%, transparent 30%)',
+            backgroundSize: '200% 200%',
+            animation: 'marbleMove 40s ease-in-out infinite reverse',
+            transform: `translate(${-mousePosition.x * 0.5}px, ${-mousePosition.y * 0.5}px)`,
+          }}
+        />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/85 to-black/90" />
         <div className="container mx-auto px-6 relative z-10">
           {/* Back Button */}
           <Link to="/#cases">
