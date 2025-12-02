@@ -1,6 +1,7 @@
 import { Check, Star } from "lucide-react";
-import { useScrollScale } from "@/hooks/useScrollScale";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { AnimatedSection, StaggerContainer, StaggerItem, MagneticButton } from "./AnimatedSection";
 
 interface Plan {
   id: string;
@@ -68,165 +69,215 @@ const plans: Plan[] = [
 ];
 
 const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
-  const { ref, scale, isActive } = useScrollScale({ 
-    threshold: 0.3, 
-    maxScale: 1.08 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
   });
 
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.9, 1, 1.08, 1, 0.9]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.5, 1, 1, 1, 0.5]);
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
+
   return (
-    <div
-      ref={ref}
+    <motion.div
+      ref={cardRef}
+      style={{ scale, opacity, y }}
       className="relative"
-      style={{
-        transform: `scale(${scale})`,
-        transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        zIndex: isActive ? 10 : 1,
-      }}
     >
       {/* Popular Badge */}
       {plan.popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+        <motion.div
+          className="absolute -top-4 left-1/2 -translate-x-1/2 z-20"
+          initial={{ y: -20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
+        >
           <div className="flex items-center gap-1.5 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-full shadow-lg">
             <Star className="w-3.5 h-3.5 fill-current" />
             Mais Popular
           </div>
-        </div>
+        </motion.div>
       )}
 
-      <div
+      <motion.div
         className={`
           relative overflow-hidden rounded-3xl border-2 p-8 h-full
-          transition-all duration-500 ease-out
-          ${isActive 
-            ? "border-primary bg-card shadow-2xl shadow-primary/20" 
-            : "border-border bg-card/50 shadow-lg"
-          }
+          transition-colors duration-500
+          ${plan.popular ? "border-primary bg-card shadow-2xl shadow-primary/20" : "border-border bg-card/50 shadow-lg"}
         `}
+        whileHover={{
+          borderColor: "hsl(var(--primary))",
+          boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.25)",
+        }}
+        transition={{ duration: 0.3 }}
       >
         {/* Background Gradient */}
-        <div 
-          className={`
-            absolute inset-0 bg-gradient-to-br ${plan.gradient} 
-            transition-opacity duration-500
-            ${isActive ? "opacity-100" : "opacity-50"}
-          `}
-        />
+        <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-50`} />
 
-        {/* Glow Effect */}
-        {isActive && (
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
-          </div>
-        )}
+        {/* Animated glow effect */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        </motion.div>
 
         <div className="relative z-10 flex flex-col h-full">
           {/* Plan Name */}
-          <h3 
-            className={`
-              text-xl font-semibold mb-2 transition-all duration-300
-              ${isActive ? "text-primary" : "text-foreground"}
-            `}
+          <motion.h3
+            className="text-xl font-semibold mb-2 text-foreground"
+            whileHover={{ color: "hsl(var(--primary))" }}
+            transition={{ duration: 0.2 }}
           >
             {plan.name}
-          </h3>
+          </motion.h3>
 
-          {/* Price */}
+          {/* Price with animation */}
           <div className="mb-4">
-            <span 
-              className={`
-                text-4xl md:text-5xl font-serif font-bold transition-all duration-300
-                ${isActive ? "text-foreground" : "text-muted-foreground"}
-              `}
+            <motion.span
+              className="text-4xl md:text-5xl font-serif font-bold text-foreground"
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
             >
               {plan.price}
-            </span>
+            </motion.span>
             <span className="text-muted-foreground text-sm">{plan.period}</span>
           </div>
 
           {/* Description */}
-          <p 
-            className={`
-              text-sm mb-6 transition-all duration-300 leading-relaxed
-              ${isActive ? "text-foreground" : "text-muted-foreground"}
-            `}
-          >
+          <p className="text-sm mb-6 text-muted-foreground leading-relaxed">
             {plan.description}
           </p>
 
-          {/* Features */}
+          {/* Features with stagger animation */}
           <ul className="space-y-3 mb-8 flex-grow">
             {plan.features.map((feature, idx) => (
-              <li 
-                key={idx} 
-                className={`
-                  flex items-start gap-3 text-sm transition-all duration-300
-                  ${isActive ? "text-foreground" : "text-muted-foreground"}
-                `}
-                style={{ 
-                  transitionDelay: isActive ? `${idx * 50}ms` : "0ms" 
-                }}
+              <motion.li
+                key={idx}
+                className="flex items-start gap-3 text-sm text-muted-foreground"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
               >
-                <Check 
-                  className={`
-                    w-5 h-5 flex-shrink-0 mt-0.5 transition-colors duration-300
-                    ${isActive ? "text-primary" : "text-muted-foreground/50"}
-                  `} 
-                />
+                <motion.div
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Check className="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" />
+                </motion.div>
                 {feature}
-              </li>
+              </motion.li>
             ))}
           </ul>
 
           {/* CTA Button */}
-          <a
-            href="mailto:jaquettiweb@gmail.com"
-            className={`
-              w-full py-4 px-6 rounded-xl font-medium text-center
-              transition-all duration-300 ease-out
-              ${isActive 
-                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/30" 
-                : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }
-            `}
-          >
-            Começar Agora
-          </a>
+          <MagneticButton className="w-full">
+            <motion.a
+              href="mailto:jaquettiweb@gmail.com"
+              className={`
+                w-full py-4 px-6 rounded-xl font-medium text-center block
+                transition-all duration-300 ease-out
+                ${plan.popular
+                  ? "bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/30"
+                  : "bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground"
+                }
+              `}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Começar Agora
+            </motion.a>
+          </MagneticButton>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
 const Pricing = () => {
-  const headerRef = useScrollReveal();
-
   return (
     <section id="pricing" className="py-24 bg-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <motion.div
+          className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, -50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 5,
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <div 
-          ref={headerRef}
-          className="text-center mb-16 scroll-reveal"
-        >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
+        <AnimatedSection className="text-center mb-16">
+          <motion.span
+            className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
             Planos
-          </span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+          </motion.span>
+          <motion.h2
+            className="text-4xl md:text-5xl font-serif font-bold mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
             Escolha o plano{" "}
-            <span className="text-primary">ideal</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <motion.span
+              className="text-primary inline-block"
+              animate={{ 
+                textShadow: [
+                  "0 0 0px hsl(var(--primary))",
+                  "0 0 20px hsl(var(--primary))",
+                  "0 0 0px hsl(var(--primary))",
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              ideal
+            </motion.span>
+          </motion.h2>
+          <motion.p
+            className="text-muted-foreground max-w-2xl mx-auto text-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
             Soluções flexíveis que crescem com seu negócio. Todos os planos incluem
             suporte dedicado e garantia de satisfação.
-          </p>
-        </div>
+          </motion.p>
+        </AnimatedSection>
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -236,9 +287,15 @@ const Pricing = () => {
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-muted-foreground text-sm mt-12">
+        <motion.p
+          className="text-center text-muted-foreground text-sm mt-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
           * Todos os preços em reais. Consulte condições especiais para pagamento anual.
-        </p>
+        </motion.p>
       </div>
     </section>
   );
