@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
 
-const cases = [
-  { id: 1, category: "SOSVET", description: "Clínica veterinária com atendimento 24 horas.", image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop", url: "#" },
-  { id: 2, category: "TechFlow", description: "Startup de tecnologia focada em automação.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=200&h=200&fit=crop", url: "#" },
-  { id: 3, category: "Bella Casa", description: "Imobiliária de alto padrão.", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop", url: "#" },
-  { id: 4, category: "FitLife", description: "Academia moderna com equipamentos de ponta.", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&h=200&fit=crop", url: "#" },
-  { id: 5, category: "Gourmet Express", description: "Restaurante delivery internacional.", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop", url: "#" },
-  { id: 6, category: "EduTech", description: "Plataforma de cursos online.", image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=200&h=200&fit=crop", url: "#" },
+export const cases = [
+  { id: "1", category: "SOSVET", title: "Site Institucional SOSVet", description: "Clínica veterinária com atendimento 24 horas.", image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop", url: "#" },
+  { id: "2", category: "TechFlow", title: "Plataforma TechFlow", description: "Startup de tecnologia focada em automação.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=200&h=200&fit=crop", url: "#" },
+  { id: "3", category: "Bella Casa", title: "Portal Bella Casa Imóveis", description: "Imobiliária de alto padrão.", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop", url: "#" },
+  { id: "4", category: "FitLife", title: "App FitLife Fitness", description: "Academia moderna com equipamentos de ponta.", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&h=200&fit=crop", url: "#" },
+  { id: "5", category: "Gourmet Express", title: "E-commerce Gourmet Express", description: "Restaurante delivery internacional.", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop", url: "#" },
+  { id: "6", category: "EduTech", title: "Plataforma EduTech Learning", description: "Plataforma de cursos online.", image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=200&h=200&fit=crop", url: "#" },
 ];
 
 const Portfolio = () => {
