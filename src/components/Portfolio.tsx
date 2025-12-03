@@ -5,42 +5,44 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
 
 export const cases = [
-  { id: "1", category: "SOSVET", title: "Site Institucional SOSVet", description: "Clínica veterinária com atendimento 24 horas.", image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop", url: "#" },
-  { id: "2", category: "TechFlow", title: "Plataforma TechFlow", description: "Startup de tecnologia focada em automação.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=200&h=200&fit=crop", url: "#" },
-  { id: "3", category: "Bella Casa", title: "Portal Bella Casa Imóveis", description: "Imobiliária de alto padrão.", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop", url: "#" },
-  { id: "4", category: "FitLife", title: "App FitLife Fitness", description: "Academia moderna com equipamentos de ponta.", image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&h=200&fit=crop", url: "#" },
-  { id: "5", category: "Gourmet Express", title: "E-commerce Gourmet Express", description: "Restaurante delivery internacional.", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop", url: "#" },
-  { id: "6", category: "EduTech", title: "Plataforma EduTech Learning", description: "Plataforma de cursos online.", image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=200&h=200&fit=crop", url: "#" },
+  { id: "1", category: "Advocate", title: "Site Advocate", description: "Escritório de advocacia especializado, oferecendo soluções jurídicas confiáveis e estratégicas.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-2.png", url: "https://nicolasjgr.me/advocate" },
+  { id: "2", category: "Dinheiro com Crochê", title: "Curso de Crochê", description: "Aprenda técnicas de crochê e transforme suas peças em renda lucrativa.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-dinheiro-com-croche.png", url: "#" },
+  { id: "3", category: "Agency Marketing", title: "Agência de Marketing", description: "Agência de marketing inovadora, transformando ideias em resultados extraordinários.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/logotipo.png", url: "https://nicolasjgr.me/agency-marketing/" },
+  { id: "4", category: "Austenberg", title: "Equipamentos Elétricos", description: "Fornecedora de equipamentos elétricos, especializada em qualidade e soluções confiáveis.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/image-removebg-preview.png", url: "#" },
+  { id: "5", category: "Hermes", title: "Gestão Condominial", description: "Gestão condominial eficiente, comunicação transparente e serviços confiáveis para moradores.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-removebg-preview.png", url: "https://nicolasjgr.me/hermes/" },
+  { id: "6", category: "SOSVet", title: "Clínica Veterinária", description: "Clínica veterinária dedicada, oferecendo cuidado profissional, confiança e saúde animal.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-small.png", url: "https://nicolasjgr.me/clinica-veterinaria" },
 ];
 
 const testimonials = [
   {
-    quote: "O site deixou nossa clínica muito mais próxima dos clientes. Aumentamos 40% nos agendamentos online.",
+    quote: "Nosso site agora é ágil, visualmente impactante e otimizado para conversões. Cada visitante percebe a qualidade do nosso trabalho, aumentando leads, credibilidade e presença digital.",
+    author: "Felipe Oliveira",
+    role: "CEO",
+    company: "Agency Marketing",
+  },
+  {
+    quote: "O site desenvolvido pela Jaquetti Web Agency não só refletiu nossa essência, mas também é rápido, responsivo e otimizado para SEO. A visibilidade aumentou, gerando mais clientes e fortalecendo nossa credibilidade no mercado.",
+    author: "William Roberto",
+    role: "CEO",
+    company: "Austenberg",
+  },
+  {
+    quote: "Nosso site agora é moderno, funcional e responsivo em qualquer dispositivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio se tornou mais eficiente e transparente.",
+    author: "Hermes Dos Anjos",
+    role: "Síndico profissional",
+    company: "Hermes",
+  },
+  {
+    quote: "O site deixou nossa clínica muito mais próxima dos clientes. Agora eles nos encontram facilmente e confiam ainda mais no nosso trabalho.",
     author: "Alexandre Da Silva",
     role: "Veterinário Responsável",
     company: "SOSVet",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
   },
   {
-    quote: "A plataforma desenvolvida revolucionou nossa forma de trabalhar. Recomendo fortemente!",
-    author: "Mariana Costa",
-    role: "CEO",
-    company: "TechFlow",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
-  },
-  {
-    quote: "Profissionalismo e qualidade impecáveis. Nosso portal imobiliário ficou incrível.",
-    author: "Roberto Mendes",
-    role: "Diretor Comercial",
-    company: "Bella Casa",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-  },
-  {
-    quote: "O app superou todas as expectativas. Nossos alunos adoraram a experiência.",
-    author: "Carla Souza",
-    role: "Proprietária",
-    company: "FitLife",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    quote: "O site não é apenas bonito — transmite segurança e profissionalismo. Estamos conquistando clientes que antes não nos encontrariam de outra maneira.",
+    author: "Dra. Camila Rocha",
+    role: "Sócia Fundadora",
+    company: "Advocate",
   },
 ];
 
@@ -143,17 +145,9 @@ const Portfolio = () => {
                   <p className="text-xl md:text-2xl font-serif italic text-foreground leading-relaxed">
                     "{testimonials[testimonialIndex].quote}"
                   </p>
-                  <div className="flex items-center justify-center gap-4">
-                    <motion.img
-                      src={testimonials[testimonialIndex].image}
-                      alt={testimonials[testimonialIndex].author}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
-                      whileHover={{ scale: 1.1 }}
-                    />
-                    <div className="text-left">
-                      <p className="font-semibold text-foreground">{testimonials[testimonialIndex].author}</p>
-                      <p className="text-sm text-primary">{testimonials[testimonialIndex].role} - {testimonials[testimonialIndex].company}</p>
-                    </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <p className="font-semibold text-foreground">{testimonials[testimonialIndex].author}</p>
+                    <p className="text-sm text-primary">{testimonials[testimonialIndex].role} - {testimonials[testimonialIndex].company}</p>
                   </div>
                 </blockquote>
               </motion.div>
