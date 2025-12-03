@@ -13,13 +13,48 @@ export const cases = [
   { id: "6", category: "EduTech", title: "Plataforma EduTech Learning", description: "Plataforma de cursos online.", image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=200&h=200&fit=crop", url: "#" },
 ];
 
+const testimonials = [
+  {
+    quote: "O site deixou nossa clínica muito mais próxima dos clientes. Aumentamos 40% nos agendamentos online.",
+    author: "Alexandre Da Silva",
+    role: "Veterinário Responsável",
+    company: "SOSVet",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+  },
+  {
+    quote: "A plataforma desenvolvida revolucionou nossa forma de trabalhar. Recomendo fortemente!",
+    author: "Mariana Costa",
+    role: "CEO",
+    company: "TechFlow",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+  },
+  {
+    quote: "Profissionalismo e qualidade impecáveis. Nosso portal imobiliário ficou incrível.",
+    author: "Roberto Mendes",
+    role: "Diretor Comercial",
+    company: "Bella Casa",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+  },
+  {
+    quote: "O app superou todas as expectativas. Nossos alunos adoraram a experiência.",
+    author: "Carla Souza",
+    role: "Proprietária",
+    company: "FitLife",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+  },
+];
+
 const Portfolio = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const itemsPerSlide = 3;
   const totalSlides = Math.ceil(cases.length / itemsPerSlide);
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   const currentCases = cases.slice(currentSlide * itemsPerSlide, (currentSlide + 1) * itemsPerSlide);
+  
+  const nextTestimonial = () => setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  const prevTestimonial = () => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
     <section id="cases" className="py-24 bg-background relative overflow-hidden">
@@ -88,15 +123,74 @@ const Portfolio = () => {
 
         <motion.div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent mb-16" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} />
 
-        <AnimatedSection direction="scale" className="text-center max-w-4xl mx-auto">
-          <Quote className="w-12 h-12 text-primary/30 mx-auto mb-6" />
-          <blockquote className="space-y-6">
-            <p className="text-xl md:text-2xl font-serif italic text-foreground leading-relaxed">"O site deixou nossa clínica muito mais próxima dos clientes."</p>
-            <div className="space-y-1">
-              <p className="font-semibold text-foreground">Alexandre Da Silva</p>
-              <p className="text-sm text-primary">Veterinário Responsável - SOSVet</p>
+        <AnimatedSection direction="scale" className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <Quote className="w-12 h-12 text-primary/30 mx-auto mb-4" />
+            <h3 className="text-2xl font-serif font-bold text-foreground">O que dizem nossos clientes</h3>
+          </div>
+          
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={testimonialIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-2xl p-8 md:p-12"
+              >
+                <blockquote className="space-y-6 text-center">
+                  <p className="text-xl md:text-2xl font-serif italic text-foreground leading-relaxed">
+                    "{testimonials[testimonialIndex].quote}"
+                  </p>
+                  <div className="flex items-center justify-center gap-4">
+                    <motion.img
+                      src={testimonials[testimonialIndex].image}
+                      alt={testimonials[testimonialIndex].author}
+                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
+                      whileHover={{ scale: 1.1 }}
+                    />
+                    <div className="text-left">
+                      <p className="font-semibold text-foreground">{testimonials[testimonialIndex].author}</p>
+                      <p className="text-sm text-primary">{testimonials[testimonialIndex].role} - {testimonials[testimonialIndex].company}</p>
+                    </div>
+                  </div>
+                </blockquote>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-6">
+              <motion.button
+                onClick={prevTestimonial}
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-border hover:border-primary transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <ChevronLeft className="w-5 h-5 text-muted-foreground" />
+              </motion.button>
+              
+              <div className="flex gap-2">
+                {testimonials.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => setTestimonialIndex(index)}
+                    className={`h-2 rounded-full transition-all ${testimonialIndex === index ? "bg-primary w-6" : "bg-border w-2"}`}
+                    whileHover={{ scale: 1.2 }}
+                  />
+                ))}
+              </div>
+              
+              <motion.button
+                onClick={nextTestimonial}
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-border hover:border-primary transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </motion.button>
             </div>
-          </blockquote>
+          </div>
         </AnimatedSection>
       </div>
     </section>
