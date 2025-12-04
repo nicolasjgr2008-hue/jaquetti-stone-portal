@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -8,15 +9,25 @@ import CursorFollower from "@/components/CursorFollower";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <CursorFollower />
-      <Navbar />
-      <Hero />
-      <Stats />
-      <Services />
-      <Portfolio />
-      <Footer />
-    </div>
+    <>
+      <Helmet>
+        <title>Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital</title>
+        <meta name="description" content="Agência especializada em criação de sites profissionais, SEO, identidade visual, tráfego pago e marketing digital. Transforme sua presença online e aumente suas vendas." />
+        <link rel="canonical" href="https://jaquettiweb.com" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-background">
+        <CursorFollower />
+        <Navbar />
+        <main>
+          <Hero />
+          <Stats />
+          <Services />
+          <Portfolio />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
