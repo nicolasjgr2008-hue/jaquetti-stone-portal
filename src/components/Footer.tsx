@@ -1,4 +1,4 @@
-import { Mail, ArrowUp } from "lucide-react";
+import { Mail, ArrowUp, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -43,13 +43,24 @@ const Footer = () => {
           {/* Contact */}
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Contato</h4>
-            <a 
-              href="mailto:jaquettiweb@gmail.com"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm group"
-            >
-              <Mail size={16} className="group-hover:scale-110 transition-transform" />
-              jaquettiweb@gmail.com
-            </a>
+            <div className="flex flex-col gap-3">
+              <a 
+                href="mailto:jaquettiweb@gmail.com"
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm group"
+              >
+                <Mail size={16} className="group-hover:scale-110 transition-transform" />
+                jaquettiweb@gmail.com
+              </a>
+              <a 
+                href="https://instagram.com/jaquettiagency"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm group"
+              >
+                <Instagram size={16} className="group-hover:scale-110 transition-transform" />
+                @jaquettiagency
+              </a>
+            </div>
           </div>
 
           {/* Back to Top */}
