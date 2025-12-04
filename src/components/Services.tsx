@@ -42,14 +42,28 @@ const services: Service[] = [
   },
 ];
 
-const ServiceCard = ({ service, index }: { service: Service; index: number }) => {
+const ServiceCard = ({ 
+  service, 
+  index, 
+  isHovered, 
+  isAnyHovered 
+}: { 
+  service: Service; 
+  index: number;
+  isHovered: boolean;
+  isAnyHovered: boolean;
+}) => {
   const Icon = service.icon;
+
+  const scale = isHovered ? 1.08 : isAnyHovered ? 0.92 : 1;
+  const opacity = isHovered ? 1 : isAnyHovered ? 0.6 : 1;
+  const y = isHovered ? -16 : 0;
 
   return (
     <StaggerItem>
       <motion.div
-        whileHover={{ y: -12, scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        animate={{ scale, opacity, y }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
         <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-500 h-full relative overflow-hidden">
           {/* Animated background gradient */}
@@ -112,7 +126,11 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
   );
 };
 
+import { useState } from "react";
+
 const Services = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section id="solucoes" className="py-24 bg-background relative overflow-hidden">
       {/* Animated background decoration */}
@@ -176,14 +194,26 @@ const Services = () => {
         </AnimatedSection>
 
         {/* Services Grid with Stagger Animation */}
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          staggerDelay={0.1}
-        >
-          {services.map((service, index) => (
-            <ServiceCard key={index} service={service} index={index} />
-          ))}
-        </StaggerContainer>
+        <div onMouseLeave={() => setHoveredIndex(null)}>
+          <StaggerContainer
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            staggerDelay={0.1}
+          >
+            {services.map((service, index) => (
+              <div
+                key={index}
+                onMouseEnter={() => setHoveredIndex(index)}
+              >
+                <ServiceCard 
+                  service={service} 
+                  index={index} 
+                  isHovered={hoveredIndex === index}
+                  isAnyHovered={hoveredIndex !== null}
+                />
+              </div>
+            ))}
+          </StaggerContainer>
+        </div>
 
         {/* CTA */}
         <AnimatedSection delay={0.6} className="text-center mt-16">
