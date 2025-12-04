@@ -6,6 +6,8 @@ import Stats from "@/components/Stats";
 import Portfolio from "@/components/Portfolio";
 import Footer from "@/components/Footer";
 import CursorFollower from "@/components/CursorFollower";
+import ScrollProgress from "@/components/ScrollProgress";
+import FloatingParticles from "@/components/FloatingParticles";
 
 const Index = () => {
   return (
@@ -17,6 +19,8 @@ const Index = () => {
       </Helmet>
       
       <div className="min-h-screen bg-background">
+        <ScrollProgress />
+        <FloatingParticles />
         <CursorFollower />
         <Navbar />
         <main>
