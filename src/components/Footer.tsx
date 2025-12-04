@@ -1,5 +1,6 @@
 import { Mail, ArrowUp, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,75 +12,146 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+      <motion.div 
+        className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+      
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
-          <div className="space-y-4">
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-2xl font-serif font-bold text-foreground">
               Jaquetti
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Transformamos sua presença online com sites modernos, otimizados e responsivos.
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <h4 className="font-semibold text-foreground">Links Rápidos</h4>
             <nav className="flex flex-col gap-2">
-              <a href="#sobre" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                Sobre
-              </a>
-              <a href="#cases" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                Cases
-              </a>
-              <a href="#solucoes" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                Soluções
-              </a>
+              {[
+                { label: "Sobre", href: "#sobre" },
+                { label: "Cases", href: "#cases" },
+                { label: "Soluções", href: "#solucoes" },
+              ].map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href} 
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm relative group w-fit"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+                </motion.a>
+              ))}
             </nav>
-          </div>
+          </motion.div>
 
           {/* Contact */}
-          <div className="space-y-4">
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <h4 className="font-semibold text-foreground">Contato</h4>
             <div className="flex flex-col gap-3">
-              <a 
+              <motion.a 
                 href="mailto:jaquettiweb@gmail.com"
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm group"
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Mail size={16} className="group-hover:scale-110 transition-transform" />
                 jaquettiweb@gmail.com
-              </a>
-              <a 
+              </motion.a>
+              <motion.a 
                 href="https://instagram.com/jaquettiagency"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm group"
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <Instagram size={16} className="group-hover:scale-110 transition-transform" />
+                <Instagram size={16} className="group-hover:scale-110 group-hover:rotate-12 transition-transform" />
                 @jaquettiagency
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Back to Top */}
-          <div className="flex items-start justify-end">
-            <Button
-              onClick={scrollToTop}
-              variant="outline"
-              size="icon"
-              className="rounded-full border-primary/30 hover:border-primary hover:bg-primary/10 group"
+          <motion.div 
+            className="flex items-start justify-end"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <ArrowUp size={20} className="text-primary group-hover:-translate-y-1 transition-transform" />
-            </Button>
-          </div>
+              <Button
+                onClick={scrollToTop}
+                variant="outline"
+                size="icon"
+                className="rounded-full border-primary/30 hover:border-primary hover:bg-primary/10 group animate-bounce-subtle"
+              >
+                <ArrowUp size={20} className="text-primary group-hover:-translate-y-1 transition-transform" />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Copyright */}
-        <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
+        <motion.div 
+          className="pt-8 border-t border-border text-center text-sm text-muted-foreground"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <p>&copy; {currentYear} Jaquetti Web Agency. Todos os direitos reservados.</p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
