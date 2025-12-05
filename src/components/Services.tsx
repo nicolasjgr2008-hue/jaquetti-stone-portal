@@ -2,59 +2,26 @@ import { Code, TrendingUp, Palette, Pencil, Search, MessageSquare, LucideIcon } 
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { AnimatedSection, StaggerContainer, StaggerItem, MagneticButton } from "./AnimatedSection";
+import { useState } from "react";
+import { useLanguage } from "@/hooks/useLanguage";
 
-interface Service {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
-
-const services: Service[] = [
-  {
-    icon: Code,
-    title: "Construções de site",
-    description: "Presença digital profissional para atrair e converter clientes.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Tráfego",
-    description: "Campanhas inteligentes para atrair clientes certos e aumentar suas vendas.",
-  },
-  {
-    icon: Palette,
-    title: "Identidade Visual",
-    description: "Criação de logotipo e identidade única que traduzem a essência da sua marca.",
-  },
-  {
-    icon: Pencil,
-    title: "Design",
-    description: "Layouts criativos e profissionais que destacam seu negócio com impacto visual.",
-  },
-  {
-    icon: Search,
-    title: "SEO",
-    description: "Otimização para Google: mais visibilidade e clientes encontrando sua empresa online.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Copywriting",
-    description: "Textos persuasivos que transformam visitantes em clientes e aumentam conversões.",
-  },
-];
+const serviceIcons: LucideIcon[] = [Code, TrendingUp, Palette, Pencil, Search, MessageSquare];
 
 const ServiceCard = ({ 
-  service, 
+  title,
+  description,
+  icon: Icon,
   index, 
   isHovered, 
   isAnyHovered 
 }: { 
-  service: Service; 
+  title: string;
+  description: string;
+  icon: LucideIcon;
   index: number;
   isHovered: boolean;
   isAnyHovered: boolean;
 }) => {
-  const Icon = service.icon;
-
   const scale = isHovered ? 1.08 : isAnyHovered ? 0.92 : 1;
   const opacity = isHovered ? 1 : isAnyHovered ? 0.6 : 1;
   const y = isHovered ? -16 : 0;
@@ -95,12 +62,12 @@ const ServiceCard = ({
 
             {/* Title */}
             <h3 className="text-2xl font-serif font-semibold group-hover:text-primary transition-colors duration-300">
-              {service.title}
+              {title}
             </h3>
 
             {/* Description */}
             <p className="text-muted-foreground leading-relaxed">
-              {service.description}
+              {description}
             </p>
 
             {/* Animated underline */}
@@ -126,10 +93,9 @@ const ServiceCard = ({
   );
 };
 
-import { useState } from "react";
-
 const Services = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section id="solucoes" className="py-24 bg-background relative overflow-hidden">
@@ -170,9 +136,9 @@ const Services = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Nossos{" "}
+            {t.services.title1}{" "}
             <span className="text-primary relative inline-block">
-              Serviços
+              {t.services.title2}
               <motion.span
                 className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary/50"
                 initial={{ scaleX: 0 }}
@@ -189,7 +155,7 @@ const Services = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Soluções completas para transformar sua presença digital
+            {t.services.subtitle}
           </motion.p>
         </AnimatedSection>
 
@@ -199,13 +165,15 @@ const Services = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             staggerDelay={0.1}
           >
-            {services.map((service, index) => (
+            {t.services.items.map((service, index) => (
               <div
                 key={index}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
                 <ServiceCard 
-                  service={service} 
+                  title={service.title}
+                  description={service.description}
+                  icon={serviceIcons[index]}
                   index={index} 
                   isHovered={hoveredIndex === index}
                   isAnyHovered={hoveredIndex !== null}
@@ -225,7 +193,7 @@ const Services = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <span className="relative">
-                SOLICITE SEU ORÇAMENTO
+                {t.services.cta}
                 <motion.span
                   className="absolute -bottom-1 left-0 h-0.5 bg-primary"
                   initial={{ width: 0 }}
