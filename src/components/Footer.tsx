@@ -1,9 +1,11 @@
 import { Mail, ArrowUp, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -52,7 +54,7 @@ const Footer = () => {
               Jaquetti
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Transformamos sua presença online com sites modernos, otimizados e responsivos.
+              {t.footer.description}
             </p>
           </motion.div>
 
@@ -64,12 +66,12 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h4 className="font-semibold text-foreground">Links Rápidos</h4>
+            <h4 className="font-semibold text-foreground">{t.footer.navigation}</h4>
             <nav className="flex flex-col gap-2">
               {[
-                { label: "Sobre", href: "#sobre" },
-                { label: "Cases", href: "#cases" },
-                { label: "Soluções", href: "#solucoes" },
+                { label: t.footer.home, href: "#" },
+                { label: t.footer.solutions, href: "#solucoes" },
+                { label: t.footer.cases, href: "#cases" },
               ].map((link) => (
                 <motion.a 
                   key={link.label}
@@ -93,7 +95,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h4 className="font-semibold text-foreground">Contato</h4>
+            <h4 className="font-semibold text-foreground">{t.footer.contact}</h4>
             <div className="flex flex-col gap-3">
               <motion.a 
                 href="mailto:jaquettiweb@gmail.com"
@@ -135,6 +137,7 @@ const Footer = () => {
                 variant="outline"
                 size="icon"
                 className="rounded-full border-primary/30 hover:border-primary hover:bg-primary/10 group animate-bounce-subtle"
+                title={t.footer.scrollTop}
               >
                 <ArrowUp size={20} className="text-primary group-hover:-translate-y-1 transition-transform" />
               </Button>
@@ -150,7 +153,7 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <p>&copy; {currentYear} Jaquetti Web Agency. Todos os direitos reservados.</p>
+          <p>&copy; {currentYear} Jaquetti Web Agency. {t.footer.copyright}</p>
         </motion.div>
       </div>
     </footer>

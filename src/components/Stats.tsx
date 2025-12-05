@@ -2,43 +2,25 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { AnimatedSection, AnimatedCounter } from "./AnimatedSection";
 import { Briefcase, Users, Award, Clock } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
-const stats = [
-  {
-    icon: Briefcase,
-    value: 150,
-    suffix: "+",
-    label: "Projetos Entregues",
-    description: "Sites, apps e sistemas desenvolvidos",
-  },
-  {
-    icon: Users,
-    value: 80,
-    suffix: "+",
-    label: "Clientes Satisfeitos",
-    description: "Empresas que confiam em nosso trabalho",
-  },
-  {
-    icon: Award,
-    value: 12,
-    suffix: "",
-    label: "Anos de Experiência",
-    description: "Atuando no mercado digital",
-  },
-  {
-    icon: Clock,
-    value: 98,
-    suffix: "%",
-    label: "Taxa de Satisfação",
-    description: "Clientes que nos recomendam",
-  },
-];
+const statIcons = [Briefcase, Users, Award, Clock];
+const statValues = [150, 80, 12, 98];
+const statSuffixes = ["+", "+", "", "%"];
 
 const StatCard = ({
-  stat,
+  icon: Icon,
+  value,
+  suffix,
+  label,
+  description,
   index,
 }: {
-  stat: (typeof stats)[0];
+  icon: typeof Briefcase;
+  value: number;
+  suffix: string;
+  label: string;
+  description: string;
   index: number;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -68,26 +50,26 @@ const StatCard = ({
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <stat.icon className="w-8 h-8" />
+          <Icon className="w-8 h-8" />
         </motion.div>
 
         {/* Counter */}
         <div className="relative flex items-baseline gap-1 mb-2">
           <span className="text-5xl md:text-6xl font-bold font-playfair text-foreground">
-            <AnimatedCounter target={stat.value} duration={2.5} />
+            <AnimatedCounter target={value} duration={2.5} />
           </span>
           <span className="text-3xl md:text-4xl font-bold text-primary">
-            {stat.suffix}
+            {suffix}
           </span>
         </div>
 
         {/* Label */}
         <h3 className="text-xl font-semibold text-foreground mb-2">
-          {stat.label}
+          {label}
         </h3>
 
         {/* Description */}
-        <p className="text-muted-foreground text-sm">{stat.description}</p>
+        <p className="text-muted-foreground text-sm">{description}</p>
 
         {/* Decorative line */}
         <motion.div
@@ -102,41 +84,86 @@ const StatCard = ({
 };
 
 const Stats = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="stats" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1.3, 1, 1.3],
+            opacity: [0.5, 0.3, 0.5],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <AnimatedSection className="text-center mb-16 md:mb-20">
-          <span className="inline-block px-4 py-2 mb-6 text-sm font-medium tracking-wider text-primary border border-primary/30 rounded-full">
-            NOSSOS NÚMEROS
-          </span>
+          <motion.span 
+            className="inline-block px-4 py-2 mb-6 text-sm font-medium tracking-wider text-primary border border-primary/30 rounded-full"
+            animate={{
+              boxShadow: [
+                "0 0 0px hsl(var(--primary) / 0)",
+                "0 0 15px hsl(var(--primary) / 0.3)",
+                "0 0 0px hsl(var(--primary) / 0)",
+              ],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+            }}
+          >
+            {t.stats.badge}
+          </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-playfair text-foreground mb-6">
-            Resultados que
-            <span className="block text-primary">Falam por Si</span>
+            {t.stats.title1}
+            <span className="block text-primary">{t.stats.title2}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Números que representam nossa dedicação e compromisso com a
-            excelência em cada projeto que desenvolvemos.
+            {t.stats.subtitle}
           </p>
         </AnimatedSection>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {stats.map((stat, index) => (
-            <StatCard key={stat.label} stat={stat} index={index} />
+          {t.stats.items.map((stat, index) => (
+            <StatCard
+              key={stat.label}
+              icon={statIcons[index]}
+              value={statValues[index]}
+              suffix={statSuffixes[index]}
+              label={stat.label}
+              description={stat.description}
+              index={index}
+            />
           ))}
         </div>
 
         {/* Bottom CTA */}
         <AnimatedSection delay={0.6} className="text-center mt-16">
           <p className="text-muted-foreground mb-6">
-            Pronto para fazer parte dessas estatísticas?
+            {t.stats.cta}
           </p>
           <motion.a
             href="#contact"
@@ -144,7 +171,7 @@ const Stats = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            Iniciar Projeto
+            {t.stats.ctaButton}
             <motion.span
               animate={{ x: [0, 4, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
