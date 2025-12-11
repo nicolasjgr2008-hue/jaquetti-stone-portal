@@ -1,80 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import marbleBg from "@/assets/marble-bg.jpg";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedSection, MagneticButton, RevealText } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
+import { SplineScene } from "@/components/ui/splite";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const { t } = useLanguage();
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Marble Background with Mouse Parallax */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${marbleBg})`,
-          backgroundSize: "120%",
-          backgroundPosition: "center",
-          x: mousePosition.x,
-          y: mousePosition.y,
-        }}
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Spline 3D Background */}
+      <div className="absolute inset-0 z-0">
+        <SplineScene 
+          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+          className="w-full h-full"
+        />
+      </div>
+
+      {/* Spotlight Effect */}
+      <Spotlight
+        className="-top-40 left-0 md:left-60 md:-top-20"
+        fill="white"
       />
 
-      {/* Golden Marble Veins Overlay */}
-      <motion.div
-        className="absolute inset-0 z-[1] opacity-20 mix-blend-overlay"
-        style={{
-          background: `
-            linear-gradient(135deg, transparent 30%, hsl(43, 96%, 56%) 45%, transparent 50%),
-            linear-gradient(-45deg, transparent 35%, hsl(43, 90%, 60%) 48%, transparent 52%),
-            linear-gradient(65deg, transparent 40%, hsl(43, 85%, 55%) 50%, transparent 55%),
-            linear-gradient(-120deg, transparent 38%, hsl(43, 92%, 58%) 48%, transparent 53%)
-          `,
-          backgroundSize: "400% 400%, 350% 350%, 300% 300%, 450% 450%",
-          x: -mousePosition.x * 0.5,
-          y: -mousePosition.y * 0.5,
-        }}
-        animate={{
-          backgroundPosition: [
-            "0% 0%, 100% 100%, 50% 50%, 25% 75%",
-            "100% 100%, 0% 0%, 75% 25%, 50% 50%",
-            "0% 0%, 100% 100%, 50% 50%, 25% 75%",
-          ],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-
-      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/70 to-black/80" />
+      {/* Gradient Overlay for readability */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/60 via-background/40 to-background/80" />
 
       {/* Floating Elements with Parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[3]">
