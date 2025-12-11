@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
+import { SplineScene } from "@/components/ui/splite";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export const cases = [
   { id: "1", category: "Advocate", title: "Site Advocate", description: "Escritório de advocacia especializado, oferecendo soluções jurídicas confiáveis e estratégicas.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-2.png", url: "https://nicolasjgr.me/advocate" },
@@ -69,7 +71,24 @@ const Portfolio = () => {
 
   return (
     <section id="cases" className="py-24 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Spline 3D Background */}
+      <div className="absolute inset-0 z-0 opacity-25">
+        <SplineScene 
+          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+          className="w-full h-full"
+        />
+      </div>
+      
+      {/* Spotlight Effect */}
+      <Spotlight
+        className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        fill="white"
+      />
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/90 via-background/70 to-background/90" />
+
+      <div className="absolute inset-0 pointer-events-none z-[2]">
         <motion.div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"
           animate={{
