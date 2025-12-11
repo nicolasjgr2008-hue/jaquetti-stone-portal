@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { AnimatedSection, StaggerContainer, StaggerItem, MagneticButton } from "./AnimatedSection";
 import { useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { SplineScene } from "@/components/ui/splite";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const serviceIcons: LucideIcon[] = [Code, TrendingUp, Palette, Pencil, Search, MessageSquare];
 
@@ -99,9 +101,26 @@ const Services = () => {
 
   return (
     <section id="solucoes" className="py-24 bg-background relative overflow-hidden">
+      {/* Spline 3D Background */}
+      <div className="absolute inset-0 z-0 opacity-30">
+        <SplineScene 
+          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+          className="w-full h-full"
+        />
+      </div>
+      
+      {/* Spotlight Effect */}
+      <Spotlight
+        className="top-0 right-0 md:right-60 md:-top-20"
+        fill="white"
+      />
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/90 via-background/70 to-background/90" />
+
       {/* Animated background decoration */}
       <motion.div
-        className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+        className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl z-[2]"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -113,7 +132,7 @@ const Services = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+        className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl z-[2]"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.5, 0.3, 0.5],
