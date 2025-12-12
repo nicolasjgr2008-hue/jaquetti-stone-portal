@@ -3,8 +3,6 @@ import { motion, useInView } from "framer-motion";
 import { AnimatedSection, AnimatedCounter } from "./AnimatedSection";
 import { Briefcase, Users, Award, Clock } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { SplineScene } from "@/components/ui/splite";
-import { Spotlight } from "@/components/ui/spotlight";
 
 const statIcons = [Briefcase, Users, Award, Clock];
 const statValues = [150, 80, 12, 98];
@@ -90,25 +88,8 @@ const Stats = () => {
 
   return (
     <section id="stats" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Spline 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <SplineScene 
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full"
-        />
-      </div>
-      
-      {/* Spotlight Effect */}
-      <Spotlight
-        className="-top-40 -left-40 md:left-20 md:-top-20"
-        fill="white"
-      />
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-background/95 via-background/80 to-background/95" />
-
       {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none z-[2]">
+      <div className="absolute inset-0 pointer-events-none">
         <motion.div 
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
           animate={{
