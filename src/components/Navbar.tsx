@@ -29,6 +29,9 @@ const Navbar = () => {
     const targetId = href.replace('#', '');
     const targetElement = document.getElementById(targetId);
     
+    // Update URL with hash
+    window.history.pushState(null, '', href);
+    
     if (targetElement) {
       const offsetTop = targetElement.offsetTop - 80;
       window.scrollTo({

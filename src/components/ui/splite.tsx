@@ -38,7 +38,7 @@ export function SplineScene({ scene, className, followMouse = false }: SplineSce
     
     // Smooth rotation following mouse
     const targetRotationY = mousePosition.x * 0.5 // Horizontal rotation
-    const targetRotationX = mousePosition.y * 0.3 // Vertical rotation
+    const targetRotationX = -mousePosition.y * 0.3 // Vertical rotation (inverted)
     
     robot.rotation.y = targetRotationY
     robot.rotation.x = targetRotationX
