@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,7 +13,7 @@ export const cases = [
   { id: "4", category: "Austenberg", title: "Equipamentos Elétricos", description: "Fornecedora de equipamentos elétricos, especializada em qualidade e soluções confiáveis.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/image-removebg-preview.png", url: "#" },
   { id: "5", category: "Hermes", title: "Gestão Condominial", description: "Gestão condominial eficiente, comunicação transparente e serviços confiáveis para moradores.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-removebg-preview.png", url: "https://nicolasjgr.me/hermes/" },
   { id: "6", category: "SOSVet", title: "Clínica Veterinária", description: "Clínica veterinária dedicada, oferecendo cuidado profissional, confiança e saúde animal.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-small.png", url: "https://nicolasjgr.me/clinica-veterinaria" },
-  { id: "7", category: "CSAPET", title: "Site Institucional", description: "Site institucional profissional para apresentar a empresa, produtos e fortalecer a presença digital com credibilidade e autoridade no setor.", image: "https://csapet.com.br/wp-content/uploads/2024/06/logo-csapet.png", url: "https://csapet.com.br/" },
+  { id: "csapet", category: "CSAPET", title: "Site Institucional", description: "Site institucional profissional para apresentar a empresa, produtos e fortalecer a presença digital com credibilidade e autoridade no setor.", image: "https://csapet.com.br/wp-content/uploads/2024/06/logo-csapet.png", url: "/case/csapet", isInternal: true },
 ];
 
 const testimonials = {
@@ -109,15 +110,24 @@ const Portfolio = () => {
             <div className="flex-1 overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div key={currentSlide} className="grid grid-cols-1 md:grid-cols-3 gap-8" initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }} transition={{ duration: 0.5 }}>
-                  {currentCases.map((caseItem, index) => (
-                    <motion.a key={caseItem.id} href={caseItem.url} className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl hover:bg-card/50 transition-all" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ y: -10 }}>
-                      <motion.div className="w-32 h-32 flex items-center justify-center bg-card rounded-2xl border border-border group-hover:border-primary/50 overflow-hidden" whileHover={{ boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.3)" }}>
-                        <motion.img src={caseItem.image} alt={caseItem.category} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.4 }} />
+                  {currentCases.map((caseItem, index) => {
+                    const CardWrapper = caseItem.isInternal ? Link : 'a';
+                    const linkProps = caseItem.isInternal 
+                      ? { to: caseItem.url } 
+                      : { href: caseItem.url, target: caseItem.url !== '#' ? '_blank' : undefined, rel: caseItem.url !== '#' ? 'noopener noreferrer' : undefined };
+                    
+                    return (
+                      <motion.div key={caseItem.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ y: -10 }}>
+                        <CardWrapper {...linkProps as any} className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl hover:bg-card/50 transition-all block">
+                          <motion.div className="w-32 h-32 flex items-center justify-center bg-card rounded-2xl border border-border group-hover:border-primary/50 overflow-hidden" whileHover={{ boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.3)" }}>
+                            <motion.img src={caseItem.image} alt={caseItem.category} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.4 }} />
+                          </motion.div>
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{caseItem.category}</h3>
+                          <p className="text-sm text-muted-foreground">{caseItem.description}</p>
+                        </CardWrapper>
                       </motion.div>
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{caseItem.category}</h3>
-                      <p className="text-sm text-muted-foreground">{caseItem.description}</p>
-                    </motion.a>
-                  ))}
+                    );
+                  })}
                 </motion.div>
               </AnimatePresence>
             </div>

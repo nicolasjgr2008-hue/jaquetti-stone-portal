@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import Index from "./pages/Index";
 import Case from "./pages/Case";
+import CaseCSAPET from "./pages/CaseCSAPET";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/case/csapet" element={<CaseCSAPET />} />
               <Route path="/case/:id" element={<Case />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
