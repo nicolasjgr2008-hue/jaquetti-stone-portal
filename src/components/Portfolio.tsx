@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { AnimatedSection, MagneticButton } from "./AnimatedSection";
+import { AnimatedSection } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
 import csapetLogo from "@/assets/csapet-logo.png";
+
 export const cases = [
   { id: "csapet", category: "CSAPET", title: "Site Institucional", description: "Site institucional profissional para apresentar a empresa, produtos e fortalecer a presença digital com credibilidade e autoridade no setor.", image: csapetLogo, url: "/case/csapet", isInternal: true },
   { id: "1", category: "Advocate", title: "Site Advocate", description: "Escritório de advocacia especializado, oferecendo soluções jurídicas confiáveis e estratégicas.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-2.png", url: "https://nicolasjgr.me/advocate" },
@@ -65,51 +66,47 @@ const Portfolio = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTestimonialIndex((prev) => (prev + 1) % currentTestimonials.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [currentTestimonials.length]);
 
   return (
-    <section id="cases" className="py-24 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
+    <section id="cases" className="py-32 bg-background relative">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+        {/* Header */}
+        <div className="grid md:grid-cols-2 gap-16 mb-20 items-end">
           <AnimatedSection direction="left">
-            <h2 className="text-5xl md:text-6xl font-serif font-bold leading-tight">
-              {text.title1} <motion.span className="block text-primary" animate={{ textShadow: ["0 0 0px hsl(var(--primary))", "0 0 30px hsl(var(--primary))", "0 0 0px hsl(var(--primary))"] }} transition={{ duration: 3, repeat: Infinity }}>{text.title2}</motion.span>
-              <span className="block">{text.title3}</span>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold leading-[1.1]">
+              {text.title1}{" "}
+              <span className="text-primary">{text.title2}</span>
+              <span className="block mt-1">{text.title3}</span>
             </h2>
           </AnimatedSection>
           <AnimatedSection direction="right" delay={0.2}>
-            <p className="text-lg text-muted-foreground leading-relaxed">{text.subtitle}</p>
+            <p className="text-muted-foreground leading-relaxed">{text.subtitle}</p>
           </AnimatedSection>
         </div>
 
-        <AnimatedSection className="relative mb-16">
-          <div className="flex items-center gap-8">
-            <MagneticButton className="hidden md:block">
-              <motion.button onClick={prevSlide} className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-border hover:border-primary transition-colors group" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-              </motion.button>
-            </MagneticButton>
+        {/* Cases carousel */}
+        <AnimatedSection className="relative mb-20">
+          <div className="flex items-center gap-6">
+            <button
+              onClick={prevSlide}
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-border/50 hover:border-foreground/30 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+            </button>
 
             <div className="flex-1 overflow-hidden">
               <AnimatePresence mode="wait">
-                <motion.div key={currentSlide} className="grid grid-cols-1 md:grid-cols-3 gap-8" initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }} transition={{ duration: 0.5 }}>
+                <motion.div
+                  key={currentSlide}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                  initial={{ opacity: 0, x: 60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -60 }}
+                  transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+                >
                   {currentCases.map((caseItem, index) => {
                     const CardWrapper = caseItem.isInternal ? Link : 'a';
                     const linkProps = caseItem.isInternal 
@@ -117,13 +114,31 @@ const Portfolio = () => {
                       : { href: caseItem.url, target: caseItem.url !== '#' ? '_blank' : undefined, rel: caseItem.url !== '#' ? 'noopener noreferrer' : undefined };
                     
                     return (
-                      <motion.div key={caseItem.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ y: -10 }}>
-                        <CardWrapper {...linkProps as any} className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl hover:bg-card/50 transition-all block">
-                          <motion.div className="w-32 h-32 flex items-center justify-center bg-card rounded-2xl border border-border group-hover:border-primary/50 overflow-hidden" whileHover={{ boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.3)" }}>
-                            <motion.img src={caseItem.image} alt={caseItem.category} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.4 }} />
-                          </motion.div>
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{caseItem.category}</h3>
-                          <p className="text-sm text-muted-foreground">{caseItem.description}</p>
+                      <motion.div
+                        key={caseItem.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.08 }}
+                      >
+                        <CardWrapper
+                          {...linkProps as any}
+                          className="group flex flex-col items-center text-center space-y-5 p-8 rounded-2xl border border-transparent hover:border-border/50 hover:bg-card/30 transition-all duration-500 block"
+                        >
+                          <div className="w-28 h-28 flex items-center justify-center rounded-2xl bg-card/50 border border-border/30 overflow-hidden group-hover:border-border/60 transition-all duration-500">
+                            <img
+                              src={caseItem.image}
+                              alt={caseItem.category}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                              {caseItem.category}
+                            </h3>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                              {caseItem.description}
+                            </p>
+                          </div>
                         </CardWrapper>
                       </motion.div>
                     );
@@ -132,72 +147,101 @@ const Portfolio = () => {
               </AnimatePresence>
             </div>
 
-            <MagneticButton className="hidden md:block">
-              <motion.button onClick={nextSlide} className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-border hover:border-primary transition-colors group" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-              </motion.button>
-            </MagneticButton>
+            <button
+              onClick={nextSlide}
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-border/50 hover:border-foreground/30 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
           </div>
 
-          <div className="flex justify-center gap-2 mt-8">
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-10">
             {Array.from({ length: totalSlides }).map((_, index) => (
-              <motion.button key={index} onClick={() => setCurrentSlide(index)} className={`h-2 rounded-full transition-all ${currentSlide === index ? "bg-primary w-8" : "bg-border w-2"}`} whileHover={{ scale: 1.2 }} />
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentSlide === index ? "bg-foreground w-8" : "bg-border w-1.5"
+                }`}
+              />
             ))}
           </div>
         </AnimatedSection>
 
-        <AnimatedSection className="text-center mb-20">
-          <MagneticButton className="inline-block">
-            <Button asChild size="lg" variant="outline" className="text-base px-12 py-6 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground uppercase tracking-wider">
-              <a href="mailto:jaquettiweb@gmail.com">{text.cta}</a>
-            </Button>
-          </MagneticButton>
+        {/* CTA */}
+        <AnimatedSection className="text-center mb-24">
+          <Button
+            asChild
+            variant="outline"
+            className="text-xs px-10 py-5 border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 tracking-widest uppercase"
+          >
+            <a href="mailto:jaquettiweb@gmail.com">{text.cta}</a>
+          </Button>
         </AnimatedSection>
 
-        <motion.div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent mb-16" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1 }} />
+        {/* Divider */}
+        <div className="w-full h-px bg-border/30 mb-24" />
 
-        <AnimatedSection direction="scale" className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <Quote className="w-12 h-12 text-primary/30 mx-auto mb-4" />
-            <h3 className="text-2xl font-serif font-bold text-foreground">{text.testimonialTitle}</h3>
+        {/* Testimonials */}
+        <AnimatedSection direction="scale" className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <Quote className="w-8 h-8 text-muted-foreground/20 mx-auto mb-4" />
+            <h3 className="text-lg font-serif text-foreground">{text.testimonialTitle}</h3>
           </div>
           
           <div className="relative">
             <AnimatePresence mode="wait">
               <motion.div
                 key={testimonialIndex}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-2xl p-8 md:p-12"
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="text-center px-4 md:px-12"
               >
-                <blockquote className="space-y-6 text-center">
-                  <p className="text-xl md:text-2xl font-serif italic text-foreground leading-relaxed">
+                <blockquote className="space-y-6">
+                  <p className="text-lg md:text-xl font-serif italic text-foreground/90 leading-relaxed">
                     "{currentTestimonials[testimonialIndex].quote}"
                   </p>
-                  <div className="flex flex-col items-center gap-1">
-                    <p className="font-semibold text-foreground">{currentTestimonials[testimonialIndex].author}</p>
-                    <p className="text-sm text-primary">{currentTestimonials[testimonialIndex].role} - {currentTestimonials[testimonialIndex].company}</p>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-foreground">
+                      {currentTestimonials[testimonialIndex].author}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {currentTestimonials[testimonialIndex].role} · {currentTestimonials[testimonialIndex].company}
+                    </p>
                   </div>
                 </blockquote>
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex items-center justify-center gap-4 mt-6">
-              <motion.button onClick={prevTestimonial} className="flex items-center justify-center w-10 h-10 rounded-full border border-border hover:border-primary transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <ChevronLeft className="w-5 h-5 text-muted-foreground" />
-              </motion.button>
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={prevTestimonial}
+                className="w-8 h-8 rounded-full border border-border/30 flex items-center justify-center hover:border-foreground/30 transition-colors"
+              >
+                <ChevronLeft className="w-3 h-3 text-muted-foreground" />
+              </button>
               
-              <div className="flex gap-2">
+              <div className="flex gap-1.5">
                 {currentTestimonials.map((_, index) => (
-                  <motion.button key={index} onClick={() => setTestimonialIndex(index)} className={`h-2 rounded-full transition-all ${testimonialIndex === index ? "bg-primary w-6" : "bg-border w-2"}`} whileHover={{ scale: 1.2 }} />
+                  <button
+                    key={index}
+                    onClick={() => setTestimonialIndex(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      testimonialIndex === index ? "bg-foreground w-6" : "bg-border w-1.5"
+                    }`}
+                  />
                 ))}
               </div>
               
-              <motion.button onClick={nextTestimonial} className="flex items-center justify-center w-10 h-10 rounded-full border border-border hover:border-primary transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <ChevronRight className="w-5 h-5 text-muted-foreground" />
-              </motion.button>
+              <button
+                onClick={nextTestimonial}
+                className="w-8 h-8 rounded-full border border-border/30 flex items-center justify-center hover:border-foreground/30 transition-colors"
+              >
+                <ChevronRight className="w-3 h-3 text-muted-foreground" />
+              </button>
             </div>
           </div>
         </AnimatedSection>
