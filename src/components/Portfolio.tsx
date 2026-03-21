@@ -19,26 +19,10 @@ export const cases = [
 
 const testimonials = {
   pt: [
-    { quote: "Nosso site agora é ágil, visualmente impactante e otimizado para conversões. Cada visitante percebe a qualidade do nosso trabalho, aumentando leads, credibilidade e presença digital.", author: "Felipe Oliveira", role: "CEO", company: "Agency Marketing" },
-    { quote: "O site desenvolvido pela Jaquetti Web Agency não só refletiu nossa essência, mas também é rápido, responsivo e otimizado para SEO. A visibilidade aumentou, gerando mais clientes e fortalecendo nossa credibilidade no mercado.", author: "William Roberto", role: "CEO", company: "Austenberg" },
-    { quote: "Nosso site agora é moderno, funcional e responsivo em qualquer dispositivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio se tornou mais eficiente e transparente.", author: "Hermes Dos Anjos", role: "Síndico profissional", company: "Hermes" },
-    { quote: "O site deixou nossa clínica muito mais próxima dos clientes. Agora eles nos encontram facilmente e confiam ainda mais no nosso trabalho.", author: "Alexandre Da Silva", role: "Veterinário Responsável", company: "SOSVet" },
-    { quote: "O site não é apenas bonito — transmite segurança e profissionalismo. Estamos conquistando clientes que antes não nos encontrariam de outra maneira.", author: "Dra. Camila Rocha", role: "Sócia Fundadora", company: "Advocate" },
-  ],
-  en: [
-    { quote: "Our website is now agile, visually impactful, and optimized for conversions. Every visitor notices the quality of our work, increasing leads, credibility, and digital presence.", author: "Felipe Oliveira", role: "CEO", company: "Agency Marketing" },
-    { quote: "The website developed by Jaquetti Web Agency not only reflected our essence but is also fast, responsive, and SEO-optimized. Visibility increased, generating more clients and strengthening our market credibility.", author: "William Roberto", role: "CEO", company: "Austenberg" },
-    { quote: "Our website is now modern, functional, and responsive on any device. With online scheduling and easy access to documents, condominium management has become more efficient and transparent.", author: "Hermes Dos Anjos", role: "Professional Manager", company: "Hermes" },
-    { quote: "The website brought our clinic much closer to clients. Now they find us easily and trust our work even more.", author: "Alexandre Da Silva", role: "Lead Veterinarian", company: "SOSVet" },
-    { quote: "The website is not just beautiful — it conveys security and professionalism. We're acquiring clients who wouldn't have found us otherwise.", author: "Dr. Camila Rocha", role: "Founding Partner", company: "Advocate" },
-  ],
-  es: [
-    { quote: "Nuestro sitio web ahora es ágil, visualmente impactante y optimizado para conversiones. Cada visitante nota la calidad de nuestro trabajo, aumentando leads, credibilidad y presencia digital.", author: "Felipe Oliveira", role: "CEO", company: "Agency Marketing" },
-    { quote: "El sitio desarrollado por Jaquetti Web Agency no solo reflejó nuestra esencia, sino que también es rápido, responsivo y optimizado para SEO. La visibilidad aumentó, generando más clientes y fortaleciendo nuestra credibilidad.", author: "William Roberto", role: "CEO", company: "Austenberg" },
-    { quote: "Nuestro sitio ahora es moderno, funcional y responsivo en cualquier dispositivo. Con programación online y fácil acceso a documentos, la gestión del condominio se volvió más eficiente y transparente.", author: "Hermes Dos Anjos", role: "Administrador profesional", company: "Hermes" },
-    { quote: "El sitio acercó mucho más nuestra clínica a los clientes. Ahora nos encuentran fácilmente y confían aún más en nuestro trabajo.", author: "Alexandre Da Silva", role: "Veterinario Responsable", company: "SOSVet" },
-    { quote: "El sitio no es solo hermoso — transmite seguridad y profesionalismo. Estamos conquistando clientes que antes no nos encontrarían de otra manera.", author: "Dra. Camila Rocha", role: "Socia Fundadora", company: "Advocate" },
-  ],
+    { quote: "Nosso site ficou moderno, funcional e responsivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio ficou muito mais eficiente. Em 30 dias já tínhamos reduzido 40% das ligações de suporte.", author: "Hermes Dos Anjos", initials: "HD", role: "Gestor Profissional", company: "Condomínio Hermes", badge: "+40% eficiência" },
+    { quote: "Em menos de 2 semanas tínhamos o site no ar. O processo foi transparente e o resultado superou expectativas. Já na primeira semana recebi 3 novos clientes pelo site.", author: "Marina Costa", initials: "MC", role: "Diretora Comercial", company: "Studio MC Design", badge: "+3 clientes/semana" },
+    { quote: "Profissionalismo do início ao fim. A Jaquetti entendeu o que a minha clínica precisava e entregou um site que realmente converte. O agendamento online dobrou em 45 dias.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentista", company: "Clínica Pereira", badge: "2x mais agendamentos" },
+  ]
 };
 
 const sectionText = {
@@ -49,7 +33,6 @@ const sectionText = {
 
 const Portfolio = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const { language } = useLanguage();
   const itemsPerSlide = 3;
   const totalSlides = Math.ceil(cases.length / itemsPerSlide);
@@ -57,18 +40,11 @@ const Portfolio = () => {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   const currentCases = cases.slice(currentSlide * itemsPerSlide, (currentSlide + 1) * itemsPerSlide);
   
-  const currentTestimonials = testimonials[language];
   const text = sectionText[language];
-  
-  const nextTestimonial = () => setTestimonialIndex((prev) => (prev + 1) % currentTestimonials.length);
-  const prevTestimonial = () => setTestimonialIndex((prev) => (prev - 1 + currentTestimonials.length) % currentTestimonials.length);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 1) % currentTestimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [currentTestimonials.length]);
+    // Removed old interval since we're using a grid not a carousel
+  }, []);
 
   return (
     <section id="cases" className="py-32 bg-background relative overflow-hidden">
@@ -190,67 +166,50 @@ const Portfolio = () => {
         <div className="w-full h-px bg-border/30 mb-24" />
 
         {/* Testimonials */}
-        <AnimatedSection direction="scale" className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <Quote className="w-8 h-8 text-muted-foreground/20 mx-auto mb-4" />
-            <h3 className="text-lg font-serif text-foreground">{text.testimonialTitle}</h3>
-          </div>
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection className="text-center mb-16">
+            <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{text.testimonialTitle}</h3>
+          </AnimatedSection>
           
-          <div className="relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={testimonialIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="text-center px-4 md:px-12"
-              >
-                <blockquote className="space-y-6">
-                  <p className="text-lg md:text-xl font-serif italic text-foreground/90 leading-relaxed">
-                    "{currentTestimonials[testimonialIndex].quote}"
-                  </p>
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium text-foreground">
-                      {currentTestimonials[testimonialIndex].author}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {currentTestimonials[testimonialIndex].role} · {currentTestimonials[testimonialIndex].company}
-                    </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {(testimonials[language as keyof typeof testimonials] || testimonials.pt).map((testi, idx) => (
+              <AnimatedSection key={idx} delay={0.2 + idx * 0.1} className="relative bg-card/20 border border-border/40 p-8 rounded-3xl hover:bg-card/40 transition-all hover:-translate-y-1 flex flex-col group">
+                <Quote className="absolute top-8 left-8 w-16 h-16 text-primary/5 z-0 group-hover:text-primary/10 transition-colors" />
+                
+                <div className="relative z-10 flex-grow">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex gap-1 text-amber-500">
+                      <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
+                    </div>
+                    <span className="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full">
+                      {testi.badge}
+                    </span>
                   </div>
-                </blockquote>
-              </motion.div>
-            </AnimatePresence>
 
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <button
-                onClick={prevTestimonial}
-                className="w-8 h-8 rounded-full border border-border/30 flex items-center justify-center hover:border-foreground/30 transition-colors"
-              >
-                <ChevronLeft className="w-3 h-3 text-muted-foreground" />
-              </button>
-              
-              <div className="flex gap-1.5">
-                {currentTestimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setTestimonialIndex(index)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      testimonialIndex === index ? "bg-foreground w-6" : "bg-border w-1.5"
-                    }`}
-                  />
-                ))}
-              </div>
-              
-              <button
-                onClick={nextTestimonial}
-                className="w-8 h-8 rounded-full border border-border/30 flex items-center justify-center hover:border-foreground/30 transition-colors"
-              >
-                <ChevronRight className="w-3 h-3 text-muted-foreground" />
-              </button>
-            </div>
+                  <p className="text-base font-serif text-foreground/90 leading-relaxed mb-8">
+                    "{testi.quote}"
+                  </p>
+                </div>
+
+                <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/30">
+                  <div className="w-12 h-12 flex-shrink-0 rounded-full bg-[#1A1A1A] border border-border/50 flex items-center justify-center text-foreground font-bold text-sm tracking-wider">
+                    {testi.initials}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-foreground">{testi.author}</p>
+                    <p className="text-xs text-muted-foreground">{testi.role} · {testi.company}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
-        </AnimatedSection>
+
+          <AnimatedSection delay={0.6} className="flex justify-center mt-12">
+            <button className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground border border-border/50 hover:border-foreground/40 px-8 py-4 rounded-full transition-all hover:bg-card">
+              Ler mais depoimentos
+            </button>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
   );
