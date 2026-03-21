@@ -1,7 +1,13 @@
-import { Check, Star } from "lucide-react";
+import { Check, Star, X } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { AnimatedSection, StaggerContainer, StaggerItem, MagneticButton } from "./AnimatedSection";
+import { AnimatedSection, MagneticButton } from "./AnimatedSection";
+
+interface Feature {
+  name: string;
+  value: string;
+  check: boolean;
+}
 
 interface Plan {
   id: string;
@@ -9,60 +15,76 @@ interface Plan {
   price: string;
   period: string;
   description: string;
-  features: string[];
+  features: Feature[];
   popular?: boolean;
   gradient: string;
 }
 
 const plans: Plan[] = [
   {
-    id: "starter",
-    name: "Starter",
-    price: "R$ 497",
+    id: "basico",
+    name: "Básico",
+    price: "R$ 149",
     period: "/mês",
-    description: "Ideal para pequenos negócios que estão começando sua presença digital",
+    description: "Manutenção essencial para estabilidade e segurança do seu site ativo.",
     features: [
-      "Landing page responsiva",
-      "Design personalizado",
-      "SEO básico",
-      "Suporte por email",
-      "1 revisão inclusa",
+      { name: "Hospedagem", value: "Gerenciada", check: true },
+      { name: "Certificado SSL", value: "Incluso", check: true },
+      { name: "Backup", value: "Quinzenal", check: true },
+      { name: "Atualizações", value: "1/mês", check: true },
+      { name: "Fidelidade", value: "3 meses", check: true },
+      { name: "Monitoramento", value: "—", check: false },
+      { name: "Manutenção", value: "—", check: false },
+      { name: "Suporte Whats", value: "—", check: false },
+      { name: "Relatório", value: "—", check: false },
+      { name: "Performance", value: "—", check: false },
+      { name: "Design", value: "—", check: false },
+      { name: "Domínio", value: "—", check: false },
     ],
     gradient: "from-muted/50 to-muted/30",
   },
   {
-    id: "professional",
-    name: "Professional",
-    price: "R$ 1.297",
+    id: "gestao",
+    name: "Gestão",
+    price: "R$ 297",
     period: "/mês",
-    description: "Para empresas que buscam crescimento e mais funcionalidades",
-    features: [
-      "Site completo até 5 páginas",
-      "Design premium personalizado",
-      "SEO avançado",
-      "Integração com redes sociais",
-      "Suporte prioritário",
-      "3 revisões inclusas",
-      "Analytics configurado",
-    ],
+    description: "Para empresas que precisam de atualizações frequentes e acompanhamento.",
     popular: true,
+    features: [
+      { name: "Hospedagem", value: "Gerenciada", check: true },
+      { name: "Certificado SSL", value: "Incluso", check: true },
+      { name: "Backup", value: "Semanal", check: true },
+      { name: "Monitoramento", value: "Semanal", check: true },
+      { name: "Manutenção", value: "Mensal", check: true },
+      { name: "Atualizações", value: "4/mês", check: true },
+      { name: "Suporte Whats", value: "Até 8h úteis", check: true },
+      { name: "Relatório", value: "Simplificado", check: true },
+      { name: "Performance", value: "Semestral", check: true },
+      { name: "Design", value: "Até 1h/mês", check: true },
+      { name: "Domínio", value: "Aviso 30 dias", check: true },
+      { name: "Fidelidade", value: "6 meses", check: true },
+    ],
     gradient: "from-primary/20 to-primary/5",
   },
   {
-    id: "enterprise",
-    name: "Enterprise",
-    price: "R$ 2.997",
+    id: "premium",
+    name: "Premium",
+    price: "R$ 497",
     period: "/mês",
-    description: "Solução completa para empresas que precisam de máxima performance",
+    description: "Servidor dedicado e atenção total e exclusiva para máxima performance real.",
     features: [
-      "Site ilimitado de páginas",
-      "Design exclusivo",
-      "SEO premium + consultoria",
-      "E-commerce integrado",
-      "Suporte 24/7",
-      "Revisões ilimitadas",
-      "Dashboard personalizado",
-      "Manutenção mensal",
+      { name: "Hospedagem", value: "Dedicada", check: true },
+      { name: "Certificado SSL", value: "Incluso", check: true },
+      { name: "Backup", value: "Diário", check: true },
+      { name: "Monitoramento", value: "24h/7", check: true },
+      { name: "Manutenção", value: "Quinz. + Urgência", check: true },
+      { name: "Atualizações", value: "Ilimitado", check: true },
+      { name: "Suporte Whats", value: "Até 4h úteis", check: true },
+      { name: "Relatório", value: "Completo", check: true },
+      { name: "Performance", value: "Trimestral", check: true },
+      { name: "Design", value: "Até 3h/mês", check: true },
+      { name: "Domínio", value: "Gestão completa", check: true },
+      { name: "Fidelidade", value: "6 meses", check: true },
     ],
     gradient: "from-accent/30 to-accent/10",
   },
@@ -75,9 +97,9 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.9, 1, 1.08, 1, 0.9]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0.93, 1, 1.05, 1, 0.93]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.5, 1, 1, 1, 0.5]);
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, -30]);
 
   return (
     <motion.div
@@ -94,27 +116,27 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
           viewport={{ once: true }}
           transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
         >
-          <div className="flex items-center gap-1.5 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-full shadow-lg">
+          <div className="flex items-center gap-1.5 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_20px_0_hsl(var(--primary))]">
             <Star className="w-3.5 h-3.5 fill-current" />
-            Mais Popular
+            Mais Escolhido
           </div>
         </motion.div>
       )}
 
       <motion.div
         className={`
-          relative overflow-hidden rounded-3xl border-2 p-8 h-full
+          relative overflow-hidden rounded-3xl border-2 p-6 sm:p-8 h-full
           transition-colors duration-500
-          ${plan.popular ? "border-primary bg-card shadow-2xl shadow-primary/20" : "border-border bg-card/50 shadow-lg"}
+          ${plan.popular ? "border-primary bg-card/90 shadow-2xl shadow-primary/10" : "border-border/50 bg-card/20 hover:bg-card/40 hover:border-border shadow-lg"}
         `}
         whileHover={{
-          borderColor: "hsl(var(--primary))",
-          boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.25)",
+          borderColor: plan.popular ? "hsl(var(--primary))" : "hsl(var(--border))",
+          y: -5
         }}
         transition={{ duration: 0.3 }}
       >
         {/* Background Gradient */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-50`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-20`} />
 
         {/* Animated glow effect */}
         <motion.div
@@ -130,7 +152,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
         <div className="relative z-10 flex flex-col h-full">
           {/* Plan Name */}
           <motion.h3
-            className="text-xl font-semibold mb-2 text-foreground"
+            className={`text-xl font-bold mb-2 uppercase tracking-wide ${plan.popular ? 'text-primary' : 'text-foreground/80'}`}
             whileHover={{ color: "hsl(var(--primary))" }}
             transition={{ duration: 0.2 }}
           >
@@ -148,53 +170,57 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
             >
               {plan.price}
             </motion.span>
-            <span className="text-muted-foreground text-sm">{plan.period}</span>
+            <span className="text-muted-foreground text-sm font-medium">{plan.period}</span>
           </div>
 
           {/* Description */}
-          <p className="text-sm mb-6 text-muted-foreground leading-relaxed">
+          <p className="text-sm mb-8 text-muted-foreground/80 leading-relaxed min-h-[40px]">
             {plan.description}
           </p>
 
-          {/* Features with stagger animation */}
-          <ul className="space-y-3 mb-8 flex-grow">
+          {/* Features mapping exactly like the table */}
+          <ul className="space-y-3 mb-10 flex-grow">
             {plan.features.map((feature, idx) => (
               <motion.li
                 key={idx}
-                className="flex items-start gap-3 text-sm text-muted-foreground"
-                initial={{ opacity: 0, x: -20 }}
+                className={`flex items-center justify-between text-[13px] border-b border-border/10 pb-2 last:border-0 ${feature.check ? 'text-foreground/90' : 'text-muted-foreground/40'}`}
+                initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                transition={{ delay: idx * 0.05 }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Check className="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" />
-                </motion.div>
-                {feature}
+                <div className="flex items-center gap-2">
+                  {feature.check ? (
+                    <Check className="w-3.5 h-3.5 flex-shrink-0 text-primary" />
+                  ) : (
+                    <X className="w-3.5 h-3.5 flex-shrink-0 opacity-50" />
+                  )}
+                  <span className="font-medium tracking-wide">{feature.name}</span>
+                </div>
+                {feature.check && (
+                  <span className="text-right font-medium opacity-90 pl-3">{feature.value}</span>
+                )}
               </motion.li>
             ))}
           </ul>
 
           {/* CTA Button */}
-          <MagneticButton className="w-full">
+          <MagneticButton className="w-full mt-auto">
             <motion.a
-              href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+              href={`https://wa.me/5511998409981?text=Olá,%20quero%20contratar%20o%20plano%20${plan.name}%20Mensal`}
               target="_blank" rel="noopener noreferrer"
               className={`
-                w-full py-4 px-6 rounded-xl font-medium text-center block
-                transition-all duration-300 ease-out
+                w-full py-4 px-6 rounded-xl font-bold text-center block text-sm tracking-widest uppercase
+                transition-all duration-300 ease-out flex items-center justify-center gap-2
                 ${plan.popular
-                  ? "bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/30"
-                  : "bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground"
+                  ? "bg-primary text-primary-foreground shadow-[0_5px_20px_-5px_hsl(var(--primary))]"
+                  : "bg-card border border-border/50 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary"
                 }
               `}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Começar Agora
+              Assinar {plan.name}
             </motion.a>
           </MagneticButton>
         </div>
@@ -205,98 +231,56 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
 
 const Pricing = () => {
   return (
-    <section id="pricing" className="py-24 bg-background relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5,
-          }}
-        />
-      </div>
+    <section id="pricing" className="py-32 bg-[#050505] relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `radial-gradient(circle at center, hsl(var(--primary)) 0, transparent 400px)`,
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat',
+      }} />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <AnimatedSection className="text-center mb-16">
+        <AnimatedSection className="text-center mb-20 max-w-3xl mx-auto space-y-4">
           <motion.span
-            className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block"
+            className="text-primary text-xs font-bold tracking-[0.3em] uppercase block"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Planos
+            Planos Mensais
           </motion.span>
           <motion.h2
-            className="text-4xl md:text-5xl font-serif font-bold mb-6"
+            className="text-4xl md:text-5xl font-serif font-bold leading-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Escolha o plano{" "}
-            <motion.span
-              className="text-primary inline-block"
-              animate={{ 
-                textShadow: [
-                  "0 0 0px hsl(var(--primary))",
-                  "0 0 20px hsl(var(--primary))",
-                  "0 0 0px hsl(var(--primary))",
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              ideal
-            </motion.span>
+            Hospedagem &amp; Manutenção
           </motion.h2>
           <motion.p
-            className="text-muted-foreground max-w-2xl mx-auto text-lg"
+            className="text-muted-foreground/80 text-lg mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Soluções flexíveis que crescem com seu negócio. Todos os planos incluem
-            suporte dedicado e garantia de satisfação.
+            Proteja seu investimento e garanta que seu site opere com excelência os 365 dias do ano. Esqueça dores de cabeça com servidores, quedas ou ataques e deixe tudo conosco.
           </motion.p>
         </AnimatedSection>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {/* Pricing Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <PricingCard key={plan.id} plan={plan} index={index} />
           ))}
         </div>
-
-        {/* Footer Note */}
-        <motion.p
-          className="text-center text-muted-foreground text-sm mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
-          * Todos os preços em reais. Consulte condições especiais para pagamento anual.
-        </motion.p>
+        
+        {/* Bottom CTA to remove friction */}
+        <AnimatedSection delay={0.4} className="text-center mt-20">
+          <p className="text-sm text-muted-foreground mb-6">* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.</p>
+        </AnimatedSection>
       </div>
     </section>
   );
