@@ -6,7 +6,7 @@ interface LiquidButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 }
 
 export const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, asChild, ...props }, ref) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
 

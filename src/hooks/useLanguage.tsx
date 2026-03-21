@@ -43,6 +43,9 @@ interface Translations {
     cta: string;
     viewCase: string;
   };
+  faq: {
+    title: string;
+  };
   footer: {
     description: string;
     navigation: string;
@@ -109,6 +112,9 @@ const translations: Record<Language, Translations> = {
       cta: "VER TODOS OS CASES",
       viewCase: "Ver Case",
     },
+    faq: {
+      title: "Dúvidas Frequentes",
+    },
     footer: {
       description: "Transformando ideias em experiências digitais memoráveis. Especialistas em criar soluções web que geram resultados.",
       navigation: "Navegação",
@@ -173,6 +179,9 @@ const translations: Record<Language, Translations> = {
       cta: "VIEW ALL CASES",
       viewCase: "View Case",
     },
+    faq: {
+      title: "Frequently Asked Questions",
+    },
     footer: {
       description: "Transforming ideas into memorable digital experiences. Specialists in creating web solutions that generate results.",
       navigation: "Navigation",
@@ -236,6 +245,9 @@ const translations: Record<Language, Translations> = {
       subtitle: "Conoce algunos de los proyectos que desarrollamos y los resultados alcanzados por nuestros clientes.",
       cta: "VER TODOS LOS CASOS",
       viewCase: "Ver Caso",
+    },
+    faq: {
+      title: "Preguntas Frecuentes",
     },
     footer: {
       description: "Transformando ideas en experiencias digitales memorables. Especialistas en crear soluciones web que generan resultados.",

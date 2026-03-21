@@ -3,6 +3,7 @@ import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
 import { ScrambleText } from "./ScrambleText";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const faqs = [
   {
