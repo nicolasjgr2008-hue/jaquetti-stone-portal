@@ -11,7 +11,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="border-t border-border/30 py-16 relative">
+    <footer className="border-t border-border/30 py-16 relative overflow-hidden">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 0.5px, transparent 0)`,
+        backgroundSize: '20px 20px',
+      }} />
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
