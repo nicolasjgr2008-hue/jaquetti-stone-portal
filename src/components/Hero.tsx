@@ -128,7 +128,7 @@ const Hero = () => {
 
       <motion.div
         className="container mx-auto px-6 relative z-10"
-        style={{ y, opacity }}
+        style={{ y }}
       >
         {/* Bind framer-motion transforms */}
         <div className="max-w-3xl mx-auto text-center space-y-10">
