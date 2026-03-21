@@ -26,9 +26,9 @@ const testimonials = {
 };
 
 const sectionText = {
-  pt: { title1: "Empresas que", title2: "Crescem", title3: "Conosco", subtitle: "Cada cliente recebe um atendimento personalizado, com soluções sob medida e suporte contínuo.", cta: "Transforme seu negócio hoje mesmo", testimonialTitle: "O que dizem nossos clientes" },
-  en: { title1: "Companies that", title2: "Grow", title3: "With Us", subtitle: "Each client receives personalized service, with tailored solutions and continuous support.", cta: "Transform your business today", testimonialTitle: "What our clients say" },
-  es: { title1: "Empresas que", title2: "Crecen", title3: "Con Nosotros", subtitle: "Cada cliente recibe atención personalizada, con soluciones a medida y soporte continuo.", cta: "Transforma tu negocio hoy", testimonialTitle: "Lo que dicen nuestros clientes" },
+  pt: { title1: "Empresas que", title2: "Crescem", title3: "Conosco", subtitle: "Cada cliente recebe um atendimento personalizado, com soluções sob medida e suporte contínuo.", cta: "Transforme seu negócio hoje mesmo", testimonialTitle: "O que dizem nossos clientes", portfolio: { badge: "Nosso Portfólio", title1: "Projetos que", title2: "Inspiram", desc: "Cada projeto é uma oportunidade de criar algo único. Veja como ajudamos empresas a se destacarem no digital." } },
+  en: { title1: "Companies that", title2: "Grow", title3: "With Us", subtitle: "Each client receives personalized service, with tailored solutions and continuous support.", cta: "Transform your business today", testimonialTitle: "What our clients say", portfolio: { badge: "Our Portfolio", title1: "Projects that", title2: "Inspire", desc: "Each project is an opportunity to create something unique. See how we help businesses stand out digitally." } },
+  es: { title1: "Empresas que", title2: "Crecen", title3: "Con Nosotros", subtitle: "Cada cliente recibe atención personalizada, con soluciones a medida y soporte continuo.", cta: "Transforma tu negocio hoy", testimonialTitle: "Lo que dicen nuestros clientes", portfolio: { badge: "Nuestro Portafolio", title1: "Proyectos que", title2: "Inspiran", desc: "Cada proyecto es una oportunidad de crear algo único. Mira cómo ayudamos a las empresas a destacarse digitalmente." } },
 };
 
 const Portfolio = () => {
@@ -58,14 +58,21 @@ const Portfolio = () => {
         {/* Header */}
         <div className="grid md:grid-cols-2 gap-16 mb-20 items-end">
           <AnimatedSection direction="left">
-            <h2 className="text-4xl md:text-6xl font-serif font-bold leading-[1.1]">
-              {text.title1}{" "}
-              <span className="text-primary">{text.title2}</span>
-              <span className="block mt-1">{text.title3}</span>
+            <span className="text-xs font-bold tracking-[0.3em] uppercase text-primary mb-4 block reveal">
+              {text.portfolio.badge}
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground leading-tight reveal pt-2">
+              {text.portfolio.title1} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                {text.portfolio.title2}
+              </span>
             </h2>
           </AnimatedSection>
-          <AnimatedSection direction="right" delay={0.2}>
-            <p className="text-muted-foreground leading-relaxed">{text.subtitle}</p>
+          
+          <AnimatedSection direction="right" delay={0.2} className="reveal">
+            <p className="text-muted-foreground/80 text-lg leading-relaxed border-l-2 border-primary/30 pl-6">
+              {text.portfolio.desc}
+            </p>
           </AnimatedSection>
         </div>
 
@@ -156,7 +163,7 @@ const Portfolio = () => {
           <Button
             asChild
             variant="outline"
-            className="text-xs px-10 py-5 border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 tracking-widest uppercase"
+            className="text-xs px-10 py-5 border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 tracking-widest uppercase reveal"
           >
             <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{text.cta}</a>
           </Button>
@@ -168,30 +175,31 @@ const Portfolio = () => {
         {/* Testimonials */}
         <div className="max-w-7xl mx-auto">
           <AnimatedSection className="text-center mb-16">
-            <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{text.testimonialTitle}</h3>
+            <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">{text.testimonialTitle}</h3>
           </AnimatedSection>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(testimonials[language as keyof typeof testimonials] || testimonials.pt).map((testi, idx) => (
-              <AnimatedSection key={idx} delay={0.2 + idx * 0.1} className="relative bg-card/20 border border-border/40 p-8 rounded-3xl hover:bg-card/40 transition-all hover:-translate-y-1 flex flex-col group">
-                <Quote className="absolute top-8 left-8 w-16 h-16 text-primary/5 z-0 group-hover:text-primary/10 transition-colors" />
+          {(testimonials[language as keyof typeof testimonials] || testimonials.pt).map((testi, index) => (
+            <AnimatedSection key={index} delay={index * 0.1}>
+              <div className="flex flex-col p-6 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-colors duration-300 h-full reveal">
+                {/* Estrelas */}
+                <div className="flex text-amber-500 mb-4 reveal">
+                  <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
+                </div>
                 
-                <div className="relative z-10 flex-grow">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex gap-1 text-amber-500">
-                      <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
-                    </div>
-                    <span className="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-bold text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full">
-                      {testi.badge}
-                    </span>
-                  </div>
-
-                  <p className="text-base font-serif text-foreground/90 leading-relaxed mb-8">
+                <div className="relative flex-grow mb-6">
+                  <Quote className="absolute -top-1 -left-1 w-8 h-8 text-border/30 -z-10 rotate-180" />
+                  <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10 reveal">
                     "{testi.quote}"
                   </p>
+                  {testi.badge && (
+                    <span className="inline-block mt-3 px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full reveal">
+                      {testi.badge}
+                    </span>
+                  )}
                 </div>
 
-                <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/30">
+                <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/30 reveal">
                   <div className="w-12 h-12 flex-shrink-0 rounded-full bg-[#1A1A1A] border border-border/50 flex items-center justify-center text-foreground font-bold text-sm tracking-wider">
                     {testi.initials}
                   </div>
@@ -200,12 +208,13 @@ const Portfolio = () => {
                     <p className="text-xs text-muted-foreground">{testi.role} · {testi.company}</p>
                   </div>
                 </div>
-              </AnimatedSection>
+              </div>
+            </AnimatedSection>
             ))}
           </div>
 
           <AnimatedSection delay={0.6} className="flex justify-center mt-12">
-            <button className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground border border-border/50 hover:border-foreground/40 px-8 py-4 rounded-full transition-all hover:bg-card">
+            <button className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground border border-border/50 hover:border-foreground/40 px-8 py-4 rounded-full transition-all hover:bg-card reveal">
               Ler mais depoimentos
             </button>
           </AnimatedSection>

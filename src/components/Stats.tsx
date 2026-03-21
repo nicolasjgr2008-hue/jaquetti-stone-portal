@@ -1,12 +1,63 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { AnimatedSection, AnimatedCounter } from "./AnimatedSection";
+import { AnimatedSection } from "./AnimatedSection";
 import { Briefcase, Users, Award, Clock } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const statIcons = [Briefcase, Users, Award, Clock];
 const statValues = [150, 80, 12, 98];
 const statSuffixes = ["+", "+", "", "%"];
+
+const NativeCounter = ({ target, suffix }: { target: number, suffix: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const valRef = useRef<HTMLSpanElement>(null);
+  const sufRef = useRef<HTMLSpanElement>(null);
+  
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        observer.unobserve(el);
+        
+        const duration = 2000;
+        const start = performance.now();
+        
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(easeOut * target);
+          
+          if (valRef.current) valRef.current.innerText = currentVal.toString();
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            if (valRef.current) valRef.current.innerText = target.toString();
+            if (sufRef.current) {
+               sufRef.current.innerText = suffix;
+               sufRef.current.style.opacity = "1";
+            }
+          }
+        };
+        requestAnimationFrame(animate);
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, suffix]);
+  
+  return (
+    <span ref={ref} className="flex items-baseline gap-1">
+       <span ref={valRef} className="text-4xl md:text-5xl font-bold font-serif text-foreground">0</span>
+       <span ref={sufRef} className="text-2xl font-bold text-muted-foreground opacity-0 transition-opacity duration-150">{suffix}</span>
+    </span>
+  );
+};
 
 const StatCard = ({
   icon: Icon,
@@ -35,19 +86,16 @@ const StatCard = ({
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
     >
-      <div className="p-8 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-all duration-500">
-        <Icon className="w-6 h-6 text-muted-foreground mb-6" />
+      <div className="p-8 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-all duration-500 reveal">
+        <Icon className="w-6 h-6 text-muted-foreground mb-6 reveal" />
 
-        <div className="flex items-baseline gap-1 mb-3">
-          <span className="text-4xl md:text-5xl font-bold font-serif text-foreground">
-            <AnimatedCounter target={value} duration={2} />
-          </span>
-          <span className="text-2xl font-bold text-muted-foreground">{suffix}</span>
+        <div className="flex items-baseline gap-1 mb-3 reveal">
+          <NativeCounter target={value} suffix={suffix} />
         </div>
 
-        <h3 className="text-sm font-semibold text-foreground mb-1">{label}</h3>
-        <p className="text-muted-foreground text-xs">{description}</p>
-        {context && <p className="mt-3 text-[11px] text-muted-foreground/60 leading-relaxed max-w-[90%]">{context}</p>}
+        <h3 className="text-sm font-semibold text-foreground mb-1 reveal">{label}</h3>
+        <p className="text-muted-foreground text-xs reveal">{description}</p>
+        {context && <p className="mt-3 text-[11px] text-muted-foreground/60 leading-relaxed max-w-[90%] reveal">{context}</p>}
       </div>
     </motion.div>
   );
@@ -67,14 +115,14 @@ const Stats = () => {
       <div className="container mx-auto px-6">
         {/* Header */}
         <AnimatedSection className="text-center mb-20">
-          <span className="inline-block text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">
+          <span className="inline-block text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6 reveal">
             {t.stats.badge}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground mb-4 reveal pt-2">
             {t.stats.title1}{" "}
             <span className="text-primary">{t.stats.title2}</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto reveal">
             {t.stats.subtitle}
           </p>
         </AnimatedSection>
@@ -127,7 +175,7 @@ const Stats = () => {
 
         {/* Bottom CTA */}
         <AnimatedSection delay={0.4} className="text-center mt-32">
-          <p className="text-base text-foreground mb-6 font-medium tracking-wide">{t.stats.cta}</p>
+          <p className="text-base text-foreground mb-6 font-medium tracking-wide reveal">{t.stats.cta}</p>
           <motion.a
             href="https://wa.me/5511998409981?text=Quero%20fazer%20parte%20dos%20seus%20casos%20de%20sucesso"
             target="_blank" rel="noopener noreferrer"

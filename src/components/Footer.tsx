@@ -27,8 +27,8 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-xl font-serif font-bold text-foreground">Jaquetti</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">{t.footer.description}</p>
+            <h3 className="text-xl font-serif font-bold text-foreground reveal">Jaquetti</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed reveal">{t.footer.description}</p>
           </motion.div>
 
           {/* Quick Links */}
@@ -39,7 +39,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h4 className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground">{t.footer.navigation}</h4>
+            <h4 className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground reveal">{t.footer.navigation}</h4>
             <nav className="flex flex-col gap-2">
               {[
                 { label: t.footer.home, href: "#" },
@@ -65,7 +65,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h4 className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground">{t.footer.contact}</h4>
+            <h4 className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground reveal">{t.footer.contact}</h4>
             <div className="flex flex-col gap-2">
               <a 
                 href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
@@ -107,7 +107,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 border-t border-border/20 text-center">
-          <p className="text-xs text-muted-foreground/60">
+          <p className="text-xs text-muted-foreground/60 reveal">
             &copy; {currentYear} Jaquetti Web Agency. {t.footer.copyright}
           </p>
         </div>

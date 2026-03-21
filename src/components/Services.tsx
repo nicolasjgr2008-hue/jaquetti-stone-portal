@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rocket, Building2, ShoppingCart, Briefcase, CheckCircle2 } from "lucide-react";
+import { Rocket, Building2, ShoppingCart, Briefcase, CheckCircle2, ChevronDown } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -158,61 +158,85 @@ const monthlyPlans = [
 const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   const Icon = site.icon;
 
+  const [expandedTier, setExpandedTier] = useState<number>(
+    site.tiers.findIndex(t => t.popular) !== -1 ? site.tiers.findIndex(t => t.popular) : 0
+  );
+
   return (
-    <div className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group">
+    <div className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group reveal">
       <div className="flex items-center gap-4 mb-6">
         <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 flex-shrink-0">
           <Icon className="w-6 h-6" />
         </div>
-        <h3 className="text-lg sm:text-xl font-bold tracking-wider text-foreground font-serif">{site.title}</h3>
+        <h3 className="text-lg sm:text-xl font-bold tracking-wider text-foreground font-serif reveal">{site.title}</h3>
       </div>
       
-      <p className="text-sm font-medium text-muted-foreground/90 leading-relaxed mb-6 flex-grow">
+      <p className="text-sm font-medium text-muted-foreground/90 leading-relaxed mb-6 flex-grow reveal">
         {site.description}
       </p>
 
-      {/* Tiers List */}
+      {/* Tiers Accordion */}
       <div className="space-y-3 mb-8">
-        {site.tiers.map((tier, idx) => (
-          <div 
-            key={idx} 
-            className={`flex flex-col p-4 rounded-xl border transition-all ${
-              tier.popular 
-                ? 'border-primary/40 bg-primary/[0.03] shadow-[0_0_15px_rgba(200,150,50,0.05)] relative transform hover:scale-[1.01]' 
-                : 'border-border/20 bg-card/10 hover:border-border/40'
-            }`}
-          >
-            {tier.popular && (
-               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:-translate-x-0 sm:right-4 bg-[#D4AF37] text-black text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap">
-                 ⭐ Mais Vendido
-               </span>
-            )}
-            
-            <div className={`flex items-start sm:items-center justify-between mb-2 gap-2 flex-col sm:flex-row ${tier.popular ? 'mt-1 sm:mt-0' : ''}`}>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className={`w-4 h-4 flex-shrink-0 ${tier.popular ? 'text-[#D4AF37]' : 'text-primary/60'}`} />
-                <span className={`text-[13px] font-bold uppercase tracking-wide ${tier.popular ? 'text-foreground' : 'text-foreground/80'}`}>
-                  {tier.name}
-                </span>
+        {site.tiers.map((tier, idx) => {
+          const isExpanded = expandedTier === idx;
+          return (
+            <div 
+              key={idx} 
+              onClick={() => setExpandedTier(isExpanded ? -1 : idx)}
+              className={`flex flex-col p-4 rounded-xl border transition-all cursor-pointer select-none ${
+                tier.popular 
+                  ? 'border-primary/40 bg-primary/[0.03]' 
+                  : 'border-border/20 bg-card/10 hover:border-border/40'
+              } ${isExpanded && tier.popular ? 'shadow-[0_0_15px_rgba(200,150,50,0.05)] transform scale-[1.01]' : ''} relative`}
+            >
+              {tier.popular && (
+                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:-translate-x-0 sm:right-4 bg-[#D4AF37] text-black text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap z-10">
+                   ⭐ Mais Vendido
+                 </span>
+              )}
+              
+              <div className={`flex items-center justify-between gap-2 ${tier.popular ? 'mt-1 sm:mt-0' : ''}`}>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className={`w-4 h-4 flex-shrink-0 ${tier.popular ? 'text-[#D4AF37]' : 'text-primary/60'}`} />
+                  <span className={`text-[13px] font-bold uppercase tracking-wide ${tier.popular ? 'text-foreground' : 'text-foreground/80'}`}>
+                    {tier.name}
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <span className={`font-serif font-bold whitespace-nowrap ${tier.popular ? 'text-lg text-[#D4AF37]' : 'text-base text-foreground/90'}`}>
+                    {tier.price}
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''} ${tier.popular ? 'text-[#D4AF37]' : 'text-muted-foreground'}`}/>
+                </div>
               </div>
-              <span className={`font-serif font-bold whitespace-nowrap self-start sm:self-auto ${tier.popular ? 'text-lg text-[#D4AF37]' : 'text-base text-foreground/90'}`}>
-                {tier.price}
-              </span>
+              
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <ul className="space-y-1.5 pl-7 mt-4 pt-4 border-t border-border/10">
+                      {tier.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="text-xs text-muted-foreground/80 flex items-start leading-snug">
+                          <span className="text-primary/40 mr-2 text-[10px] mt-0.5">•</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            
-            <ul className="space-y-1.5 pl-6 mt-1.5">
-              {tier.features.map((feature, fIdx) => (
-                <li key={fIdx} className="text-xs text-muted-foreground/80 flex items-start leading-snug">
-                  <span className="text-primary/40 mr-2 text-[10px] mt-0.5">•</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto reveal">
         <a 
           href={`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`}
           target="_blank" rel="noopener noreferrer"
@@ -232,7 +256,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
 
 const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
   return (
-    <div className={`flex flex-col p-8 rounded-3xl border transition-all duration-300 relative h-full ${
+    <div className={`flex flex-col p-8 rounded-3xl border transition-all duration-300 relative h-full reveal ${
       plan.popular 
         ? 'border-primary/50 bg-card/40 shadow-[0_0_40px_-15px_hsl(var(--primary))] transform md:-translate-y-2' 
         : 'border-border/40 bg-card/10 hover:bg-card/20 hover:border-border/60'
@@ -243,10 +267,10 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
         </span>
       )}
       
-      <h3 className={`text-2xl font-bold uppercase tracking-wider mb-2 ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
+      <h3 className={`text-2xl font-bold uppercase tracking-wider mb-2 reveal ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
         {plan.name}
       </h3>
-      <p className="text-sm text-muted-foreground mb-6 min-h-[40px] leading-relaxed">
+      <p className="text-sm text-muted-foreground mb-6 min-h-[40px] leading-relaxed reveal">
         {plan.subtitle}
       </p>
       
@@ -281,7 +305,7 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
         href={`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`}
         target="_blank" rel="noopener noreferrer"
         data-source={`cta_plan_${plan.id}`}
-        className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 ${
+        className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 reveal ${
           plan.popular 
             ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] hover:scale-[1.02]' 
             : 'bg-card border border-border/50 text-foreground hover:bg-foreground hover:text-background'
@@ -317,13 +341,13 @@ const Services = () => {
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto space-y-6">
-          <span className="text-xs font-bold tracking-[0.3em] uppercase text-primary">
+          <span className="text-xs font-bold tracking-[0.3em] uppercase text-primary reveal">
             Nossas Especialidades
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight reveal pt-2">
             Criamos Plataformas <br/> Que Faturam.
           </h2>
-          <p className="text-muted-foreground/80 text-lg">
+          <p className="text-muted-foreground/80 text-lg reveal">
             Nós somos especialistas apenas em desenvolvimento web. Oferecemos as melhores soluções técnicas escaláveis nas 4 principais modalidades do mercado.
           </p>
         </AnimatedSection>

@@ -14,9 +14,11 @@ import { Layers, FolderOpen } from "lucide-react";
 import TopBanner from "@/components/TopBanner";
 import FAQ from "@/components/FAQ";
 import { Analytics } from "@/components/Analytics";
+import { useGlobalAnimations } from "@/hooks/useGlobalAnimations";
 
 const Index = () => {
   const { t } = useLanguage();
+  useGlobalAnimations();
 
   const navItems = [
     { name: t.navbar.solutions, link: "#solucoes", icon: <Layers className="w-4 h-4" /> },

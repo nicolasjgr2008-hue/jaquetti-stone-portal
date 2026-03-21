@@ -243,7 +243,7 @@ const Pricing = () => {
         {/* Header */}
         <AnimatedSection className="text-center mb-20 max-w-3xl mx-auto space-y-4">
           <motion.span
-            className="text-primary text-xs font-bold tracking-[0.3em] uppercase block"
+            className="text-primary text-xs font-bold tracking-[0.3em] uppercase block reveal"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -251,7 +251,7 @@ const Pricing = () => {
             Planos Mensais
           </motion.span>
           <motion.h2
-            className="text-4xl md:text-5xl font-serif font-bold leading-tight"
+            className="text-4xl md:text-5xl font-serif font-bold leading-tight reveal"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -260,7 +260,7 @@ const Pricing = () => {
             Hospedagem &amp; Manutenção
           </motion.h2>
           <motion.p
-            className="text-muted-foreground/80 text-lg mx-auto leading-relaxed"
+            className="text-muted-foreground/80 text-lg mx-auto leading-relaxed reveal"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -279,7 +279,7 @@ const Pricing = () => {
         
         {/* Bottom CTA to remove friction */}
         <AnimatedSection delay={0.4} className="text-center mt-20">
-          <p className="text-sm text-muted-foreground mb-6">* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.</p>
+          <p className="text-sm text-muted-foreground mb-6 reveal">* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.</p>
         </AnimatedSection>
       </div>
     </section>

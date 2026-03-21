@@ -1,17 +1,26 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (barRef.current) {
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+        barRef.current.style.width = `${pct}%`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-px bg-foreground/80 z-[9999] origin-left"
-      style={{ scaleX }}
+    <div
+      ref={barRef}
+      className="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-white/70 to-white z-[9999]"
+      style={{ width: "0%", transition: "none" }}
     />
   );
 };

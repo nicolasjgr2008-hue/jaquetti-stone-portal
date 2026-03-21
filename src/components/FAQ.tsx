@@ -41,22 +41,22 @@ const FAQ = () => {
     <section id="faq" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <AnimatedSection className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">
+          <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">
             Perguntas Frequentes
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto reveal">
             Tudo o que você precisa saber antes de começar o seu projeto.
           </p>
         </AnimatedSection>
 
-        <div className="space-y-4">
+        <div className="space-y-4 grid">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <AnimatedSection
                 key={index}
                 delay={index * 0.1}
-                className={`border border-border/30 rounded-2xl bg-card/20 overflow-hidden transition-colors duration-300 ${isOpen ? 'border-primary/50 bg-card/40' : 'hover:border-border/60 hover:bg-card/30'}`}
+                className={`border border-border/30 rounded-2xl bg-card/20 overflow-hidden transition-colors duration-300 reveal ${isOpen ? 'border-primary/50 bg-card/40' : 'hover:border-border/60 hover:bg-card/30'}`}
               >
                 <button
                   onClick={() => toggle(index)}
