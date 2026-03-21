@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Rocket, Building2, ShoppingCart, Briefcase, CheckCircle2, ChevronDown } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useTilt } from "@/hooks/useTilt";
+import { ScrambleText } from "./ScrambleText";
+import { LiquidButton } from "./LiquidButton";
 
 const siteTypes = [
   {
@@ -157,26 +161,32 @@ const monthlyPlans = [
 
 const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   const Icon = site.icon;
+  const tiltRef = useTilt();
 
   const [expandedTier, setExpandedTier] = useState<number>(
     site.tiers.findIndex(t => t.popular) !== -1 ? site.tiers.findIndex(t => t.popular) : 0
   );
 
   return (
-    <div className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group reveal">
-      <div className="flex items-center gap-4 mb-6">
+    <div 
+      ref={tiltRef as unknown as React.RefObject<HTMLDivElement>} 
+      className="spotlight-border flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-shadow duration-300 group reveal"
+      style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
+      data-cursor="view"
+    >
+      <div className="flex items-center gap-4 mb-6 relative z-10">
         <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 flex-shrink-0">
           <Icon className="w-6 h-6" />
         </div>
         <h3 className="text-lg sm:text-xl font-bold tracking-wider text-foreground font-serif reveal">{site.title}</h3>
       </div>
       
-      <p className="text-sm font-medium text-muted-foreground/90 leading-relaxed mb-6 flex-grow reveal">
+      <p className="text-sm font-medium text-muted-foreground/90 leading-relaxed mb-6 flex-grow reveal relative z-10">
         {site.description}
       </p>
 
       {/* Tiers Accordion */}
-      <div className="space-y-3 mb-8">
+      <div className="space-y-3 mb-8 relative z-10">
         {site.tiers.map((tier, idx) => {
           const isExpanded = expandedTier === idx;
           return (
@@ -236,15 +246,15 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
         })}
       </div>
 
-      <div className="mt-auto reveal">
-        <a 
-          href={`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`}
-          target="_blank" rel="noopener noreferrer"
+      <div className="mt-auto reveal relative z-10">
+        <LiquidButton 
+          asChild
+          onClick={() => window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`, "_blank")}
           data-source={`cta_services_${site.id}`}
           className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] transition-all group-hover:bg-primary group-hover:text-primary-foreground"
         >
           {site.ctaText}
-        </a>
+        </LiquidButton>
         <p className="text-center text-[11px] text-muted-foreground/60 mt-3 font-medium flex items-center justify-center gap-1.5">
           <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
           30 dias de revisões incluídas · Sem fidelidade
@@ -255,35 +265,42 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
 };
 
 const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
+  const tiltRef = useTilt();
+
   return (
-    <div className={`flex flex-col p-8 rounded-3xl border transition-all duration-300 relative h-full reveal ${
-      plan.popular 
-        ? 'border-primary/50 bg-card/40 shadow-[0_0_40px_-15px_hsl(var(--primary))] transform md:-translate-y-2' 
-        : 'border-border/40 bg-card/10 hover:bg-card/20 hover:border-border/60'
-    }`}>
+    <div 
+      ref={tiltRef as unknown as React.RefObject<HTMLDivElement>}
+      className={`spotlight-border flex flex-col p-8 rounded-3xl border transition-shadow duration-300 relative h-full reveal ${
+        plan.popular 
+          ? 'border-primary/50 bg-card/40 shadow-[0_0_40px_-15px_hsl(var(--primary))] transform md:-translate-y-2' 
+          : 'border-border/40 bg-card/10 hover:bg-card/20 hover:border-border/60'
+      }`}
+      style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
+      data-cursor="view"
+    >
       {plan.popular && (
-        <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-[11px] uppercase font-bold tracking-widest px-4 py-1 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap">
+        <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-[11px] uppercase font-bold tracking-widest px-4 py-1 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap z-10">
           ⭐ Mais Escolhido
         </span>
       )}
       
-      <h3 className={`text-2xl font-bold uppercase tracking-wider mb-2 reveal ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
+      <h3 className={`text-2xl font-bold uppercase tracking-wider mb-2 reveal relative z-10 ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
         {plan.name}
       </h3>
-      <p className="text-sm text-muted-foreground mb-6 min-h-[40px] leading-relaxed reveal">
+      <p className="text-sm text-muted-foreground mb-6 min-h-[40px] leading-relaxed reveal relative z-10">
         {plan.subtitle}
       </p>
       
-      <div className="mb-8">
+      <div className="mb-8 relative z-10">
         <span className={`font-serif font-black text-4xl ${plan.popular ? 'text-foreground' : 'text-foreground/90'}`}>
           {plan.price.split('/')[0]}
         </span>
         <span className="text-muted-foreground font-medium">/mês</span>
       </div>
 
-      <div className="w-full h-px bg-border/30 mb-8" />
+      <div className="w-full h-px bg-border/30 mb-8 relative z-10" />
       
-      <ul className="space-y-4 mb-10 flex-grow">
+      <ul className="space-y-4 mb-10 flex-grow relative z-10">
         {plan.features.map((feature, idx) => {
           const isTudoDoBásico = feature.includes("Tudo do Básico") || feature.includes("Tudo do Gestão");
           return (
@@ -301,23 +318,24 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
         })}
       </ul>
 
-      <a 
-        href={`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`}
-        target="_blank" rel="noopener noreferrer"
+      <LiquidButton 
+        asChild
+        onClick={() => window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`, "_blank")}
         data-source={`cta_plan_${plan.id}`}
-        className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 reveal ${
+        className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 reveal relative z-10 ${
           plan.popular 
             ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] hover:scale-[1.02]' 
             : 'bg-card border border-border/50 text-foreground hover:bg-foreground hover:text-background'
         }`}
       >
         {plan.ctaText}
-      </a>
+      </LiquidButton>
     </div>
   );
 };
 
 const Services = () => {
+  const { t } = useLanguage();
   const [view, setView] = useState<'sites' | 'plans'>('sites');
 
   const bottomCtaProps = view === 'sites' 
@@ -342,13 +360,13 @@ const Services = () => {
         {/* Section Header */}
         <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto space-y-6">
           <span className="text-xs font-bold tracking-[0.3em] uppercase text-primary reveal">
-            Nossas Especialidades
+            {t.services.badge}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight reveal pt-2">
-            Criamos Plataformas <br/> Que Faturam.
+            <ScrambleText text={t.services.title1} /> <br/> <ScrambleText text={t.services.title2} />
           </h2>
           <p className="text-muted-foreground/80 text-lg reveal">
-            Nós somos especialistas apenas em desenvolvimento web. Oferecemos as melhores soluções técnicas escaláveis nas 4 principais modalidades do mercado.
+            {t.services.subtitle}
           </p>
         </AnimatedSection>
 

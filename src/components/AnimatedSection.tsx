@@ -19,7 +19,7 @@ export const AnimatedSection = ({
   parallaxOffset = 50,
 }: AnimatedSectionProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -67,7 +67,7 @@ export const StaggerContainer = ({
   staggerDelay = 0.1,
 }: StaggerContainerProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
 
   return (
     <motion.div
@@ -164,7 +164,7 @@ export const RevealText = ({
   delay?: number;
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
 
   return (
     <motion.span

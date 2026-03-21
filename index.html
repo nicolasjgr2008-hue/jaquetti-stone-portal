@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    <!-- 1. meta charset + viewport -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Primary Meta Tags -->
+    <!-- Secondary Meta Tags -->
     <title>Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital</title>
     <meta name="title" content="Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital" />
     <meta name="description" content="Agência especializada em criação de sites profissionais, SEO, identidade visual, tráfego pago e marketing digital. Transforme sua presença online e aumente suas vendas." />
@@ -33,9 +34,17 @@
     <link rel="icon" type="image/png" href="https://storage.googleapis.com/gpt-engineer-file-uploads/Wb38FtVHPiXyrmsNwVqDZTLjmbk1/uploads/1764730141474-Favicon.png" />
     <link rel="apple-touch-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/Wb38FtVHPiXyrmsNwVqDZTLjmbk1/uploads/1764730141474-Favicon.png" />
     
-    <!-- Google Fonts with preconnect for performance -->
+    <!-- 2. preconnect externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
+
+    <!-- 3. preload fonte (opcional hero image) -->
+    <!-- We skip hero image preload as there is no specific LCP image tag for it, just CSS background -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" />
+    
+    <!-- 4. stylesheet CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
     
     <!-- Structured Data / JSON-LD -->
@@ -85,10 +94,13 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "O prazo médio é de 2 a 4 semanas, dependendo da complexidade e funcionalidades do projeto."
+          }
+        }
       ]
     }
     </script>
 
+    <!-- 5. scripts defer/async por último -->
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
@@ -99,7 +111,7 @@
     </script>
     
     <!-- Meta Pixel Code -->
-    <script>
+    <script async>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};

@@ -12,6 +12,7 @@ interface Translations {
     cta2: string;
   };
   services: {
+    badge: string;
     title1: string;
     title2: string;
     subtitle: string;
@@ -72,9 +73,10 @@ const translations: Record<Language, Translations> = {
       cta2: "VER PROJETOS REAIS",
     },
     services: {
-      title1: "Nossos",
-      title2: "Serviços",
-      subtitle: "Soluções completas para transformar sua presença digital",
+      badge: "Nossas Especialidades",
+      title1: "Criamos Plataformas",
+      title2: "Que Faturam.",
+      subtitle: "Nós somos especialistas apenas em desenvolvimento web. Oferecemos as melhores soluções técnicas escaláveis nas 4 principais modalidades do mercado.",
       cta: "SOLICITE SEU ORÇAMENTO",
       items: [
         { title: "Construções de site", description: "Presença digital profissional para atrair e converter clientes." },
@@ -135,9 +137,10 @@ const translations: Record<Language, Translations> = {
       cta2: "SEE REAL PROJECTS",
     },
     services: {
-      title1: "Our",
-      title2: "Services",
-      subtitle: "Complete solutions to transform your digital presence",
+      badge: "Our Specialties",
+      title1: "We Build Platforms",
+      title2: "That Generate Revenue.",
+      subtitle: "We specialize solely in web development. We offer the best scalable technical solutions across the 4 main market modalities.",
       cta: "REQUEST A QUOTE",
       items: [
         { title: "Website Development", description: "Professional digital presence to attract and convert clients." },
@@ -198,9 +201,10 @@ const translations: Record<Language, Translations> = {
       cta2: "VER PROYECTOS REALES",
     },
     services: {
-      title1: "Nuestros",
-      title2: "Servicios",
-      subtitle: "Soluciones completas para transformar tu presencia digital",
+      badge: "Nuestras Especialidades",
+      title1: "Creamos Plataformas",
+      title2: "Que Facturan.",
+      subtitle: "Somos especialistas exclusivamente en desarrollo web. Ofrecemos las mejores soluciones técnicas escalables en las 4 modalidades principales del mercado.",
       cta: "SOLICITA TU PRESUPUESTO",
       items: [
         { title: "Construcción de sitios", description: "Presencia digital profesional para atraer y convertir clientes." },

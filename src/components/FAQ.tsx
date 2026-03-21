@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
+import { ScrambleText } from "./ScrambleText";
 
 const faqs = [
   {
@@ -37,12 +38,14 @@ const FAQ = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const { t } = useLanguage();
+
   return (
     <section id="faq" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <AnimatedSection className="text-center mb-16 space-y-4">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">
-            Perguntas Frequentes
+            <ScrambleText text={t.faq.title} />
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto reveal">
             Tudo o que você precisa saber antes de começar o seu projeto.

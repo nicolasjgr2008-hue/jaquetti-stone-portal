@@ -11,15 +11,20 @@ const CaseCSAPET = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    let rid: number;
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 15;
-      const y = (e.clientY / window.innerHeight - 0.5) * 15;
-      setMousePosition({ x, y });
+      cancelAnimationFrame(rid);
+      rid = requestAnimationFrame(() => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 15;
+        const y = (e.clientY / window.innerHeight - 0.5) * 15;
+        setMousePosition({ x, y });
+      });
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     
     return () => {
+      cancelAnimationFrame(rid);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);

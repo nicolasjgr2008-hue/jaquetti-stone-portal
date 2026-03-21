@@ -10,6 +10,10 @@ import Case from "./pages/Case";
 import CaseCSAPET from "./pages/CaseCSAPET";
 import NotFound from "./pages/NotFound";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import { CustomCursor } from "./components/CustomCursor";
+import { NoiseOverlay } from "./components/NoiseOverlay";
+import { LoadingScreen } from "./components/LoadingScreen";
+import { PageTransition } from "./components/PageTransition";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +22,13 @@ const App = () => (
     <LanguageProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <NoiseOverlay />
+          <LoadingScreen />
+          <CustomCursor />
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <PageTransition />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/case/csapet" element={<CaseCSAPET />} />

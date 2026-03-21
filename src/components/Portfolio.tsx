@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useSpotlight } from "@/hooks/useSpotlight";
+import { LiquidButton } from "./LiquidButton";
+import { ScrambleText } from "./ScrambleText";
 import csapetLogo from "@/assets/csapet-logo.png";
 
 export const cases = [
@@ -22,6 +25,9 @@ const testimonials = {
     { quote: "Nosso site ficou moderno, funcional e responsivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio ficou muito mais eficiente. Em 30 dias já tínhamos reduzido 40% das ligações de suporte.", author: "Hermes Dos Anjos", initials: "HD", role: "Gestor Profissional", company: "Condomínio Hermes", badge: "+40% eficiência" },
     { quote: "Em menos de 2 semanas tínhamos o site no ar. O processo foi transparente e o resultado superou expectativas. Já na primeira semana recebi 3 novos clientes pelo site.", author: "Marina Costa", initials: "MC", role: "Diretora Comercial", company: "Studio MC Design", badge: "+3 clientes/semana" },
     { quote: "Profissionalismo do início ao fim. A Jaquetti entendeu o que a minha clínica precisava e entregou um site que realmente converte. O agendamento online dobrou em 45 dias.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentista", company: "Clínica Pereira", badge: "2x mais agendamentos" },
+    { quote: "Lançamos nosso e-commerce de roupas do zero. A plataforma é super rápida, fácil de gerenciar e totalmente integrada. As vendas online aumentaram 120% já no primeiro trimestre com a nova estrutura e estabilidade.", author: "Carolina Silva", initials: "CS", role: "CEO", company: "Use Carolina Brand", badge: "+120% Vendas" },
+    { quote: "A presença digital do escritório mudou completamente. O design transmite confiança de classe A, o que atraiu clientes corporativos de alto valor num ciclo de tempo muito menor do que o mercado tradicional.", author: "Dr. Marcos Alencar", initials: "MA", role: "Sócio", company: "Alencar & Associados", badge: "Clientes High-Ticket" },
+    { quote: "O portfólio que construíram capturou perfeitamente a essência dos nossos projetos de luxo. O site carrega as imagens 4K sem perder nada de performance técnica. Incrível o cuidado técnico com o detalhe.", author: "Isabela Muniz", initials: "IM", role: "Arquiteta Chefe", company: "IM Arquitetura", badge: "Performance A+" },
   ]
 };
 
@@ -32,6 +38,7 @@ const sectionText = {
 };
 
 const Portfolio = () => {
+  const spotlightRef = useSpotlight();
   const [currentSlide, setCurrentSlide] = useState(0);
   const { language } = useLanguage();
   const itemsPerSlide = 3;
@@ -62,10 +69,7 @@ const Portfolio = () => {
               {text.portfolio.badge}
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground leading-tight reveal pt-2">
-              {text.portfolio.title1} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                {text.portfolio.title2}
-              </span>
+              <ScrambleText text={`${text.portfolio.title1} ${text.portfolio.title2}`} />
             </h2>
           </AnimatedSection>
           
@@ -117,6 +121,10 @@ const Portfolio = () => {
                             <img
                               src={caseItem.image}
                               alt={caseItem.category}
+                              loading="lazy"
+                              decoding="async"
+                              width={112}
+                              height={112}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                           </div>
@@ -160,34 +168,43 @@ const Portfolio = () => {
 
         {/* CTA */}
         <AnimatedSection className="text-center mb-24">
-          <Button
+          <LiquidButton
             asChild
-            variant="outline"
-            className="text-xs px-10 py-5 border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 tracking-widest uppercase reveal"
+            className="inline-flex items-center justify-center text-xs px-10 py-5 rounded-md border border-border/50 text-muted-foreground bg-card/20 hover:text-foreground hover:border-foreground/30 tracking-widest uppercase reveal transition-all"
           >
             <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{text.cta}</a>
-          </Button>
+          </LiquidButton>
         </AnimatedSection>
 
         {/* Divider */}
         <div className="w-full h-px bg-border/30 mb-24" />
 
         {/* Testimonials */}
-        <div className="max-w-7xl mx-auto">
+        <div 
+          className="max-w-7xl mx-auto testimonial-section-spotlight"
+          ref={spotlightRef as unknown as React.RefObject<HTMLDivElement>}
+        >
           <AnimatedSection className="text-center mb-16">
-            <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">{text.testimonialTitle}</h3>
+            <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">
+              <ScrambleText text={text.testimonialTitle} />
+            </h3>
           </AnimatedSection>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(testimonials[language as keyof typeof testimonials] || testimonials.pt).map((testi, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
-              <div className="flex flex-col p-6 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-colors duration-300 h-full reveal">
+              <div 
+                className="relative overflow-hidden flex flex-col p-6 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-colors duration-300 h-full reveal"
+                data-cursor="quote"
+              >
+                <div className="testimonial-card-bg" />
+                
                 {/* Estrelas */}
-                <div className="flex text-amber-500 mb-4 reveal">
+                <div className="flex text-amber-500 mb-4 reveal relative z-10">
                   <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
                 </div>
                 
-                <div className="relative flex-grow mb-6">
+                <div className="relative flex-grow mb-6 z-10">
                   <Quote className="absolute -top-1 -left-1 w-8 h-8 text-border/30 -z-10 rotate-180" />
                   <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10 reveal">
                     "{testi.quote}"
@@ -213,7 +230,7 @@ const Portfolio = () => {
             ))}
           </div>
 
-          <AnimatedSection delay={0.6} className="flex justify-center mt-12">
+          <AnimatedSection delay={0.6} className="flex justify-center mt-12 relative z-10">
             <button className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground border border-border/50 hover:border-foreground/40 px-8 py-4 rounded-full transition-all hover:bg-card reveal">
               Ler mais depoimentos
             </button>

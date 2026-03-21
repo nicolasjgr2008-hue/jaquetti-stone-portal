@@ -9,21 +9,28 @@ export const useScrollScale = (options = { threshold: 0.5, maxScale: 1.08 }) => 
     const element = ref.current;
     if (!element) return;
 
+    let rid: number;
+    let ticking = false;
+
     const handleScroll = () => {
-      const rect = element.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const elementCenter = rect.top + rect.height / 2;
-      const windowCenter = windowHeight / 2;
-      
-      // Calculate distance from center (0 = perfectly centered, 1 = at edge)
-      const distanceFromCenter = Math.abs(elementCenter - windowCenter) / (windowHeight / 2);
-      
-      // Calculate scale based on proximity to center
-      const proximity = Math.max(0, 1 - distanceFromCenter);
-      const newScale = 1 + (options.maxScale - 1) * Math.pow(proximity, 2);
-      
-      setScale(newScale);
-      setIsActive(proximity > options.threshold);
+      if (!ticking) {
+        rid = requestAnimationFrame(() => {
+          const rect = element.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          const elementCenter = rect.top + rect.height / 2;
+          const windowCenter = windowHeight / 2;
+          
+          const distanceFromCenter = Math.abs(elementCenter - windowCenter) / (windowHeight / 2);
+          const proximity = Math.max(0, 1 - distanceFromCenter);
+          const newScale = 1 + (options.maxScale - 1) * Math.pow(proximity, 2);
+          
+          setScale(newScale);
+          setIsActive(proximity > options.threshold);
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     // Initial calculation
@@ -33,6 +40,7 @@ export const useScrollScale = (options = { threshold: 0.5, maxScale: 1.08 }) => 
     window.addEventListener('resize', handleScroll, { passive: true });
 
     return () => {
+      cancelAnimationFrame(rid);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };

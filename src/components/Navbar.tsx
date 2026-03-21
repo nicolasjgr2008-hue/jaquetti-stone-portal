@@ -62,10 +62,11 @@ const Navbar = () => {
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="text-xs font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase"
+                className="text-xs font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase nav-link-underline"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
+                data-cursor="link"
               >
                 {link.label}
               </motion.a>
@@ -130,6 +131,7 @@ const Navbar = () => {
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
                     className="text-xs font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors uppercase"
+                    data-cursor="link"
                   >
                     {link.label}
                   </a>

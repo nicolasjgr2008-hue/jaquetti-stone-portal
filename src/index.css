@@ -7,6 +7,9 @@ All colors MUST be HSL.
 */
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   :root {
     /* Premium Dark Color System */
     --background: 0 0% 5%;
@@ -504,6 +507,128 @@ All colors MUST be HSL.
 @keyframes heroBtnPulse {
   0%, 100% { opacity: 0; transform: scale(1); }
   50%      { opacity: 0.25; transform: scale(1.05); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADVANCED HOVER EFFECTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Spotlight Border ── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.spotlight-border {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.spotlight-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px; /* Needs to act as a border */
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle), transparent 20%, rgba(255,255,255,0.8) 50%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.spotlight-border:hover::before {
+  opacity: 1;
+  animation: rotate-angle 3s linear infinite;
+}
+
+/* Fallback for browsers without @property support */
+@supports not (background: paint(something)) {
+  .spotlight-border:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ── 2. Liquid Button Ripple ── */
+.liquid-blob {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  animation: liquidExpand 0.5s ease-out forwards;
+}
+
+@keyframes liquidExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.6;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+/* ── 3. Testimonial Spotlight ── */
+.testimonial-section-spotlight {
+  --x: -100px;
+  --y: -100px;
+  position: relative;
+}
+
+.testimonial-card-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(300px circle at var(--x) var(--y), rgba(255,255,255,0.06), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.testimonial-section-spotlight:hover .testimonial-card-bg {
+  opacity: 1;
+}
+
+/* ── 4. Navbar Link Underline ── */
+.nav-link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: hsl(var(--primary));
+  transition: width 0.25s ease-out;
+  transform-origin: left;
+}
+
+.nav-link-underline:hover::after {
+  width: 100%;
+}
+
+/* ── 5. Custom Cursor ── */
+@media (pointer: fine) {
+  body, 
+  a, 
+  button,
+  [data-cursor] {
+    cursor: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════

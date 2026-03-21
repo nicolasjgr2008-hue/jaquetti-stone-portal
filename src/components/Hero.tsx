@@ -4,7 +4,8 @@ import { useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, ReactNode } from "react";
+import { LiquidButton } from "./LiquidButton";
 
 /* ─── Typewriter Hook ─── */
 const useTypewriter = (text: string, speed = 60, startDelay = 0) => {
@@ -198,13 +199,12 @@ const Hero = () => {
 
           {/* ── CTA Buttons ── */}
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            {/* Primary Button (delay 560ms, duration 500ms) + Magnetic */}
+            {/* Primary Button (delay 560ms, duration 500ms) + Magnetic + Liquid */}
             <div className="hero-stagger" style={{ "--stagger-delay": "560ms", "--stagger-duration": "500ms" } as React.CSSProperties}>
               <MagneticHeroButton>
-                <Button
+                <LiquidButton
                   asChild
-                  size="lg"
-                  className="text-sm px-8 py-6 tracking-wide font-medium hero-btn-glow"
+                  className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium hero-btn-glow"
                 >
                   <a
                     href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
@@ -225,20 +225,18 @@ const Hero = () => {
                     {t.hero.cta1}
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </a>
-                </Button>
+                </LiquidButton>
               </MagneticHeroButton>
             </div>
 
             {/* Secondary Button (delay 640ms, duration 500ms) */}
             <div className="hero-stagger" style={{ "--stagger-delay": "640ms", "--stagger-duration": "500ms" } as React.CSSProperties}>
-              <Button
+              <LiquidButton
                 asChild
-                variant="ghost"
-                size="lg"
-                className="text-sm px-8 py-6 tracking-wide text-muted-foreground hover:text-foreground"
+                className="inline-flex items-center justify-center hover:bg-accent hover:text-accent-foreground h-11 rounded-md text-sm px-8 py-6 tracking-wide text-muted-foreground transition-colors"
               >
                 <a href="#cases">{t.hero.cta2}</a>
-              </Button>
+              </LiquidButton>
             </div>
           </div>
 

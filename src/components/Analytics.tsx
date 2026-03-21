@@ -39,14 +39,20 @@ export const Analytics = () => {
       console.log(`[Analytics] Tracked: ${eventName}`, source ? {source} : '');
     };
 
+    let ticking = false;
+    let rid: number;
     const handleScroll = () => {
-      if (!scrolled50) {
-        const scrolled = window.scrollY;
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0 && (scrolled / totalHeight) >= 0.5) {
-          scrolled50 = true;
-          trackEvent('scroll_50_percent');
-        }
+      if (!ticking && !scrolled50) {
+        rid = requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0 && (scrolled / totalHeight) >= 0.5) {
+            scrolled50 = true;
+            trackEvent('scroll_50_percent');
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

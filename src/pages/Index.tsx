@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Stats from "@/components/Stats";
-import Portfolio from "@/components/Portfolio";
 import Footer from "@/components/Footer";
+
+const Services = lazy(() => import("@/components/Services"));
+const Stats = lazy(() => import("@/components/Stats"));
+const Portfolio = lazy(() => import("@/components/Portfolio"));
 import CursorFollower from "@/components/CursorFollower";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingParticles from "@/components/FloatingParticles";
@@ -12,7 +14,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Layers, FolderOpen } from "lucide-react";
 import TopBanner from "@/components/TopBanner";
-import FAQ from "@/components/FAQ";
+const FAQ = lazy(() => import("@/components/FAQ"));
 import { Analytics } from "@/components/Analytics";
 import { useGlobalAnimations } from "@/hooks/useGlobalAnimations";
 
@@ -51,10 +53,12 @@ const Index = () => {
         </div>
         <main>
           <Hero />
-          <Stats />
-          <Services />
-          <Portfolio />
-          <FAQ />
+          <Suspense fallback={<div className="h-screen bg-background" />}>
+            <Stats />
+            <Services />
+            <Portfolio />
+            <FAQ />
+          </Suspense>
         </main>
         <Footer />
       </div>

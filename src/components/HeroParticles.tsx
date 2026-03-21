@@ -29,17 +29,25 @@ const HeroParticles = () => {
     const CONNECT_DIST = 120;
     const MOUSE_FACTOR = isMobile ? 0 : 0.02;
 
+    let logicalWidth = canvas.offsetWidth;
+    let logicalHeight = canvas.offsetHeight;
+
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      logicalWidth = canvas.offsetWidth;
+      logicalHeight = canvas.offsetHeight;
+      canvas.width = logicalWidth * dpr;
+      canvas.height = logicalHeight * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
-    // Init particles
+    // Init particles using logical coordinates
     const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+      x: Math.random() * logicalWidth,
+      y: Math.random() * logicalHeight,
       vx: (Math.random() - 0.5) * 0.3,
       vy: (Math.random() - 0.5) * 0.3,
       opacity: 0.15 + Math.random() * 0.2,
@@ -56,16 +64,23 @@ const HeroParticles = () => {
       };
     };
     if (!isMobile) {
-      canvas.addEventListener("mousemove", handleMouse);
+      canvas.addEventListener("mousemove", handleMouse, { passive: true });
     }
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let lastTime = 0;
+    const draw = (ts: number) => {
+      if (ts - lastTime < 16) { 
+        animRef.current = requestAnimationFrame(draw); 
+        return; 
+      }
+      lastTime = ts;
+
+      ctx.clearRect(0, 0, logicalWidth, logicalHeight);
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
       
-      const offsetX = (mx - canvas.width / 2) * MOUSE_FACTOR;
-      const offsetY = (my - canvas.height / 2) * MOUSE_FACTOR;
+      const offsetX = (mx - logicalWidth / 2) * MOUSE_FACTOR;
+      const offsetY = (my - logicalHeight / 2) * MOUSE_FACTOR;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -75,10 +90,10 @@ const HeroParticles = () => {
         p.y += p.vy;
 
         // Wrap edges
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        if (p.x < 0) p.x = logicalWidth;
+        if (p.x > logicalWidth) p.x = 0;
+        if (p.y < 0) p.y = logicalHeight;
+        if (p.y > logicalHeight) p.y = 0;
 
         // Apply parallax offset only at draw time
         const dx = (mx > -1000) ? offsetX : 0;
@@ -117,9 +132,20 @@ const HeroParticles = () => {
 
     animRef.current = requestAnimationFrame(draw);
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animRef.current);
+      } else {
+        lastTime = performance.now();
+        animRef.current = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", handleVisibility);
       if (!isMobile) {
         canvas.removeEventListener("mousemove", handleMouse);
       }
