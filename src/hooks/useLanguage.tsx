@@ -63,12 +63,12 @@ interface Translations {
 const translations: Record<Language, Translations> = {
   pt: {
     hero: {
-      badge: "Sua presença digital começa aqui",
+      badge: "RESULTADOS REAIS. ENTREGA EM 15 DIAS.",
       headline1: "Sites profissionais para ",
       headline2: "alcançar mais clientes",
       subtitle: "Transformamos sua presença online com sites modernos, otimizados e responsivos, design exclusivo, SEO e estratégias digitais eficientes para crescer.",
       cta1: "COMECE SEU PROJETO AGORA",
-      cta2: "CONHECER SOLUÇÕES",
+      cta2: "VER PROJETOS REAIS",
     },
     services: {
       title1: "Nossos",
@@ -126,12 +126,12 @@ const translations: Record<Language, Translations> = {
   },
   en: {
     hero: {
-      badge: "Your digital presence starts here",
+      badge: "REAL RESULTS. DELIVERED IN 15 DAYS.",
       headline1: "Professional websites to ",
       headline2: "reach more clients",
       subtitle: "We transform your online presence with modern, optimized, and responsive websites, exclusive design, SEO, and efficient digital strategies to grow.",
       cta1: "START YOUR PROJECT NOW",
-      cta2: "DISCOVER SOLUTIONS",
+      cta2: "SEE REAL PROJECTS",
     },
     services: {
       title1: "Our",
@@ -189,12 +189,12 @@ const translations: Record<Language, Translations> = {
   },
   es: {
     hero: {
-      badge: "Tu presencia digital comienza aquí",
+      badge: "RESULTADOS REALES. ENTREGA EN 15 DÍAS.",
       headline1: "Sitios web profesionales para ",
       headline2: "alcanzar más clientes",
       subtitle: "Transformamos tu presencia online con sitios modernos, optimizados y responsivos, diseño exclusivo, SEO y estrategias digitales eficientes para crecer.",
       cta1: "COMIENZA TU PROYECTO AHORA",
-      cta2: "CONOCER SOLUCIONES",
+      cta2: "VER PROYECTOS REALES",
     },
     services: {
       title1: "Nuestros",
