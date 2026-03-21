@@ -206,7 +206,7 @@ const Case = () => {
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-primary hover:bg-primary hover:text-primary-foreground">
-                  <a href="mailto:jaquettiweb@gmail.com">
+                  <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">
                     Solicitar Orçamento
                   </a>
                 </Button>
