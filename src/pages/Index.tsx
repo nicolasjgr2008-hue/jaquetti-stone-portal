@@ -11,6 +11,9 @@ import { FloatingNav } from "@/components/ui/floating-navbar";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Layers, FolderOpen } from "lucide-react";
+import TopBanner from "@/components/TopBanner";
+import FAQ from "@/components/FAQ";
+import { Analytics } from "@/components/Analytics";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -28,7 +31,9 @@ const Index = () => {
         <link rel="canonical" href="https://jaquettiweb.com" />
       </Helmet>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background flex flex-col">
+        <Analytics />
+        <TopBanner />
         <ScrollProgress />
         <FloatingParticles />
         <CursorFollower />
@@ -47,6 +52,7 @@ const Index = () => {
           <Stats />
           <Services />
           <Portfolio />
+          <FAQ />
         </main>
         <Footer />
       </div>

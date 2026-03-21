@@ -6,6 +6,7 @@ const FloatingWhatsApp = () => {
       href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
       target="_blank"
       rel="noopener noreferrer"
+      data-source="floating_button"
       className="fixed bottom-6 right-6 z-[6000] flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#20bd5a] transition-all duration-300"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
