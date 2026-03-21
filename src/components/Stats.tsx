@@ -153,12 +153,16 @@ const Stats = () => {
             </span>
           </AnimatedSection>
           
-          <AnimatedSection delay={0.2} className="relative flex overflow-hidden group">
+          <AnimatedSection delay={0.2} className="relative flex overflow-hidden group py-4">
             {/* Fade edges */}
-            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
             
-            <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
+            <motion.div 
+              className="flex w-max"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
+            >
               {[...Array(2)].map((_, i) => (
                 <div key={i} className="flex gap-6 sm:gap-10 px-3 sm:px-5">
                   {[...Array(8)].map((_, j) => (
@@ -171,7 +175,7 @@ const Stats = () => {
                   ))}
                 </div>
               ))}
-            </div>
+            </motion.div>
           </AnimatedSection>
         </div>
 
