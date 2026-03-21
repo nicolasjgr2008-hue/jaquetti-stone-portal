@@ -85,7 +85,7 @@ const Navbar = () => {
               transition={{ delay: 0.6 }}
             >
               <Button asChild size="sm" className="text-xs tracking-wide px-6">
-                <a href="mailto:jaquettiweb@gmail.com">{t.navbar.contact}</a>
+                <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{t.navbar.contact}</a>
               </Button>
             </motion.div>
           </div>
@@ -135,7 +135,7 @@ const Navbar = () => {
                   </a>
                 ))}
                 <Button asChild size="sm" className="w-full text-xs tracking-wide">
-                  <a href="mailto:jaquettiweb@gmail.com">{t.navbar.contact}</a>
+                  <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{t.navbar.contact}</a>
                 </Button>
               </div>
             </motion.div>

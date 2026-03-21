@@ -95,7 +95,8 @@ const Stats = () => {
         <AnimatedSection delay={0.4} className="text-center mt-20">
           <p className="text-sm text-muted-foreground mb-4">{t.stats.cta}</p>
           <motion.a
-            href="mailto:jaquettiweb@gmail.com"
+            href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+            target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

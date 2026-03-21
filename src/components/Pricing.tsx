@@ -181,7 +181,8 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
           {/* CTA Button */}
           <MagneticButton className="w-full">
             <motion.a
-              href="mailto:jaquettiweb@gmail.com"
+              href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+              target="_blank" rel="noopener noreferrer"
               className={`
                 w-full py-4 px-6 rounded-xl font-medium text-center block
                 transition-all duration-300 ease-out

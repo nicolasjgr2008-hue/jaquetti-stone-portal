@@ -1,4 +1,4 @@
-import { Mail, ArrowUp, Instagram } from "lucide-react";
+import { MessageCircle, ArrowUp, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -68,11 +68,12 @@ const Footer = () => {
             <h4 className="text-xs font-medium tracking-[0.15em] uppercase text-muted-foreground">{t.footer.contact}</h4>
             <div className="flex flex-col gap-2">
               <a 
-                href="mailto:jaquettiweb@gmail.com"
+                href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+                target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
-                <Mail size={14} />
-                jaquettiweb@gmail.com
+                <MessageCircle size={14} />
+                +55 11 99840-9981
               </a>
               <a 
                 href="https://instagram.com/jaquettiagency"

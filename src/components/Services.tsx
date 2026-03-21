@@ -51,7 +51,8 @@ const Services = () => {
         {/* CTA */}
         <AnimatedSection delay={0.4} className="text-center mt-8">
           <a
-            href="mailto:jaquettiweb@gmail.com"
+            href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+            target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm tracking-wide text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
             {t.services.cta}

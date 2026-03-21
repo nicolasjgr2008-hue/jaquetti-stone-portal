@@ -182,7 +182,7 @@ const Portfolio = () => {
             variant="outline"
             className="text-xs px-10 py-5 border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/30 tracking-widest uppercase"
           >
-            <a href="mailto:jaquettiweb@gmail.com">{text.cta}</a>
+            <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{text.cta}</a>
           </Button>
         </AnimatedSection>
 
