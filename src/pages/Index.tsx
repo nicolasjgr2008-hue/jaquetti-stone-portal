@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
@@ -9,8 +8,9 @@ import CursorFollower from "@/components/CursorFollower";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingParticles from "@/components/FloatingParticles";
 import { FloatingNav } from "@/components/ui/floating-navbar";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Home, Layers, FolderOpen, Mail } from "lucide-react";
+import { Layers, FolderOpen } from "lucide-react";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -34,10 +34,14 @@ const Index = () => {
         <CursorFollower />
         <FloatingNav
           navItems={navItems}
+          brandName="Jaquetti"
           ctaLabel={t.navbar.contact}
           ctaHref="mailto:jaquettiweb@gmail.com"
         />
-        <Navbar />
+        {/* Language switcher fixed position */}
+        <div className="fixed top-7 right-6 z-[5001]">
+          <LanguageSwitcher />
+        </div>
         <main>
           <Hero />
           <Stats />
