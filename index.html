@@ -129,6 +129,127 @@
     <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=SEU_PIXEL_ID&ev=PageView&noscript=1"
     /></noscript>
+
+    <style>
+      #jq-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        /* pointer-events omitted intentionally to block interaction during load */
+      }
+      #jq-overlay {
+        position: absolute;
+        inset: 0;
+        background: #000;
+        transition: opacity 0.15s ease;
+      }
+      #jq-logo-clone {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0;
+        white-space: nowrap;
+        pointer-events: none;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(36px, 5vw, 52px);
+        font-weight: 700;
+        color: #fafafa;
+        letter-spacing: -0.025em;
+      }
+    </style>
+
+    <div id="jq-loader">
+      <div id="jq-overlay"></div>
+      <div id="jq-logo-clone">Jaquetti</div>
+    </div>
+
+    <script>
+      (function() {
+        if (sessionStorage.getItem('jaquetti_loaded')) {
+          const loader = document.getElementById('jq-loader');
+          if (loader) loader.remove();
+          return;
+        }
+        
+        // Mark as visited
+        sessionStorage.setItem('jaquetti_loaded', '1');
+        document.body.style.overflow = 'hidden';
+
+        const loader  = document.getElementById('jq-loader');
+        const overlay = document.getElementById('jq-overlay');
+        const clone   = document.getElementById('jq-logo-clone');
+
+        let realLogo = null;
+
+        // Try to hide the real logo as soon as React mounts it
+        const findLogoInterval = setInterval(() => {
+          realLogo = document.querySelector('nav a[href="/"] span.font-serif');
+          if (realLogo) {
+            realLogo.style.opacity = '0';
+            clearInterval(findLogoInterval);
+          }
+        }, 50);
+
+        // FASE 1 — aparecer no centro (0–300ms)
+        requestAnimationFrame(() => {
+          clone.style.transition = 'opacity 0.3s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1)';
+          clone.style.opacity = '1';
+          clone.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // FASE 3 — voar para o header (900–1350ms)
+        setTimeout(() => {
+          clearInterval(findLogoInterval);
+          if (!realLogo) realLogo = document.querySelector('nav a[href="/"] span.font-serif');
+          
+          let targetX = 0;
+          let targetY = 0;
+          let scaleRatio = 18 / parseFloat(getComputedStyle(clone).fontSize); // Falback assumption: 18px text-lg
+
+          if (realLogo) {
+            const rect = realLogo.getBoundingClientRect();
+            targetX = rect.left + rect.width / 2;
+            targetY = rect.top + rect.height / 2;
+            const cloneSize = parseFloat(getComputedStyle(clone).fontSize);
+            const realSize = parseFloat(getComputedStyle(realLogo).fontSize);
+            scaleRatio = realSize / cloneSize;
+          } else {
+            // Fallback targets if React hasn't rendered the nav yet
+            targetX = 60 + 50; 
+            targetY = 40 + 10;
+          }
+
+          const startX = window.innerWidth / 2;
+          const startY = window.innerHeight / 2;
+          const dx = targetX - startX;
+          const dy = targetY - startY;
+
+          clone.style.transition = 'transform 0.45s cubic-bezier(0.76,0,0.24,1), opacity 0.45s cubic-bezier(0.76,0,0.24,1)';
+          clone.style.transform  = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(${scaleRatio})`;
+          
+        }, 900);
+
+        // FASE 4 — overlay some (1350–1500ms)
+        setTimeout(() => {
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            if (loader) loader.remove();
+            if (realLogo) {
+              realLogo.style.transition = 'opacity 0.05s ease';
+              realLogo.style.opacity = '1';
+              // Cleanup styling
+              setTimeout(() => {
+                realLogo.style.transition = '';
+                realLogo.style.opacity = '';
+              }, 100);
+            }
+            document.body.style.overflow = '';
+          }, 150);
+        }, 1350);
+      })();
+    </script>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
