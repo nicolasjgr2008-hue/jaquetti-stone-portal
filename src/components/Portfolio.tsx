@@ -71,7 +71,13 @@ const Portfolio = () => {
   }, [currentTestimonials.length]);
 
   return (
-    <section id="cases" className="py-32 bg-background relative">
+    <section id="cases" className="py-32 bg-background relative overflow-hidden">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 0.5px, transparent 0)`,
+        backgroundSize: '24px 24px',
+      }} />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/[0.02] blur-[100px]" />
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="grid md:grid-cols-2 gap-16 mb-20 items-end">

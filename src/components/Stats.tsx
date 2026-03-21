@@ -54,7 +54,13 @@ const Stats = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="stats" className="py-32 relative">
+    <section id="stats" className="py-32 relative overflow-hidden">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 1px, transparent 0)`,
+        backgroundSize: '32px 32px',
+      }} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/[0.02] blur-[120px]" />
       <div className="container mx-auto px-6">
         {/* Header */}
         <AnimatedSection className="text-center mb-20">

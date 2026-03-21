@@ -8,8 +8,18 @@ import Footer from "@/components/Footer";
 import CursorFollower from "@/components/CursorFollower";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingParticles from "@/components/FloatingParticles";
+import { FloatingNav } from "@/components/ui/floating-navbar";
+import { useLanguage } from "@/hooks/useLanguage";
+import { Home, Layers, FolderOpen, Mail } from "lucide-react";
 
 const Index = () => {
+  const { t } = useLanguage();
+
+  const navItems = [
+    { name: t.navbar.solutions, link: "#solucoes", icon: <Layers className="w-4 h-4" /> },
+    { name: t.navbar.cases, link: "#cases", icon: <FolderOpen className="w-4 h-4" /> },
+  ];
+
   return (
     <>
       <Helmet>
@@ -22,6 +32,11 @@ const Index = () => {
         <ScrollProgress />
         <FloatingParticles />
         <CursorFollower />
+        <FloatingNav
+          navItems={navItems}
+          ctaLabel={t.navbar.contact}
+          ctaHref="mailto:jaquettiweb@gmail.com"
+        />
         <Navbar />
         <main>
           <Hero />

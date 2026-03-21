@@ -24,7 +24,13 @@ const Services = () => {
   }));
 
   return (
-    <section id="solucoes" className="py-32 bg-background relative">
+    <section id="solucoes" className="py-32 bg-background relative overflow-hidden">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px',
+      }} />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/[0.015] blur-[100px]" />
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <AnimatedSection className="text-center mb-8 space-y-4">
