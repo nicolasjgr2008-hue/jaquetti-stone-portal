@@ -1,6 +1,5 @@
 import { Rocket, Building2, ShoppingCart, Briefcase, CheckCircle2 } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
-import { useLanguage } from "@/hooks/useLanguage";
 import { motion } from "framer-motion";
 
 const siteTypes = [
@@ -8,44 +7,88 @@ const siteTypes = [
     id: "landing",
     title: "01 — LANDING PAGE",
     icon: Rocket,
-    description: "Páginas desenhadas para conversão agressiva. Perfeitas para lançamentos, infoprodutos, Google Ads e captura de leads segmentados.",
+    description: "Transforme visitantes em leads e clientes. Ideal para lançamentos, infoprodutos e campanhas de tráfego pago.",
+    ctaText: "Quero mais conversões →",
+    ctaMessage: "Quero uma landing page que converte",
     tiers: [
-      { name: "Básica", price: "R$ 797" },
-      { name: "Profissional", price: "R$ 1.497" },
-      { name: "Premium", price: "R$ 2.997" }
+      { 
+        name: "Básica", price: "R$ 797", popular: false,
+        features: ["1 página responsiva", "Formulário de captura", "Entrega em 7 dias"]
+      },
+      { 
+        name: "Profissional", price: "R$ 1.497", popular: true,
+        features: ["Até 3 seções personalizadas", "Integração com WhatsApp e pixel", "SEO básico configurado", "Entrega em 10 dias"]
+      },
+      { 
+        name: "Premium", price: "R$ 2.997", popular: false,
+        features: ["Páginas ilimitadas", "Copywriting profissional incluso", "A/B test configurado", "Suporte por 60 dias"]
+      }
     ]
   },
   {
     id: "institucional",
     title: "02 — SITE INSTITUCIONAL",
     icon: Building2,
-    description: "Sua presença corporativa premium. Sites densos que geram confiança imediata, apresentam seus serviços e posicionam sua empresa frente aos concorrentes.",
+    description: "Apareça antes da concorrência e conquiste credibilidade imediata. Seu cliente pesquisa antes de contratar — esteja lá.",
+    ctaText: "Quero aparecer profissional →",
+    ctaMessage: "Quero um site institucional profissional",
     tiers: [
-      { name: "Essencial", price: "R$ 2.997" },
-      { name: "Profissional", price: "R$ 3.997" },
-      { name: "Premium", price: "R$ 6.997" }
+      { 
+        name: "Essencial", price: "R$ 2.997", popular: false,
+        features: ["Até 5 páginas institucionais", "Design totalmente responsivo", "Botão WhatsApp fixo"]
+      },
+      { 
+        name: "Profissional", price: "R$ 3.997", popular: true,
+        features: ["Até 10 páginas", "Identidade visual premium", "SEO avançado em todas páginas", "Painel de blog configurado"]
+      },
+      { 
+        name: "Premium", price: "R$ 6.997", popular: false,
+        features: ["Páginas ilimitadas", "Sistema Multi-idioma integrado", "Integração nativa com CRM", "Consultoria de 3 meses"]
+      }
     ]
   },
   {
     id: "ecommerce",
     title: "03 — E-COMMERCE",
     icon: ShoppingCart,
-    description: "Lojas virtuais seguras, rápidas e escaláveis, integradas com os melhores gateways de pagamento e sistemas logísticos para vendas 24h.",
+    description: "Venda seus produtos 24 horas por dia, 7 dias por semana. Loja integrada com os principais meios de pagamento do Brasil.",
+    ctaText: "Quero vender 24h →",
+    ctaMessage: "Quero uma loja virtual",
     tiers: [
-      { name: "Starter", price: "R$ 2.997" },
-      { name: "Profissional", price: "R$ 5.997" },
-      { name: "Premium", price: "R$ 9.997" }
+      { 
+        name: "Starter", price: "R$ 2.997", popular: false,
+        features: ["Até 50 produtos cadastrados", "Meios de Pagamento e Frete", "Layout Otimizado para Mobile"]
+      },
+      { 
+        name: "Profissional", price: "R$ 5.997", popular: true,
+        features: ["Até 500 produtos", "Recuperação de Carrinho Abandonado", "Integração avançada ERP / Bling", "Pixel rastreamento avançado"]
+      },
+      { 
+        name: "Premium", price: "R$ 9.997", popular: false,
+        features: ["Produtos Ilimitados (Banco próprio)", "Múltiplos centros de distribuição", "Recursos para B2B e Atacado", "Suporte técnico 24h dedicado"]
+      }
     ]
   },
   {
     id: "portfolio",
     title: "04 — PORTFÓLIO",
     icon: Briefcase,
-    description: "Vitrines criativas interativas e visualmente impactantes criadas para designers, arquitetos, agências boutiques e criadores de conteúdo.",
+    description: "Impressione clientes antes de abrir a boca. Mostre seu trabalho de um jeito que ninguém esquece.",
+    ctaText: "Quero impressionar clientes →",
+    ctaMessage: "Quero um site portfólio",
     tiers: [
-      { name: "Básico", price: "R$ 997" },
-      { name: "Criativo", price: "R$ 1.997" },
-      { name: "Elite", price: "R$ 3.497" }
+      { 
+        name: "Básico", price: "R$ 997", popular: false,
+        features: ["Galeria de projetos simples", "Link para redes sociais", "Design clean minimalista"]
+      },
+      { 
+        name: "Criativo", price: "R$ 1.997", popular: true,
+        features: ["Galeria interativa CMS", "Animações modernas fluidas", "Estudo de caso detalhado / página", "SEO Focado em Portfólio"]
+      },
+      { 
+        name: "Elite", price: "R$ 3.497", popular: false,
+        features: ["Filtros dinâmicos por categoria", "Área restrita por senha (Password)", "Vídeo Background em Loop", "Manutenção VIP 6 meses"]
+      }
     ]
   }
 ];
@@ -59,45 +102,79 @@ const SiteTypeCard = ({ site, index }: { site: typeof siteTypes[0], index: numbe
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="flex flex-col p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group"
+      className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group"
     >
       <div className="flex items-center gap-4 mb-6">
-        <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+        <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 flex-shrink-0">
           <Icon className="w-6 h-6" />
         </div>
-        <h3 className="text-xl font-bold tracking-wider text-foreground font-serif">{site.title}</h3>
+        <h3 className="text-lg sm:text-xl font-bold tracking-wider text-foreground font-serif">{site.title}</h3>
       </div>
       
-      <p className="text-sm text-muted-foreground/90 leading-relaxed mb-8 flex-grow">
+      <p className="text-sm font-medium text-muted-foreground/90 leading-relaxed mb-6 flex-grow">
         {site.description}
       </p>
 
-      <div className="space-y-4 mb-8">
+      {/* Tiers List */}
+      <div className="space-y-3 mb-8">
         {site.tiers.map((tier, idx) => (
-          <div key={idx} className="flex items-center justify-between pb-4 border-b border-border/30 last:border-0 last:pb-0">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary opacity-70" />
-              <span className="text-sm font-medium text-foreground/80">{tier.name}</span>
+          <div 
+            key={idx} 
+            className={`flex flex-col p-4 rounded-xl border transition-all ${
+              tier.popular 
+                ? 'border-primary/40 bg-primary/[0.03] shadow-[0_0_15px_rgba(200,150,50,0.05)] relative transform hover:scale-[1.01]' 
+                : 'border-border/20 bg-card/10 hover:border-border/40'
+            }`}
+          >
+            {tier.popular && (
+               <span className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:-translate-x-0 sm:right-4 bg-[#D4AF37] text-black text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap">
+                 ⭐ Mais Vendido
+               </span>
+            )}
+            
+            <div className={`flex items-start sm:items-center justify-between mb-2 gap-2 flex-col sm:flex-row ${tier.popular ? 'mt-1 sm:mt-0' : ''}`}>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className={`w-4 h-4 flex-shrink-0 ${tier.popular ? 'text-[#D4AF37]' : 'text-primary/60'}`} />
+                <span className={`text-[13px] font-bold uppercase tracking-wide ${tier.popular ? 'text-foreground' : 'text-foreground/80'}`}>
+                  {tier.name}
+                </span>
+              </div>
+              <span className={`font-serif font-bold whitespace-nowrap self-start sm:self-auto ${tier.popular ? 'text-lg text-[#D4AF37]' : 'text-base text-foreground/90'}`}>
+                {tier.price}
+              </span>
             </div>
-            <span className="text-sm font-bold text-foreground font-serif">{tier.price}</span>
+            
+            <ul className="space-y-1.5 pl-6 mt-1.5">
+              {tier.features.map((feature, fIdx) => (
+                <li key={fIdx} className="text-xs text-muted-foreground/80 flex items-start leading-snug">
+                  <span className="text-primary/40 mr-2 text-[10px] mt-0.5">•</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
 
-      <a 
-        href={`https://wa.me/5511998409981?text=Olá,%20tenho%20interesse%20em%20desenvolver%20um%20${encodeURIComponent(site.title.split('— ')[1].toLowerCase())}`}
-        target="_blank" rel="noopener noreferrer"
-        className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-sm tracking-wide uppercase hover:bg-primary transition-colors"
-      >
-        Inicie seu projeto
-      </a>
+      <div className="mt-auto">
+        <a 
+          href={`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`}
+          target="_blank" rel="noopener noreferrer"
+          data-source={`cta_services_${site.id}`}
+          className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] transition-all group-hover:bg-primary group-hover:text-primary-foreground"
+        >
+          {site.ctaText}
+        </a>
+        <p className="text-center text-[11px] text-muted-foreground/60 mt-3 font-medium flex items-center justify-center gap-1.5">
+          <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
+          30 dias de revisões incluídas · Sem fidelidade
+        </p>
+      </div>
     </motion.div>
   );
 };
 
 const Services = () => {
-  const { t } = useLanguage();
-
   return (
     <section id="solucoes" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
       {/* Background Ambience */}
@@ -119,24 +196,27 @@ const Services = () => {
         </AnimatedSection>
 
         {/* Services Grid (2 Columns) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {siteTypes.map((site, index) => (
             <SiteTypeCard key={site.id} site={site} index={index} />
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <AnimatedSection delay={0.4} className="text-center mt-32">
-          <p className="text-lg text-foreground mb-8 font-medium font-serif italic">Não sabe qual é o ideal para o seu momento?</p>
+        <AnimatedSection delay={0.4} className="text-center mt-32 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-foreground mb-8 font-serif italic text-muted-foreground/90 leading-relaxed">
+            "Não sabe qual plano escolher? Fale com a gente — em 5 minutos indicamos o ideal para você."
+          </p>
           <a
-            href="https://wa.me/5511998409981?text=Quero%20uma%20consultoria%20gratuita%20para%20escolher%20o%20site%20ideal"
+            href="https://wa.me/5511998409981?text=Olá,%20gostaria%20de%20ajuda%20para%20escolher%20o%20plano%20ideal%20para%20o%20meu%20projeto"
             target="_blank" rel="noopener noreferrer"
+            data-source="cta_services_footer"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-primary text-primary-foreground font-bold rounded-full transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary))] uppercase tracking-widest text-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="mr-1 filter brightness-0 invert">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
             </svg>
-            Agendar Reunião Gratuita
+            Conversar no WhatsApp
           </a>
         </AnimatedSection>
       </div>
