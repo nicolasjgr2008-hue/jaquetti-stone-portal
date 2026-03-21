@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Rocket, Building2, ShoppingCart, Briefcase, CheckCircle2 } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const siteTypes = [
   {
@@ -93,17 +94,72 @@ const siteTypes = [
   }
 ];
 
-const SiteTypeCard = ({ site, index }: { site: typeof siteTypes[0], index: number }) => {
+const monthlyPlans = [
+  {
+    id: "basico",
+    name: "Básico",
+    price: "R$ 149/mês",
+    subtitle: "Para manter seu site no ar com segurança",
+    popular: false,
+    features: [
+      "Hospedagem gerenciada SSD",
+      "Certificado SSL (HTTPS)",
+      "Backup quinzenal automático",
+      "1 alteração de conteúdo/mês"
+    ],
+    ctaText: "Contratar Básico →",
+    ctaMessage: "Quero o plano mensal Básico de R$ 149"
+  },
+  {
+    id: "gestao",
+    name: "Gestão",
+    price: "R$ 297/mês",
+    subtitle: "Para quem quer o site sempre atualizado e otimizado",
+    popular: true,
+    features: [
+      "Tudo do Básico",
+      "Backup semanal",
+      "Monitoramento semanal de disponibilidade",
+      "Manutenção técnica mensal",
+      "4 alterações de conteúdo/mês",
+      "Suporte via WhatsApp (até 8h úteis)",
+      "Relatório de desempenho simplificado",
+      "Otimização de velocidade semestral",
+      "Pequenas melhorias de design (até 1h/mês)",
+      "Aviso de renovação de domínio"
+    ],
+    ctaText: "Contratar Gestão →",
+    ctaMessage: "Quero o plano mensal Gestão de R$ 297"
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    price: "R$ 497/mês",
+    subtitle: "Para negócios que não podem parar",
+    popular: false,
+    features: [
+      "Tudo do Gestão",
+      "Servidor dedicado",
+      "Backup DIÁRIO",
+      "Monitoramento contínuo 24h/7",
+      "Manutenção quinzenal + urgências",
+      "Alterações de conteúdo ILIMITADAS",
+      "Suporte WhatsApp prioritário (até 4h úteis)",
+      "Relatório completo com insights",
+      "Otimização de velocidade trimestral",
+      "Melhorias de design (até 3h/mês)",
+      "Renovação de domínio gerenciada por nós"
+    ],
+    ctaText: "Contratar Premium →",
+    ctaMessage: "Quero o plano mensal Premium de R$ 497"
+  }
+];
+
+const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   const Icon = site.icon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group"
-    >
+    <div className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-all duration-300 group">
       <div className="flex items-center gap-4 mb-6">
         <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 flex-shrink-0">
           <Icon className="w-6 h-6" />
@@ -170,20 +226,97 @@ const SiteTypeCard = ({ site, index }: { site: typeof siteTypes[0], index: numbe
           30 dias de revisões incluídas · Sem fidelidade
         </p>
       </div>
-    </motion.div>
+    </div>
+  );
+};
+
+const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
+  return (
+    <div className={`flex flex-col p-8 rounded-3xl border transition-all duration-300 relative h-full ${
+      plan.popular 
+        ? 'border-primary/50 bg-card/40 shadow-[0_0_40px_-15px_hsl(var(--primary))] transform md:-translate-y-2' 
+        : 'border-border/40 bg-card/10 hover:bg-card/20 hover:border-border/60'
+    }`}>
+      {plan.popular && (
+        <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-[11px] uppercase font-bold tracking-widest px-4 py-1 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap">
+          ⭐ Mais Escolhido
+        </span>
+      )}
+      
+      <h3 className={`text-2xl font-bold uppercase tracking-wider mb-2 ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
+        {plan.name}
+      </h3>
+      <p className="text-sm text-muted-foreground mb-6 min-h-[40px] leading-relaxed">
+        {plan.subtitle}
+      </p>
+      
+      <div className="mb-8">
+        <span className={`font-serif font-black text-4xl ${plan.popular ? 'text-foreground' : 'text-foreground/90'}`}>
+          {plan.price.split('/')[0]}
+        </span>
+        <span className="text-muted-foreground font-medium">/mês</span>
+      </div>
+
+      <div className="w-full h-px bg-border/30 mb-8" />
+      
+      <ul className="space-y-4 mb-10 flex-grow">
+        {plan.features.map((feature, idx) => {
+          const isTudoDoBásico = feature.includes("Tudo do Básico") || feature.includes("Tudo do Gestão");
+          return (
+            <li key={idx} className="flex items-start text-sm text-foreground/80 leading-snug">
+              {isTudoDoBásico ? (
+                <CheckCircle2 className={`w-4 h-4 mr-3 flex-shrink-0 mt-0.5 ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`} />
+              ) : (
+                <span className="text-primary/50 mr-3 text-[14px] mt-px">•</span>
+              )}
+              <span className={isTudoDoBásico ? "font-bold text-foreground" : ""}>
+                {feature}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      <a 
+        href={`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`}
+        target="_blank" rel="noopener noreferrer"
+        data-source={`cta_plan_${plan.id}`}
+        className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 ${
+          plan.popular 
+            ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] hover:scale-[1.02]' 
+            : 'bg-card border border-border/50 text-foreground hover:bg-foreground hover:text-background'
+        }`}
+      >
+        {plan.ctaText}
+      </a>
+    </div>
   );
 };
 
 const Services = () => {
+  const [view, setView] = useState<'sites' | 'plans'>('sites');
+
+  const bottomCtaProps = view === 'sites' 
+    ? {
+        text: "Não sabe qual plano escolher? Fale com a gente — em 5 minutos indicamos o ideal para você.",
+        btn: "Conversar no WhatsApp",
+        link: "https://wa.me/5511998409981?text=Olá,%20gostaria%20de%20ajuda%20para%20escolher%20o%20plano%20ideal%20para%20o%20meu%20projeto"
+      }
+    : {
+        text: "Não sabe qual plano escolher? Em 5 minutos indicamos o ideal.",
+        btn: "Falar no WhatsApp",
+        link: "https://wa.me/5511998409981?text=Quero%20ajuda%20para%20escolher%20um%20plano%20mensal"
+      };
+
   return (
     <section id="solucoes" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <AnimatedSection className="text-center mb-24 max-w-2xl mx-auto space-y-6">
+        <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto space-y-6">
           <span className="text-xs font-bold tracking-[0.3em] uppercase text-primary">
             Nossas Especialidades
           </span>
@@ -195,28 +328,103 @@ const Services = () => {
           </p>
         </AnimatedSection>
 
-        {/* Services Grid (2 Columns) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {siteTypes.map((site, index) => (
-            <SiteTypeCard key={site.id} site={site} index={index} />
-          ))}
+        {/* View Toggle */}
+        <AnimatedSection className="flex justify-center mb-20 relative z-20">
+          <div className="inline-flex items-center p-1.5 bg-card/20 border border-border/20 rounded-full backdrop-blur-sm">
+            <button
+              onClick={() => setView('sites')}
+              className={`px-6 sm:px-10 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 ${
+                view === 'sites' 
+                  ? 'bg-foreground text-background shadow-lg scale-100' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5 scale-95'
+              }`}
+            >
+              Site único
+            </button>
+            <button
+              onClick={() => setView('plans')}
+              className={`px-6 sm:px-10 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 ${
+                view === 'plans' 
+                  ? 'bg-foreground text-background shadow-lg scale-100' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5 scale-95'
+              }`}
+            >
+              + Plano mensal
+            </button>
+          </div>
+        </AnimatedSection>
+
+        {/* Content Area with smooth transition */}
+        <div className="min-h-[600px]">
+          <AnimatePresence mode="wait">
+            {view === 'sites' ? (
+              <motion.div
+                key="sites"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto"
+              >
+                {siteTypes.map((site, index) => (
+                  <motion.div 
+                    key={site.id} 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <SiteTypeCard site={site} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="plans"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="max-w-7xl mx-auto"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {monthlyPlans.map((plan, index) => (
+                    <motion.div 
+                      key={plan.id} 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <MonthlyPlanCard plan={plan} />
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <motion.p 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+                  className="text-center text-[12px] text-muted-foreground/60 font-medium mt-10"
+                >
+                  Planos com fidelidade mínima de 3 a 6 meses. Consulte condições no WhatsApp.
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Bottom CTA */}
-        <AnimatedSection delay={0.4} className="text-center mt-32 max-w-2xl mx-auto">
+        <AnimatedSection className="text-center mt-32 max-w-2xl mx-auto">
           <p className="text-xl md:text-2xl text-foreground mb-8 font-serif italic text-muted-foreground/90 leading-relaxed">
-            "Não sabe qual plano escolher? Fale com a gente — em 5 minutos indicamos o ideal para você."
+            "{bottomCtaProps.text}"
           </p>
           <a
-            href="https://wa.me/5511998409981?text=Olá,%20gostaria%20de%20ajuda%20para%20escolher%20o%20plano%20ideal%20para%20o%20meu%20projeto"
+            href={bottomCtaProps.link}
             target="_blank" rel="noopener noreferrer"
-            data-source="cta_services_footer"
+            data-source={`cta_services_footer_${view}`}
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-primary text-primary-foreground font-bold rounded-full transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary))] uppercase tracking-widest text-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="mr-1 filter brightness-0 invert">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
             </svg>
-            Conversar no WhatsApp
+            {bottomCtaProps.btn}
           </a>
         </AnimatedSection>
       </div>
