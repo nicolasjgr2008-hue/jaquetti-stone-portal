@@ -60,7 +60,7 @@ const FAQ = () => {
               <AnimatedSection
                 key={index}
                 delay={index * 0.1}
-                className={`border border-border/30 rounded-2xl bg-card/20 overflow-hidden transition-colors duration-300 reveal ${isOpen ? 'border-primary/50 bg-card/40' : 'hover:border-border/60 hover:bg-card/30'}`}
+                className={`border rounded-2xl overflow-hidden transition-all duration-500 reveal ${isOpen ? 'border-border/50 bg-card/20' : 'border-border/15 bg-card/5 hover:border-border/40 hover:bg-card/10'}`}
               >
                 <button
                   onClick={() => toggle(index)}

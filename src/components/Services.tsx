@@ -170,8 +170,8 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   return (
     <div 
       ref={tiltRef as unknown as React.RefObject<HTMLDivElement>} 
-      className="spotlight-border flex flex-col p-6 sm:p-8 rounded-3xl border border-border/40 bg-card/10 hover:bg-card/30 transition-shadow duration-300 group reveal"
-      style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
+      className="flex flex-col p-6 sm:p-8 rounded-3xl border border-border/30 bg-card/5 hover:bg-card/20 hover:border-border/50 transition-all duration-500 group reveal"
+      style={{ transition: "transform 0.15s ease-out, background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease" }}
       data-cursor="view"
     >
       <div className="flex items-center gap-4 mb-6 relative z-10">
@@ -251,7 +251,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
           asChild
           onClick={() => window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`, "_blank")}
           data-source={`cta_services_${site.id}`}
-          className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_20px_-5px_hsl(var(--primary))] transition-all group-hover:bg-primary group-hover:text-primary-foreground"
+          className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-foreground/90 hover:shadow-lg transition-all duration-300"
         >
           {site.ctaText}
         </LiquidButton>
@@ -270,12 +270,12 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
   return (
     <div 
       ref={tiltRef as unknown as React.RefObject<HTMLDivElement>}
-      className={`spotlight-border flex flex-col p-8 rounded-3xl border transition-shadow duration-300 relative h-full reveal ${
+      className={`flex flex-col p-8 rounded-3xl border transition-all duration-500 relative h-full reveal ${
         plan.popular 
-          ? 'border-primary/50 bg-card/40 shadow-[0_0_40px_-15px_hsl(var(--primary))] transform md:-translate-y-2' 
-          : 'border-border/40 bg-card/10 hover:bg-card/20 hover:border-border/60'
+          ? 'border-primary/40 bg-card/30 shadow-[0_0_30px_-15px_hsl(var(--primary)/0.3)] transform md:-translate-y-2' 
+          : 'border-border/30 bg-card/5 hover:bg-card/15 hover:border-border/50'
       }`}
-      style={{ transition: "transform 0.15s ease-out, box-shadow 0.3s ease" }}
+      style={{ transition: "transform 0.15s ease-out, background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease" }}
       data-cursor="view"
     >
       {plan.popular && (

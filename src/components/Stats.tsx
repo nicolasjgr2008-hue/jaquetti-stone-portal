@@ -88,7 +88,7 @@ const StatCard = ({
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
     >
-      <div className="p-8 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-all duration-500 reveal">
+      <div className="p-8 rounded-2xl border border-border/20 bg-card/5 hover:bg-card/15 hover:border-border/40 transition-all duration-500 reveal">
         <Icon className="w-6 h-6 text-muted-foreground mb-6 reveal" />
 
         <div className="flex items-baseline gap-1 mb-3 reveal">
