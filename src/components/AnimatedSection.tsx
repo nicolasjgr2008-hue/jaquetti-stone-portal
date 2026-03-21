@@ -239,7 +239,8 @@ export const AnimatedCounter = ({
       const animate = (currentTime: number) => {
         if (!startTime) startTime = currentTime;
         const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
-        setCount(Math.round(progress * target));
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        setCount(Math.round(easeOutQuart * target));
         if (progress < 1) {
           requestAnimationFrame(animate);
         }

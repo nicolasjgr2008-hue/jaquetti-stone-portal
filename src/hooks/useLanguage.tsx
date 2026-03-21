@@ -31,6 +31,7 @@ interface Translations {
     items: {
       label: string;
       description: string;
+      context?: string;
     }[];
   };
   portfolio: {
@@ -89,13 +90,13 @@ const translations: Record<Language, Translations> = {
       title1: "Resultados que",
       title2: "Falam por Si",
       subtitle: "Números que representam nossa dedicação e compromisso com a excelência em cada projeto que desenvolvemos.",
-      cta: "Pronto para fazer parte dessas estatísticas?",
+      cta: "Seu negócio pode ser o próximo caso de sucesso.",
       ctaButton: "Iniciar Projeto",
       items: [
-        { label: "Projetos Entregues", description: "Sites, apps e sistemas desenvolvidos" },
-        { label: "Clientes Satisfeitos", description: "Empresas que confiam em nosso trabalho" },
-        { label: "Anos de Experiência", description: "Atuando no mercado digital" },
-        { label: "Taxa de Satisfação", description: "Clientes que nos recomendam" },
+        { label: "Projetos Entregues", description: "Sites, apps e sistemas desenvolvidos", context: "Sites, apps e sistemas que geram resultados reais" },
+        { label: "Clientes Satisfeitos", description: "Empresas que confiam em nosso trabalho", context: "Empresas de 12 segmentos diferentes confiam em nós" },
+        { label: "Anos de Experiência", description: "Atuando no mercado digital", context: "Uma década de experiência no mercado digital" },
+        { label: "Taxa de Satisfação", description: "Clientes que nos recomendam", context: "Clientes que nos indicam para amigos e parceiros" },
       ],
     },
     portfolio: {
@@ -155,10 +156,10 @@ const translations: Record<Language, Translations> = {
       cta: "Ready to be part of these statistics?",
       ctaButton: "Start Project",
       items: [
-        { label: "Projects Delivered", description: "Websites, apps and systems developed" },
-        { label: "Satisfied Clients", description: "Companies that trust our work" },
-        { label: "Years of Experience", description: "Operating in the digital market" },
-        { label: "Satisfaction Rate", description: "Clients who recommend us" },
+        { label: "Projects Delivered", description: "Websites, apps and systems developed", context: "Websites, apps, and systems that generate real results" },
+        { label: "Satisfied Clients", description: "Companies that trust our work", context: "Companies from 12 different segments trust us" },
+        { label: "Years of Experience", description: "Operating in the digital market", context: "A decade of experience in the digital market" },
+        { label: "Satisfaction Rate", description: "Clients who recommend us", context: "Clients who recommend us to friends and partners" },
       ],
     },
     portfolio: {
@@ -218,10 +219,10 @@ const translations: Record<Language, Translations> = {
       cta: "¿Listo para ser parte de estas estadísticas?",
       ctaButton: "Iniciar Proyecto",
       items: [
-        { label: "Proyectos Entregados", description: "Sitios, apps y sistemas desarrollados" },
-        { label: "Clientes Satisfechos", description: "Empresas que confían en nuestro trabajo" },
-        { label: "Años de Experiencia", description: "Actuando en el mercado digital" },
-        { label: "Tasa de Satisfacción", description: "Clientes que nos recomiendan" },
+        { label: "Proyectos Entregados", description: "Sitios, apps y sistemas desarrollados", context: "Sitios, apps y sistemas que generan resultados reales" },
+        { label: "Clientes Satisfechos", description: "Empresas que confían en nuestro trabajo", context: "Empresas de 12 segmentos diferentes confían en nosotros" },
+        { label: "Años de Experiencia", description: "Actuando en el mercado digital", context: "Una década de experiencia en el mercado digital" },
+        { label: "Tasa de Satisfacción", description: "Clientes que nos recomiendan", context: "Clientes que nos recomiendan a amigos y socios" },
       ],
     },
     portfolio: {

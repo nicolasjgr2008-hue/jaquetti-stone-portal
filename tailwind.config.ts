@@ -88,6 +88,10 @@ export default {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
         },
+        "marquee": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-50% - 1rem))" },
+        },
         "bounce-subtle": {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-5px)" },
@@ -153,6 +157,7 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "shimmer": "shimmer 2s linear infinite",
         "spin-slow": "spin-slow 20s linear infinite",
+        "marquee": "marquee 35s linear infinite",
         "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
         "wiggle": "wiggle 1s ease-in-out infinite",
         "gradient-shift": "gradient-shift 3s ease infinite",
