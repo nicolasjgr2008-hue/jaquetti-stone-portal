@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useSpotlight } from "@/hooks/useSpotlight";
 import { LiquidButton } from "./LiquidButton";
 import { ScrambleText } from "./ScrambleText";
 import csapetLogo from "@/assets/csapet-logo.png";
@@ -38,8 +37,8 @@ const sectionText = {
 };
 
 const Portfolio = () => {
-  const spotlightRef = useSpotlight();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [testiSlide, setTestiSlide] = useState(0);
   const { language } = useLanguage();
   const itemsPerSlide = 3;
   const totalSlides = Math.ceil(cases.length / itemsPerSlide);
@@ -50,8 +49,14 @@ const Portfolio = () => {
   const text = sectionText[language];
 
   useEffect(() => {
-    // Removed old interval since we're using a grid not a carousel
-  }, []);
+    const testiList = testimonials[language as keyof typeof testimonials] || testimonials.pt;
+    const testiSlideSize = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 2 : 1;
+    const testiTotal = Math.ceil(testiList.length / testiSlideSize);
+    const interval = setInterval(() => {
+      setTestiSlide((prev) => (prev + 1) % testiTotal);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [language]);
 
   return (
     <section id="cases" className="py-32 bg-background relative overflow-hidden">
@@ -179,10 +184,9 @@ const Portfolio = () => {
         {/* Divider */}
         <div className="w-full h-px bg-border/30 mb-24" />
 
-        {/* Testimonials */}
+        {/* Testimonials Carousel */}
         <div 
-          className="max-w-7xl mx-auto testimonial-section-spotlight"
-          ref={spotlightRef as unknown as React.RefObject<HTMLDivElement>}
+          className="max-w-7xl mx-auto"
         >
           <AnimatedSection className="text-center mb-16">
             <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">
@@ -190,51 +194,99 @@ const Portfolio = () => {
             </h3>
           </AnimatedSection>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(testimonials[language as keyof typeof testimonials] || testimonials.pt).map((testi, index) => (
-            <AnimatedSection key={index} delay={index * 0.1}>
-              <div 
-                className="relative overflow-hidden flex flex-col p-6 rounded-2xl border border-border/30 bg-card/20 hover:bg-card/40 transition-colors duration-300 h-full reveal"
-                data-cursor="quote"
-              >
-                <div className="testimonial-card-bg" />
-                
-                {/* Estrelas */}
-                <div className="flex text-amber-500 mb-4 reveal relative z-10">
-                  <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
-                </div>
-                
-                <div className="relative flex-grow mb-6 z-10">
-                  <Quote className="absolute -top-1 -left-1 w-8 h-8 text-border/30 -z-10 rotate-180" />
-                  <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10 reveal">
-                    "{testi.quote}"
-                  </p>
-                  {testi.badge && (
-                    <span className="inline-block mt-3 px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full reveal">
-                      {testi.badge}
-                    </span>
-                  )}
+          {(() => {
+            const testiList = testimonials[language as keyof typeof testimonials] || testimonials.pt;
+            const testiSlideSize = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 2 : 1;
+            const testiTotalSlides = Math.ceil(testiList.length / testiSlideSize);
+            
+            return (
+              <>
+                <div className="relative">
+                  {/* Arrows */}
+                  <button
+                    onClick={() => setTestiSlide((prev) => (prev - 1 + testiTotalSlides) % testiTotalSlides)}
+                    className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-border/30 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:border-border/60 hover:bg-card/40 transition-all duration-300"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                  <button
+                    onClick={() => setTestiSlide((prev) => (prev + 1) % testiTotalSlides)}
+                    className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-border/30 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:border-border/60 hover:bg-card/40 transition-all duration-300"
+                  >
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  </button>
+
+                  {/* Carousel viewport */}
+                  <div className="overflow-hidden px-2">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={testiSlide}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                        initial={{ opacity: 0, x: 40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -40 }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+                      >
+                        {testiList.slice(testiSlide * testiSlideSize, (testiSlide + 1) * testiSlideSize).map((testi, index) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.08 }}
+                          >
+                            <div 
+                              className="relative overflow-hidden flex flex-col p-6 rounded-2xl border border-border/20 bg-card/5 hover:bg-card/15 hover:border-border/40 transition-all duration-500 h-full"
+                              data-cursor="quote"
+                            >
+                              {/* Stars */}
+                              <div className="flex text-amber-500 mb-4 relative z-10">
+                                <span className="text-xl tracking-widest text-[#FFC107]">★★★★★</span>
+                              </div>
+                              
+                              <div className="relative flex-grow mb-6 z-10">
+                                <Quote className="absolute -top-1 -left-1 w-8 h-8 text-border/30 -z-10 rotate-180" />
+                                <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10">
+                                  "{testi.quote}"
+                                </p>
+                                {testi.badge && (
+                                  <span className="inline-block mt-3 px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
+                                    {testi.badge}
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/20">
+                                <div className="w-12 h-12 flex-shrink-0 rounded-full bg-[#1A1A1A] border border-border/40 flex items-center justify-center text-foreground font-bold text-sm tracking-wider">
+                                  {testi.initials}
+                                </div>
+                                <div>
+                                  <p className="font-bold text-sm text-foreground">{testi.author}</p>
+                                  <p className="text-xs text-muted-foreground">{testi.role} · {testi.company}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
 
-                <div className="relative z-10 flex items-center gap-4 mt-auto pt-6 border-t border-border/30 reveal">
-                  <div className="w-12 h-12 flex-shrink-0 rounded-full bg-[#1A1A1A] border border-border/50 flex items-center justify-center text-foreground font-bold text-sm tracking-wider">
-                    {testi.initials}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm text-foreground">{testi.author}</p>
-                    <p className="text-xs text-muted-foreground">{testi.role} · {testi.company}</p>
-                  </div>
+                {/* Dots */}
+                <div className="flex justify-center gap-2 mt-10">
+                  {Array.from({ length: testiTotalSlides }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setTestiSlide(index)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        testiSlide === index ? "bg-foreground w-8" : "bg-border/50 w-1.5 hover:bg-border"
+                      }`}
+                    />
+                  ))}
                 </div>
-              </div>
-            </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection delay={0.6} className="flex justify-center mt-12 relative z-10">
-            <button className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground border border-border/50 hover:border-foreground/40 px-8 py-4 rounded-full transition-all hover:bg-card reveal">
-              Ler mais depoimentos
-            </button>
-          </AnimatedSection>
+              </>
+            );
+          })()}
         </div>
       </div>
     </section>
