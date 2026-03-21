@@ -13,6 +13,7 @@ export const FloatingNav = ({
   className,
   ctaLabel,
   ctaHref,
+  brandName,
 }: {
   navItems: {
     name: string;
@@ -22,16 +23,17 @@ export const FloatingNav = ({
   className?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  brandName?: string;
 }) => {
   const { scrollYProgress } = useScroll();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     if (typeof current === "number") {
       const direction = current - (scrollYProgress.getPrevious() ?? 0);
 
       if (scrollYProgress.get() < 0.05) {
-        setVisible(false);
+        setVisible(true);
       } else {
         if (direction < 0) {
           setVisible(true);
@@ -60,10 +62,18 @@ export const FloatingNav = ({
         animate={{ y: visible ? 0 : -100, opacity: visible ? 1 : 0 }}
         transition={{ duration: 0.2 }}
         className={cn(
-          "flex max-w-fit fixed top-6 inset-x-0 mx-auto border border-border/30 rounded-full bg-background/80 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.3)] z-[5000] pr-2 pl-8 py-2 items-center justify-center space-x-4",
+          "flex max-w-fit fixed top-6 inset-x-0 mx-auto border border-border/20 rounded-full bg-background/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.4)] z-[5000] pr-2 pl-6 py-2 items-center justify-center space-x-4",
           className
         )}
       >
+        {brandName && (
+          <a
+            href="/"
+            className="text-sm font-serif font-bold text-foreground tracking-tight pr-2 border-r border-border/20 mr-1"
+          >
+            {brandName}
+          </a>
+        )}
         {navItems.map((navItem, idx) => (
           <a
             key={`link-${idx}`}
