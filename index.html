@@ -135,19 +135,17 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        /* pointer-events omitted intentionally to block interaction during load */
       }
       #jq-overlay {
         position: absolute;
         inset: 0;
         background: #000;
-        transition: opacity 0.15s ease;
       }
       #jq-logo-clone {
         position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) scale(0.85);
+        transform: translate(-50%, -50%) scale(0.92);
         opacity: 0;
         white-space: nowrap;
         pointer-events: none;
@@ -156,6 +154,13 @@
         font-weight: 700;
         color: #fafafa;
         letter-spacing: -0.025em;
+        text-shadow: 0 0 0px rgba(255,255,255,0);
+        will-change: transform, opacity, text-shadow, font-size;
+      }
+      /* Subtle breathing glow while logo sits in center */
+      @keyframes jq-glow-breathe {
+        0%, 100% { text-shadow: 0 0 20px rgba(255,255,255,0.08); }
+        50%      { text-shadow: 0 0 40px rgba(255,255,255,0.18), 0 0 80px rgba(255,255,255,0.06); }
       }
     </style>
 
@@ -167,86 +172,113 @@
     <script>
       (function() {
         if (sessionStorage.getItem('jaquetti_loaded')) {
-          const loader = document.getElementById('jq-loader');
-          if (loader) loader.remove();
+          var ld = document.getElementById('jq-loader');
+          if (ld) ld.remove();
           return;
         }
-        
-        // Mark as visited
         sessionStorage.setItem('jaquetti_loaded', '1');
         document.body.style.overflow = 'hidden';
 
-        const loader  = document.getElementById('jq-loader');
-        const overlay = document.getElementById('jq-overlay');
-        const clone   = document.getElementById('jq-logo-clone');
+        var loader  = document.getElementById('jq-loader');
+        var overlay = document.getElementById('jq-overlay');
+        var clone   = document.getElementById('jq-logo-clone');
+        var realLogo = null;
 
-        let realLogo = null;
+        /* ─── Robust logo finder ─── */
+        function findRealLogo() {
+          var el = document.querySelector('nav a[href="/"] span.font-serif')
+                || document.querySelector('nav a[href="/"]')
+                || document.querySelector('header a[href="/"]');
+          if (!el) {
+            var containers = document.querySelectorAll('nav, header, [class*="fixed"][class*="top"]');
+            for (var i = 0; i < containers.length; i++) {
+              var nodes = containers[i].querySelectorAll('*');
+              for (var j = 0; j < nodes.length; j++) {
+                if (nodes[j].textContent && nodes[j].textContent.trim() === 'Jaquetti' && nodes[j].children.length === 0) {
+                  return nodes[j];
+                }
+              }
+            }
+          }
+          return el;
+        }
 
-        // Try to hide the real logo as soon as React mounts it
-        const findLogoInterval = setInterval(() => {
-          realLogo = document.querySelector('nav a[href="/"] span.font-serif');
+        /* Hide the real navbar logo while our clone is visible */
+        var poll = setInterval(function() {
+          realLogo = findRealLogo();
           if (realLogo) {
             realLogo.style.opacity = '0';
-            clearInterval(findLogoInterval);
+            clearInterval(poll);
           }
-        }, 50);
+        }, 40);
 
-        // FASE 1 — aparecer no centro (0–300ms)
-        requestAnimationFrame(() => {
-          clone.style.transition = 'opacity 0.3s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1)';
+        /* ═══ PHASE 1 (0 → 700ms): Elegant fade-in at center ═══ */
+        requestAnimationFrame(function() {
+          clone.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
           clone.style.opacity = '1';
           clone.style.transform = 'translate(-50%, -50%) scale(1)';
         });
 
-        // FASE 3 — voar para o header (900–1350ms)
-        setTimeout(() => {
-          clearInterval(findLogoInterval);
-          if (!realLogo) realLogo = document.querySelector('nav a[href="/"] span.font-serif');
-          
-          let targetX = 0;
-          let targetY = 0;
-          let scaleRatio = 18 / parseFloat(getComputedStyle(clone).fontSize); // Falback assumption: 18px text-lg
+        /* ═══ PHASE 2 (700 → 1400ms): Breathing glow at center ═══ */
+        setTimeout(function() {
+          clone.style.animation = 'jq-glow-breathe 1.4s ease-in-out infinite';
+        }, 700);
+
+        /* ═══ PHASE 3 (1400 → 2300ms): Silky flight to navbar ═══ */
+        setTimeout(function() {
+          clearInterval(poll);
+          clone.style.animation = 'none';
+          if (!realLogo) realLogo = findRealLogo();
+
+          var cloneSize = parseFloat(getComputedStyle(clone).fontSize);
+          var targetX, targetY, scaleRatio;
 
           if (realLogo) {
-            const rect = realLogo.getBoundingClientRect();
+            var rect = realLogo.getBoundingClientRect();
             targetX = rect.left + rect.width / 2;
             targetY = rect.top + rect.height / 2;
-            const cloneSize = parseFloat(getComputedStyle(clone).fontSize);
-            const realSize = parseFloat(getComputedStyle(realLogo).fontSize);
+            var realSize = parseFloat(getComputedStyle(realLogo).fontSize);
             scaleRatio = realSize / cloneSize;
           } else {
-            // Fallback targets if React hasn't rendered the nav yet
-            targetX = 60 + 50; 
-            targetY = 40 + 10;
+            /* Fallback: center-top of viewport (matching the pill navbar from screenshot) */
+            targetX = window.innerWidth / 2 - (window.innerWidth > 768 ? 95 : 60);
+            targetY = 27;
+            scaleRatio = 18 / cloneSize;
           }
 
-          const startX = window.innerWidth / 2;
-          const startY = window.innerHeight / 2;
-          const dx = targetX - startX;
-          const dy = targetY - startY;
+          var startX = window.innerWidth / 2;
+          var startY = window.innerHeight / 2;
+          var dx = targetX - startX;
+          var dy = targetY - startY;
 
-          clone.style.transition = 'transform 0.45s cubic-bezier(0.76,0,0.24,1), opacity 0.45s cubic-bezier(0.76,0,0.24,1)';
-          clone.style.transform  = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(${scaleRatio})`;
-          
-        }, 900);
+          /* Ultra-smooth deceleration curve */
+          clone.style.transition = 'transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), text-shadow 0.5s ease, opacity 0.9s ease';
+          clone.style.textShadow = '0 0 0px rgba(255,255,255,0)';
+          clone.style.transform = 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + dy + 'px)) scale(' + scaleRatio + ')';
+        }, 1400);
 
-        // FASE 4 — overlay some (1350–1500ms)
-        setTimeout(() => {
+        /* ═══ PHASE 4 (2300 → 2700ms): Dissolve overlay + reveal ═══ */
+        setTimeout(function() {
+          /* Fade the clone out just before revealing the real logo */
+          clone.style.transition = 'opacity 0.25s ease';
+          clone.style.opacity = '0';
+
+          overlay.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
           overlay.style.opacity = '0';
-          setTimeout(() => {
+
+          setTimeout(function() {
             if (loader) loader.remove();
             if (realLogo) {
-              realLogo.style.transition = 'opacity 0.05s ease';
+              realLogo.style.transition = 'opacity 0.15s ease';
               realLogo.style.opacity = '1';
-              // Cleanup styling
-              setTimeout(() => {
+              setTimeout(function() {
                 realLogo.style.transition = '';
                 realLogo.style.opacity = '';
-              }, 100);
+              }, 200);
             }
             document.body.style.overflow = '';
-          }, 150);
-        }, 1350);
+          }, 400);
+        }, 2300);
       })();
     </script>
 
