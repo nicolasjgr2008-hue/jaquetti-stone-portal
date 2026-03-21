@@ -50,6 +50,7 @@ export const useGlobalAnimations = () => {
     };
 
     const handleScroll = () => {
+      if (window.innerWidth < 768) return; // Disable parallax on mobile
       const scrolled = window.scrollY;
       parallaxEls.forEach((el) => {
         const rect = el.getBoundingClientRect();

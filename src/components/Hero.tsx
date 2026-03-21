@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
-import { useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
@@ -107,35 +107,6 @@ const Hero = () => {
     280
   );
 
-  // Glitch interval — initial 0.4s glitch, then repeat every 12s
-  const glitchRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const el = glitchRef.current;
-    if (!el) return;
-
-    // Respect prefers-reduced-motion
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) return;
-
-    // Initial glitch
-    el.classList.add("hero-glitch-active");
-    const initialTimer = setTimeout(() => {
-      el.classList.remove("hero-glitch-active");
-    }, 400);
-
-    // Repeating glitch every 12s
-    const interval = setInterval(() => {
-      el.classList.add("hero-glitch-active");
-      setTimeout(() => el.classList.remove("hero-glitch-active"), 300);
-    }, 12000);
-
-    return () => {
-      clearTimeout(initialTimer);
-      clearInterval(interval);
-    };
-  }, []);
-
   return (
     <section
       ref={heroRef}
@@ -156,11 +127,9 @@ const Hero = () => {
       {/* Clean gradient overlay */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/70 via-background/50 to-background" />
 
-      <div
+      <motion.div
         className="container mx-auto px-6 relative z-10"
-        style={{
-          transform: `translateY(${y.get ? 0 : 0}px)`,
-        }}
+        style={{ y, opacity }}
       >
         {/* Bind framer-motion transforms */}
         <div className="max-w-3xl mx-auto text-center space-y-10">
@@ -174,9 +143,7 @@ const Hero = () => {
           {/* ── Headline Container with Glitch ── */}
           <div className="hero-stagger" style={{ "--stagger-delay": "150ms", "--stagger-duration": "700ms" } as React.CSSProperties}>
             <h1
-              ref={glitchRef}
-              data-text={`${t.hero.headline1}\n${t.hero.headline2}`}
-              className="text-4xl sm:text-5xl md:text-7xl font-serif font-bold leading-[1.1] tracking-tight hero-glitch"
+              className="text-4xl sm:text-5xl md:text-7xl font-serif font-bold leading-[1.1] tracking-tight"
             >
               {/* Line 1 — static (delay 150ms) */}
               <span className="block">{t.hero.headline1}</span>
@@ -260,7 +227,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Minimal scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hero-stagger" style={{ "--stagger-delay": "900ms" } as React.CSSProperties}>
