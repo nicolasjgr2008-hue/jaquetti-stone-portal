@@ -5,10 +5,21 @@ import { Briefcase, Users, Award, Clock } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { LiquidButton } from "./LiquidButton";
 import { ScrambleText } from "./ScrambleText";
+import csapetLogo from "@/assets/csapet-logo.png";
 
 const statIcons = [Briefcase, Users, Award, Clock];
 const statValues = [150, 80, 12, 98];
 const statSuffixes = ["+", "+", "", "%"];
+
+const clientLogos = [
+  { name: "CSAPET", logo: csapetLogo },
+  { name: "Advocate", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-2.png" },
+  { name: "Dinheiro com Crochê", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-dinheiro-com-croche.png" },
+  { name: "Agency Marketing", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/logotipo.png" },
+  { name: "Austenberg", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/image-removebg-preview.png" },
+  { name: "Hermes", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-removebg-preview.png" },
+  { name: "SOSVet", logo: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-small.png" },
+];
 
 const NativeCounter = ({ target, suffix }: { target: number, suffix: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -165,12 +176,18 @@ const Stats = () => {
             >
               {[...Array(2)].map((_, i) => (
                 <div key={i} className="flex gap-6 sm:gap-10 px-3 sm:px-5">
-                  {[...Array(8)].map((_, j) => (
+                  {clientLogos.map((client, j) => (
                     <div 
                       key={`${i}-${j}`} 
-                      className="w-32 h-14 sm:w-40 sm:h-16 rounded-xl border border-border/30 bg-card/10 flex items-center justify-center opacity-40 grayscale hover:opacity-100 hover:grayscale-0 hover:bg-card/40 hover:border-border/60 transition-all duration-500 cursor-default"
+                      className="w-32 h-14 sm:w-40 sm:h-16 rounded-xl border border-border/20 bg-card/5 flex items-center justify-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 hover:bg-card/20 hover:border-border/40 transition-all duration-500 cursor-default px-4"
                     >
-                      <span className="text-xs sm:text-sm font-medium text-muted-foreground/70">Cliente {j + 1}</span>
+                      <img 
+                        src={client.logo} 
+                        alt={client.name} 
+                        loading="lazy" 
+                        decoding="async" 
+                        className="max-w-full max-h-[80%] object-contain"
+                      />
                     </div>
                   ))}
                 </div>
