@@ -192,8 +192,15 @@ All colors MUST be HSL.
   width: max-content;
 }
 
-.animate-marquee-infinite:hover {
-  animation-play-state: paused;
+@keyframes marquee-hero {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-hero {
+  animation: marquee-hero 35s linear infinite;
+  display: flex;
+  width: max-content;
 }
 
 /* Scroll Reveal Classes */
