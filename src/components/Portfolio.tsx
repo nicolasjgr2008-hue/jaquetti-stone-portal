@@ -70,9 +70,9 @@ const Portfolio = () => {
 
         {/* Infinite Cases Marquee */}
         <AnimatedSection className="relative mb-20 w-[100vw] left-1/2 -ml-[50vw]">
-          <div className="flex-1 overflow-hidden relative" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}>
-            <div className="animate-marquee-infinite gap-6 py-4">
-              {[...cases, ...cases].map((caseItem, index) => {
+          <div className="overflow-hidden relative" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
+            <div className="animate-marquee-infinite gap-5 py-4" style={{ display: "flex", width: "max-content" }}>
+              {[...cases, ...cases, ...cases, ...cases].map((caseItem, index) => {
                 const isClickable = caseItem.isInternal || (caseItem.url && caseItem.url !== '#');
                 const CardWrapper = caseItem.isInternal ? Link : 'a';
                 const linkProps = caseItem.isInternal 
@@ -83,7 +83,8 @@ const Portfolio = () => {
                   <CardWrapper
                     key={`${caseItem.id}-${index}`}
                     {...linkProps as any}
-                    className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl border border-border/30 bg-card/10 hover:border-primary/30 hover:bg-card/30 transition-all duration-500 w-[240px] md:w-[280px] flex-shrink-0 relative overflow-hidden"
+                    className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl border border-border/30 bg-card/10 hover:border-primary/30 hover:bg-card/30 transition-all duration-500 flex-shrink-0 relative overflow-hidden"
+                    style={{ width: "260px" }}
                   >
                     <div className="w-24 h-24 flex items-center justify-center rounded-2xl bg-card/50 border border-border/30 overflow-hidden group-hover:border-primary/40 transition-all duration-500">
                       <img
@@ -113,6 +114,7 @@ const Portfolio = () => {
             </div>
           </div>
         </AnimatedSection>
+
 
         {/* CTA */}
         <AnimatedSection className="text-center mb-24">
