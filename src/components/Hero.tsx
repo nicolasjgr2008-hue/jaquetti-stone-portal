@@ -228,28 +228,28 @@ const Hero = () => {
           </div>
 
           {/* ── Client Logos Strip (delay 900ms) ── */}
-          <div className="hero-stagger pt-8" style={{ "--stagger-delay": "900ms", "--stagger-duration": "600ms" } as React.CSSProperties}>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/40 font-medium mb-5">
+          <div className="hero-stagger pt-10" style={{ "--stagger-delay": "900ms", "--stagger-duration": "600ms" } as React.CSSProperties}>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/50 font-semibold mb-6">
               Empresas que já cresceram conosco
             </p>
             <div
               className="relative w-full overflow-hidden"
               style={{
-                maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-                WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+                maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
               }}
             >
-              <div className="animate-marquee-hero flex gap-8 py-2">
+              <div className="animate-marquee-hero flex gap-12 py-3">
                 {[...cases, ...cases].map((c, i) => (
                   <div
                     key={`hero-logo-${c.id}-${i}`}
-                    className="flex-shrink-0 h-8 grayscale opacity-40 hover:opacity-70 hover:grayscale-0 transition-all duration-500"
+                    className="flex-shrink-0 h-14 grayscale opacity-40 hover:opacity-80 hover:grayscale-0 transition-all duration-500"
                     title={c.category}
                   >
                     <img
                       src={c.image}
                       alt={c.category}
-                      className="h-full w-auto max-w-[80px] object-contain"
+                      className="h-full w-auto max-w-[130px] object-contain"
                       loading="lazy"
                     />
                   </div>
