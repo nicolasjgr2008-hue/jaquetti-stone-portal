@@ -48,7 +48,7 @@ const Index = () => {
           ctaHref="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
         />
         {/* Language switcher fixed position */}
-        <div className="fixed top-7 right-6 z-[5001]">
+        <div className="fixed top-[60px] right-6 z-[5001]">
           <LanguageSwitcher />
         </div>
         <main>
