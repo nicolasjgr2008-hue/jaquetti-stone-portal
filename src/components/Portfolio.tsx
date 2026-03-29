@@ -7,17 +7,7 @@ import { AnimatedSection } from "./AnimatedSection";
 import { useLanguage } from "@/hooks/useLanguage";
 import { LiquidButton } from "./LiquidButton";
 import { ScrambleText } from "./ScrambleText";
-import csapetLogo from "@/assets/csapet-logo.png";
-
-export const cases = [
-  { id: "csapet", category: "CSAPET", title: "Site Institucional", description: "Site institucional profissional para apresentar a empresa, produtos e fortalecer a presença digital com credibilidade e autoridade no setor.", image: csapetLogo, url: "/case/csapet", isInternal: true },
-  { id: "1", category: "Advocate", title: "Site Advocate", description: "Escritório de advocacia especializado, oferecendo soluções jurídicas confiáveis e estratégicas.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-2.png", url: "https://nicolasjgr.me/advocate" },
-  { id: "2", category: "Dinheiro com Crochê", title: "Curso de Crochê", description: "Aprenda técnicas de crochê e transforme suas peças em renda lucrativa.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-dinheiro-com-croche.png", url: "#" },
-  { id: "3", category: "Agency Marketing", title: "Agência de Marketing", description: "Agência de marketing inovadora, transformando ideias em resultados extraordinários.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/logotipo.png", url: "https://nicolasjgr.me/agency-marketing/" },
-  { id: "4", category: "Austenberg", title: "Equipamentos Elétricos", description: "Fornecedora de equipamentos elétricos, especializada em qualidade e soluções confiáveis.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/image-removebg-preview.png", url: "#" },
-  { id: "5", category: "Hermes", title: "Gestão Condominial", description: "Gestão condominial eficiente, comunicação transparente e serviços confiáveis para moradores.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/favicon-removebg-preview.png", url: "https://nicolasjgr.me/hermes/" },
-  { id: "6", category: "SOSVet", title: "Clínica Veterinária", description: "Clínica veterinária dedicada, oferecendo cuidado profissional, confiança e saúde animal.", image: "https://nicolasjgr.me/wp-content/uploads/2025/09/Logo-small.png", url: "https://nicolasjgr.me/clinica-veterinaria" },
-];
+import { cases } from "@/data/cases";
 
 const testimonials = {
   pt: [
@@ -37,15 +27,8 @@ const sectionText = {
 };
 
 const Portfolio = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [testiSlide, setTestiSlide] = useState(0);
   const { language } = useLanguage();
-  const itemsPerSlide = 3;
-  const totalSlides = Math.ceil(cases.length / itemsPerSlide);
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  const currentCases = cases.slice(currentSlide * itemsPerSlide, (currentSlide + 1) * itemsPerSlide);
-  
   const text = sectionText[language];
 
   useEffect(() => {
@@ -85,89 +68,49 @@ const Portfolio = () => {
           </AnimatedSection>
         </div>
 
-        {/* Cases carousel */}
-        <AnimatedSection className="relative mb-20">
-          <div className="flex items-center gap-6">
-            <button
-              onClick={prevSlide}
-              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-border/50 hover:border-foreground/30 transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-            </button>
-
-            <div className="flex-1 overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentSlide}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-8"
-                  initial={{ opacity: 0, x: 60 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -60 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-                >
-                  {currentCases.map((caseItem, index) => {
-                    const CardWrapper = caseItem.isInternal ? Link : 'a';
-                    const linkProps = caseItem.isInternal 
-                      ? { to: caseItem.url } 
-                      : { href: caseItem.url, target: caseItem.url !== '#' ? '_blank' : undefined, rel: caseItem.url !== '#' ? 'noopener noreferrer' : undefined };
-                    
-                    return (
-                      <motion.div
-                        key={caseItem.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.08 }}
-                      >
-                        <CardWrapper
-                          {...linkProps as any}
-                          className="group flex flex-col items-center text-center space-y-5 p-8 rounded-2xl border border-transparent hover:border-border/50 hover:bg-card/30 transition-all duration-500 block"
-                        >
-                          <div className="w-28 h-28 flex items-center justify-center rounded-2xl bg-card/50 border border-border/30 overflow-hidden group-hover:border-border/60 transition-all duration-500">
-                            <img
-                              src={caseItem.image}
-                              alt={caseItem.category}
-                              loading="lazy"
-                              decoding="async"
-                              width={112}
-                              height={112}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                              {caseItem.category}
-                            </h3>
-                            <p className="text-xs text-muted-foreground leading-relaxed">
-                              {caseItem.description}
-                            </p>
-                          </div>
-                        </CardWrapper>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </AnimatePresence>
+        {/* Infinite Cases Marquee */}
+        <AnimatedSection className="relative mb-20 w-[100vw] left-1/2 -ml-[50vw]">
+          <div className="flex-1 overflow-hidden relative" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}>
+            <div className="animate-marquee-infinite gap-6 py-4">
+              {[...cases, ...cases].map((caseItem, index) => {
+                const isClickable = caseItem.isInternal || (caseItem.url && caseItem.url !== '#');
+                const CardWrapper = caseItem.isInternal ? Link : 'a';
+                const linkProps = caseItem.isInternal 
+                  ? { to: caseItem.url } 
+                  : { href: caseItem.url, target: caseItem.url !== '#' ? '_blank' : undefined, rel: caseItem.url !== '#' ? 'noopener noreferrer' : undefined };
+                
+                return (
+                  <CardWrapper
+                    key={`${caseItem.id}-${index}`}
+                    {...linkProps as any}
+                    className="group flex flex-col items-center text-center space-y-4 p-6 rounded-2xl border border-border/30 bg-card/10 hover:border-primary/30 hover:bg-card/30 transition-all duration-500 w-[240px] md:w-[280px] flex-shrink-0 relative overflow-hidden"
+                  >
+                    <div className="w-24 h-24 flex items-center justify-center rounded-2xl bg-card/50 border border-border/30 overflow-hidden group-hover:border-primary/40 transition-all duration-500">
+                      <img
+                        src={caseItem.image}
+                        alt={caseItem.category}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {caseItem.category}
+                      </h3>
+                      <p className="text-xs text-muted-foreground/80 leading-relaxed line-clamp-3">
+                        {caseItem.description}
+                      </p>
+                    </div>
+                    {isClickable && (
+                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50 group-hover:text-primary/80 transition-colors duration-300">
+                        Ver Case →
+                      </span>
+                    )}
+                  </CardWrapper>
+                );
+              })}
             </div>
-
-            <button
-              onClick={nextSlide}
-              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-border/50 hover:border-foreground/30 transition-colors"
-            >
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
-
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-10">
-            {Array.from({ length: totalSlides }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentSlide === index ? "bg-foreground w-8" : "bg-border w-1.5"
-                }`}
-              />
-            ))}
           </div>
         </AnimatedSection>
 

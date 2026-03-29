@@ -1,11 +1,21 @@
 import { useParams, Link } from "react-router-dom";
-import { cases } from "@/components/Portfolio";
+import { cases } from "@/data/cases";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, CheckCircle2, TrendingUp, Wrench, Target } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import marbleBg from "@/assets/marble-bg.jpg";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" as const },
+  }),
+};
 
 const Case = () => {
   const { id } = useParams();
@@ -22,14 +32,17 @@ const Case = () => {
         setMousePosition({ x, y });
       });
     };
-    
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       cancelAnimationFrame(rid);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
 
   if (!caseData) {
     return (
@@ -44,183 +57,280 @@ const Case = () => {
     );
   }
 
+  const accent = caseData.accentColor || "hsl(var(--primary))";
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section 
-        className="relative pt-32 pb-20 overflow-hidden"
-      >
-        {/* Animated Marble Background with Mouse Parallax */}
-        <div 
+
+      {/* ── HERO ── */}
+      <section className="relative pt-32 pb-28 overflow-hidden">
+        {/* Marble background */}
+        <div
           className="absolute inset-0 z-0 transition-transform duration-300 ease-out"
           style={{
             backgroundImage: `url(${marbleBg})`,
-            backgroundSize: '120%',
-            backgroundPosition: 'center',
-            animation: 'marbleMove 30s ease-in-out infinite',
+            backgroundSize: "120%",
+            backgroundPosition: "center",
+            animation: "marbleMove 30s ease-in-out infinite",
             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
           }}
         />
-        {/* Golden Marble Veins Overlay */}
-        <div 
-          className="absolute inset-0 z-[1] opacity-20 mix-blend-overlay transition-transform duration-500 ease-out"
+        {/* Accent glow */}
+        <div
+          className="absolute inset-0 z-[1] opacity-30"
           style={{
-            background: `
-              linear-gradient(135deg, transparent 30%, hsl(43, 96%, 56%) 45%, transparent 50%),
-              linear-gradient(-45deg, transparent 35%, hsl(43, 90%, 60%) 48%, transparent 52%),
-              linear-gradient(65deg, transparent 40%, hsl(43, 85%, 55%) 50%, transparent 55%),
-              linear-gradient(-120deg, transparent 38%, hsl(43, 92%, 58%) 48%, transparent 53%)
-            `,
-            backgroundSize: '400% 400%, 350% 350%, 300% 300%, 450% 450%',
-            backgroundPosition: '0% 0%, 100% 100%, 50% 50%, 25% 75%',
-            animation: 'marbleMove 40s ease-in-out infinite reverse',
-            transform: `translate(${-mousePosition.x * 0.5}px, ${-mousePosition.y * 0.5}px)`,
+            background: `radial-gradient(ellipse 60% 60% at 70% 50%, ${accent}33, transparent 70%)`,
           }}
         />
-        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/85 to-black/90" />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/80 via-black/70 to-background" />
+
         <div className="container mx-auto px-6 relative z-10">
-          {/* Back Button */}
           <Link to="/#cases">
-            <Button variant="outline" className="mb-8 group border-primary/30 hover:border-primary">
-              <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" size={18} />
+            <Button variant="outline" className="mb-10 group border-white/20 hover:border-white/50 text-white/70 hover:text-white">
+              <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" size={16} />
               Voltar para Cases
             </Button>
           </Link>
 
-          <div className="max-w-4xl space-y-8 animate-fade-in">
-            {/* Category Badge */}
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium uppercase tracking-wide">
+          <div className="max-w-4xl space-y-6">
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border"
+              style={{ color: accent, borderColor: `${accent}55`, background: `${accent}15` }}
+            >
               {caseData.category}
-            </span>
+            </motion.span>
 
-            {/* Title */}
-            <h1 className="text-4xl md:text-6xl font-serif font-bold leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-5xl md:text-7xl font-serif font-bold leading-[1.1] text-white"
+            >
               {caseData.title}
-            </h1>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="text-lg text-white/60 max-w-2xl leading-relaxed"
+            >
+              {caseData.description}
+            </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className="py-20 bg-background">
+      {/* ── MOCKUP IMAGE ── */}
+      {caseData.mockupImage && (
+        <section className="relative -mt-8 mb-0 z-10">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
+              style={{ boxShadow: `0 40px 80px -20px ${accent}33` }}
+            >
+              {/* Gradient overlay top + bottom */}
+              <div className="absolute inset-x-0 top-0 h-12 z-10 bg-gradient-to-b from-background to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-32 z-10 bg-gradient-to-t from-background to-transparent" />
+              <img
+                src={caseData.mockupImage}
+                alt={`${caseData.category} website mockup`}
+                className="w-full object-cover max-h-[600px]"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ── CONTENT ── */}
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto space-y-16">
-            
-            {/* Logo/Image Display */}
-            <div className="flex justify-center">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-500" />
-                <div className="relative bg-card border border-border rounded-3xl p-12 md:p-16 shadow-2xl">
-                  <img 
-                    src={caseData.image} 
-                    alt={caseData.category}
-                    loading="lazy"
-                    decoding="async"
-                    width={320}
-                    height={320}
-                    className="w-64 h-64 md:w-80 md:h-80 object-contain mx-auto"
+          <div className="max-w-5xl mx-auto space-y-24">
+
+            {/* Logo + results row */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Logo card */}
+              <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex">
+                <div className="relative group w-full">
+                  <div
+                    className="absolute inset-0 blur-3xl rounded-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+                    style={{ background: accent }}
                   />
+                  <div className="relative bg-card border border-border/50 rounded-3xl p-10 flex items-center justify-center">
+                    <img
+                      src={caseData.image}
+                      alt={caseData.category}
+                      className="h-28 object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
+              </motion.div>
+
+              {/* Results */}
+              {caseData.results && (
+                <div className="grid grid-cols-1 gap-4">
+                  {caseData.results.map((r, i) => (
+                    <motion.div
+                      key={i}
+                      custom={i}
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      className="flex items-center justify-between p-5 rounded-2xl border border-border/40 bg-card/30 hover:bg-card/60 transition-colors"
+                    >
+                      <span className="text-sm text-muted-foreground font-medium">{r.label}</span>
+                      <span className="text-2xl font-bold font-serif" style={{ color: accent }}>{r.value}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Project Details */}
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="space-y-3 text-center md:text-left">
-                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
-                  Categoria
-                </h3>
-                <p className="text-2xl font-serif font-semibold">
-                  {caseData.category}
-                </p>
+            {/* Challenge + Solution */}
+            {(caseData.challenge || caseData.solution) && (
+              <div className="grid md:grid-cols-2 gap-8">
+                {caseData.challenge && (
+                  <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="space-y-4 p-8 rounded-2xl border border-border/40 bg-card/20"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: `${accent}22` }}>
+                        <Target size={16} style={{ color: accent }} />
+                      </div>
+                      <h3 className="font-bold uppercase tracking-widest text-xs text-muted-foreground">O Desafio</h3>
+                    </div>
+                    <p className="text-foreground/80 leading-relaxed">{caseData.challenge}</p>
+                  </motion.div>
+                )}
+                {caseData.solution && (
+                  <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="space-y-4 p-8 rounded-2xl border border-border/40 bg-card/20"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: `${accent}22` }}>
+                        <TrendingUp size={16} style={{ color: accent }} />
+                      </div>
+                      <h3 className="font-bold uppercase tracking-widest text-xs text-muted-foreground">A Solução</h3>
+                    </div>
+                    <p className="text-foreground/80 leading-relaxed">{caseData.solution}</p>
+                  </motion.div>
+                )}
               </div>
-              
-              <div className="space-y-3 text-center md:text-left">
-                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
-                  Serviços
-                </h3>
-                <p className="text-lg">
-                  Design, Desenvolvimento, SEO
-                </p>
-              </div>
-              
-              <div className="space-y-3 text-center md:text-left">
-                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
-                  Status
-                </h3>
-                <p className="text-lg">
-                  ✓ Projeto Concluído
-                </p>
-              </div>
-            </div>
+            )}
 
-            {/* Description */}
-            <div className="prose prose-invert max-w-none">
-              <h2 className="text-3xl font-serif font-bold mb-6">Sobre o Projeto</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {caseData.title} Este projeto foi desenvolvido com foco em design moderno, 
-                otimização para mecanismos de busca e experiência do usuário excepcional. 
-                Utilizamos as melhores práticas de desenvolvimento web para criar uma solução 
-                personalizada que atende às necessidades específicas do cliente.
-              </p>
-            </div>
+            {/* Full description */}
+            {caseData.fullDescription && (
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="space-y-5"
+              >
+                <h2 className="text-3xl md:text-4xl font-serif font-bold">Sobre o Projeto</h2>
+                <p className="text-lg text-muted-foreground leading-relaxed border-l-2 pl-6" style={{ borderColor: accent }}>
+                  {caseData.fullDescription}
+                </p>
+              </motion.div>
+            )}
 
-            {/* Deliverables */}
-            <div className="bg-card border border-border rounded-2xl p-8 md:p-12 space-y-6">
-              <h2 className="text-2xl font-serif font-bold">Entregas</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary mt-2" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Design Responsivo</h4>
-                    <p className="text-sm text-muted-foreground">Interface adaptável para todos os dispositivos</p>
-                  </div>
+            {/* Services */}
+            {caseData.services && (
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                <div className="flex items-center gap-3">
+                  <Wrench size={18} className="text-muted-foreground" />
+                  <h2 className="text-2xl font-serif font-bold">Serviços Entregues</h2>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary mt-2" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Otimização SEO</h4>
-                    <p className="text-sm text-muted-foreground">Configuração completa para motores de busca</p>
-                  </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {caseData.services.map((service, i) => (
+                    <motion.div
+                      key={i}
+                      custom={i}
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      className="flex items-start gap-2 p-4 rounded-xl border border-border/30 bg-card/20"
+                    >
+                      <CheckCircle2 size={14} className="mt-0.5 flex-shrink-0" style={{ color: accent }} />
+                      <span className="text-sm text-foreground/80 leading-snug">{service}</span>
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary mt-2" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Performance</h4>
-                    <p className="text-sm text-muted-foreground">Carregamento rápido e otimizado</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary mt-2" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Manutenção</h4>
-                    <p className="text-sm text-muted-foreground">Suporte contínuo e atualizações</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            )}
 
             {/* CTA */}
-            <div className="text-center space-y-6 pt-8">
-              <h3 className="text-2xl font-serif font-bold">
-                Gostou deste projeto?
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center space-y-6 pt-4 pb-8"
+            >
+              <div
+                className="inline-block px-6 py-3 rounded-2xl mb-2"
+                style={{ background: `${accent}10`, border: `1px solid ${accent}30` }}
+              >
+                <p className="text-sm font-medium" style={{ color: accent }}>
+                  Quer resultados como esses?
+                </p>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-serif font-bold">
+                Vamos construir o seu próximo case de sucesso
               </h3>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="group">
-                  <a href={caseData.url} target="_blank" rel="noopener noreferrer">
-                    Ver Site Ao Vivo
-                    <ExternalLink className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                <Button
+                  asChild
+                  size="lg"
+                  className="text-black font-bold px-8"
+                  style={{ background: accent }}
+                >
+                  <a
+                    href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Solicitar Proposta
+                    <ExternalLink className="ml-2" size={16} />
                   </a>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-primary hover:bg-primary hover:text-primary-foreground">
-                  <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">
-                    Solicitar Orçamento
-                  </a>
+                {caseData.url && !caseData.isInternal && caseData.url !== "#" && (
+                  <Button asChild variant="outline" size="lg" className="border-border/50 hover:border-border">
+                    <a href={caseData.url} target="_blank" rel="noopener noreferrer">
+                      Ver Site Ao Vivo
+                    </a>
+                  </Button>
+                )}
+                <Button asChild variant="ghost" size="lg">
+                  <Link to="/#cases">← Ver Outros Cases</Link>
                 </Button>
               </div>
-            </div>
+            </motion.div>
+
           </div>
         </div>
       </section>

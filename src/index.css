@@ -181,6 +181,21 @@ All colors MUST be HSL.
   100% { background-position: 100% 0; }
 }
 
+@keyframes marquee-infinite {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-infinite {
+  animation: marquee-infinite 60s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
+
 /* Scroll Reveal Classes */
 .scroll-reveal {
   opacity: 0;
