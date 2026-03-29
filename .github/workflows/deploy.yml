@@ -1,4 +1,4 @@
-name: Deploy Lovable via FTP na Hostinger
+name: Deploy via FTP na Hostinger
 
 on:
   push:
@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clonar o repositório
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Configurar Node.js 18
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '18'
+          bun-version: latest
 
       - name: Instalar dependências
-        run: npm install
+        run: bun install
 
       - name: Build do projeto
-        run: npm run build
+        run: bun run build
 
       - name: Mostrar arquivos gerados
-        run: ls -al dist/
+        run: ls -al dist/ && cat dist/index.html | grep -o 'assets/index-[^"]*\.js'
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
