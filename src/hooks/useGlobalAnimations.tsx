@@ -30,39 +30,7 @@ export const useGlobalAnimations = () => {
       revealElements.forEach((el) => revealObserver.observe(el));
     };
 
-    // ---- 2. Title Parallax (scroll listener, not on Hero) ----
-    const parallaxEls: HTMLElement[] = [];
 
-    const initParallax = () => {
-      // Only target section-level h2 headings that are NOT inside the hero
-      const titles = document.querySelectorAll(
-        "section:not(:first-of-type) > .container h2"
-      );
-      titles.forEach((title) => {
-        const el = title as HTMLElement;
-        const computed = window.getComputedStyle(el);
-        if (computed.position !== "fixed" && computed.position !== "sticky") {
-          // Mark element so parallax doesn't conflict with reveal
-          el.dataset.parallax = "true";
-          parallaxEls.push(el);
-        }
-      });
-    };
-
-    const handleScroll = () => {
-      if (window.innerWidth < 768) return; // Disable parallax on mobile
-      const scrolled = window.scrollY;
-      parallaxEls.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // Use translate that won't conflict with .reveal.visible (which resets translateY(0))
-          // Only apply parallax if element is already visible
-          if (el.classList.contains("visible") || !el.classList.contains("reveal")) {
-            el.style.transform = `translateY(${scrolled * 0.08}px)`;
-          }
-        }
-      });
-    };
 
     // ---- 3. MutationObserver to catch dynamically rendered .reveal elements ----
     const mutationObserver = new MutationObserver(() => {
@@ -76,8 +44,6 @@ export const useGlobalAnimations = () => {
     // Initialize after React finishes rendering
     const timeout = setTimeout(() => {
       initReveals();
-      initParallax();
-      window.addEventListener("scroll", handleScroll, { passive: true });
 
       // Watch for new .reveal elements added by React state changes (e.g. tab switches)
       mutationObserver.observe(document.body, {
@@ -90,7 +56,6 @@ export const useGlobalAnimations = () => {
       clearTimeout(timeout);
       revealObserver.disconnect();
       mutationObserver.disconnect();
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 };
