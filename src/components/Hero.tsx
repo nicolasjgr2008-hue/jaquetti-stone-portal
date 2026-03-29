@@ -5,7 +5,6 @@ import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { LiquidButton } from "./LiquidButton";
-import { cases } from "@/data/cases";
 
 /* ─── Typewriter Hook ─── */
 const useTypewriter = (text: string, speed = 60, startDelay = 0) => {
@@ -223,37 +222,6 @@ const Hero = () => {
               <div className="flex items-center gap-1.5 whitespace-nowrap">
                 <Check className="w-3.5 h-3.5 text-primary" />
                 <span>Resposta em 2 horas</span>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Client Logos Strip (delay 900ms) ── */}
-          <div className="hero-stagger pt-10" style={{ "--stagger-delay": "900ms", "--stagger-duration": "600ms" } as React.CSSProperties}>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/50 font-semibold mb-6">
-              Empresas que já cresceram conosco
-            </p>
-            <div
-              className="relative w-full overflow-hidden"
-              style={{
-                maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-                WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-              }}
-            >
-              <div className="animate-marquee-hero flex gap-12 py-3">
-                {[...cases, ...cases].map((c, i) => (
-                  <div
-                    key={`hero-logo-${c.id}-${i}`}
-                    className="flex-shrink-0 h-14 grayscale opacity-40 hover:opacity-80 hover:grayscale-0 transition-all duration-500"
-                    title={c.category}
-                  >
-                    <img
-                      src={c.image}
-                      alt={c.category}
-                      className="h-full w-auto max-w-[130px] object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
               </div>
             </div>
           </div>
