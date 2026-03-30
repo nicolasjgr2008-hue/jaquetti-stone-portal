@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 // Easily replaceable IDs
-const PIXEL_ID = "SEU_PIXEL_ID";
-const GA4_ID = "G-XXXXXXXXXX";
+const PIXEL_ID = "1213331447225251";
+const GA4_ID = "G-EBZLX0G9B4";
 
 declare global {
   interface Window {
