@@ -288,7 +288,13 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
           </span>
         </p>
         <p className="text-center text-[11px] text-amber-500/80 mt-1 font-medium flex items-center justify-center gap-1">
-          ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
+          {(() => {
+            const day = new Date().getDate();
+            const vagasTotais = 3;
+            const vagasRestantes = day <= 7 ? 3 : day <= 14 ? 2 : 1;
+            const ocupadas = vagasTotais - vagasRestantes;
+            return `⚡ ${ocupadas} das ${vagasTotais} vagas de ${new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas`;
+          })()}
         </p>
       </div>
     </div>
@@ -362,7 +368,13 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
         {plan.ctaText}
       </LiquidButton>
       <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
-        ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
+        {(() => {
+          const day = new Date().getDate();
+          const vagasTotais = 3;
+          const vagasRestantes = day <= 7 ? 3 : day <= 14 ? 2 : 1;
+          const ocupadas = vagasTotais - vagasRestantes;
+          return `⚡ ${ocupadas} das ${vagasTotais} vagas de ${new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas`;
+        })()}
       </p>
     </div>
   );
