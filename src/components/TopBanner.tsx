@@ -5,9 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 const TopBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
+  const getVagas = () => {
+    const day = new Date().getDate();
+    if (day <= 7) return 3;
+    if (day <= 14) return 2;
+    if (day <= 21) return 1;
+    return 1;
+  };
+
   useEffect(() => {
-    const isDismissed = localStorage.getItem("urgency_banner_dismissed");
-    if (!isDismissed) {
+    const raw = localStorage.getItem("jq_banner_v2");
+    const data = raw ? JSON.parse(raw) : null;
+    const expired = !data || (Date.now() - data.ts) > 7 * 24 * 60 * 60 * 1000;
+    if (expired) {
       // Small delay to allow main render
       setTimeout(() => setIsVisible(true), 500);
     }
@@ -15,7 +25,7 @@ const TopBanner = () => {
 
   const dismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("urgency_banner_dismissed", "true");
+    localStorage.setItem("jq_banner_v2", JSON.stringify({ ts: Date.now() }));
   };
 
   const scrollToContact = () => {
@@ -40,7 +50,7 @@ const TopBanner = () => {
               className="flex items-center gap-2 text-[13px] font-medium hover:opacity-80 transition-opacity whitespace-nowrap"
             >
               <Zap className="w-4 h-4 text-yellow-300" strokeWidth={2.5} />
-              Apenas 3 vagas disponíveis este mês — Garanta a sua
+              {`Apenas ${getVagas()} vaga${getVagas() > 1 ? 's' : ''} disponível${getVagas() > 1 ? 'is' : ''} este mês — Garanta a sua`}
             </button>
             
             <button 

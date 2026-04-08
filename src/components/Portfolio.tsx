@@ -26,13 +26,14 @@ const testimonials = {
 };
 
 const sectionText = {
-  pt: { title1: "Empresas que", title2: "Crescem", title3: "Conosco", subtitle: "Cada cliente recebe um atendimento personalizado, com soluções sob medida e suporte contínuo.", cta: "Transforme seu negócio hoje mesmo", testimonialTitle: "O que dizem nossos clientes", portfolio: { badge: "Nosso Portfólio", title1: "Projetos que", title2: "Inspiram", desc: "Cada projeto é uma oportunidade de criar algo único. Veja como ajudamos empresas a se destacarem no digital." } },
-  en: { title1: "Companies that", title2: "Grow", title3: "With Us", subtitle: "Each client receives personalized service, with tailored solutions and continuous support.", cta: "Transform your business today", testimonialTitle: "What our clients say", portfolio: { badge: "Our Portfolio", title1: "Projects that", title2: "Inspire", desc: "Each project is an opportunity to create something unique. See how we help businesses stand out digitally." } },
-  es: { title1: "Empresas que", title2: "Crecen", title3: "Con Nosotros", subtitle: "Cada cliente recibe atención personalizada, con soluciones a medida y soporte continuo.", cta: "Transforma tu negocio hoy", testimonialTitle: "Lo que dicen nuestros clientes", portfolio: { badge: "Nuestro Portafolio", title1: "Proyectos que", title2: "Inspiran", desc: "Cada proyecto es una oportunidad de crear algo único. Mira cómo ayudamos a las empresas a destacarse digitalmente." } },
+  pt: { title1: "Empresas que", title2: "Crescem", title3: "Conosco", subtitle: "Cada cliente recebe um atendimento personalizado, com soluções sob medida e suporte contínuo.", cta: "Quero resultados como esses →", testimonialTitle: "O que dizem nossos clientes", portfolio: { badge: "Nosso Portfólio", title1: "Projetos que", title2: "Inspiram", desc: "Cada projeto é uma oportunidade de criar algo único. Veja como ajudamos empresas a se destacarem no digital." } },
+  en: { title1: "Companies that", title2: "Grow", title3: "With Us", subtitle: "Each client receives personalized service, with tailored solutions and continuous support.", cta: "I want results like these →", testimonialTitle: "What our clients say", portfolio: { badge: "Our Portfolio", title1: "Projects that", title2: "Inspire", desc: "Each project is an opportunity to create something unique. See how we help businesses stand out digitally." } },
+  es: { title1: "Empresas que", title2: "Crecen", title3: "Con Nosotros", subtitle: "Cada cliente recibe atención personalizada, con soluciones a medida y soporte continuo.", cta: "Quiero resultados como estos →", testimonialTitle: "Lo que dicen nuestros clientes", portfolio: { badge: "Nuestro Portafolio", title1: "Proyectos que", title2: "Inspiran", desc: "Cada proyecto es una oportunidad de crear algo único. Mira cómo ayudamos a las empresas a destacarse digitalmente." } },
 };
 
 const Portfolio = () => {
   const [testiSlide, setTestiSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const { language } = useLanguage();
   const text = sectionText[language];
 
@@ -41,10 +42,10 @@ const Portfolio = () => {
     const testiSlideSize = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 2 : 1;
     const testiTotal = Math.ceil(testiList.length / testiSlideSize);
     const interval = setInterval(() => {
-      setTestiSlide((prev) => (prev + 1) % testiTotal);
+      if (!isPaused) setTestiSlide((prev) => (prev + 1) % testiTotal);
     }, 5000);
     return () => clearInterval(interval);
-  }, [language]);
+  }, [language, isPaused]);
 
   return (
     <section id="cases" className="py-32 bg-background relative overflow-hidden">
@@ -77,7 +78,7 @@ const Portfolio = () => {
         <AnimatedSection className="relative mb-20 w-[100vw] left-1/2 -ml-[50vw]">
           <div className="overflow-hidden relative" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
             <div className="animate-marquee-infinite gap-5 py-4" style={{ display: "flex", width: "max-content" }}>
-              {[...cases, ...cases, ...cases, ...cases].map((caseItem, index) => {
+              {[...cases, ...cases].map((caseItem, index) => {
                 const isClickable = caseItem.isInternal || (caseItem.url && caseItem.url !== '#');
                 const CardWrapper = caseItem.isInternal ? Link : 'a';
                 const linkProps = caseItem.isInternal 
@@ -137,6 +138,10 @@ const Portfolio = () => {
         {/* Testimonials Carousel */}
         <div 
           className="max-w-7xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
         >
           <AnimatedSection className="text-center mb-16">
             <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">

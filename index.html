@@ -39,10 +39,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="preconnect" href="https://prod.spline.design" />
+    <link rel="dns-prefetch" href="https://prod.spline.design" />
 
     <!-- 3. preload fonte (opcional hero image) -->
     <!-- We skip hero image preload as there is no specific LCP image tag for it, just CSS background -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" />
+    <!-- NOTE: preloading a CSS URL does not accelerate fonts; the existing preconnect above is sufficient -->
     
     <!-- 4. stylesheet CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -107,7 +109,10 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-EBZLX0G9B4');
+      gtag('config', 'G-EBZLX0G9B4', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
     </script>
     
     <!-- Meta Pixel Code -->

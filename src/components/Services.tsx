@@ -232,6 +232,14 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
                 </div>
                 
                 <div className="flex items-center gap-3">
+                  {tier.popular && (
+                    <div className="flex flex-col items-end">
+                      <span className="text-[10px] text-muted-foreground/50 line-through leading-none">
+                        {site.tiers[site.tiers.length - 1].price}
+                      </span>
+                      <span className="text-[9px] text-muted-foreground/40 leading-none">vs premium</span>
+                    </div>
+                  )}
                   <span className={`font-serif font-bold whitespace-nowrap ${tier.popular ? 'text-lg text-[#D4AF37]' : 'text-base text-foreground/90'}`}>
                     {tier.price}
                   </span>
@@ -273,9 +281,11 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
         >
           {site.ctaText}
         </LiquidButton>
-        <p className="text-center text-[11px] text-muted-foreground/60 mt-3 font-medium flex items-center justify-center gap-1.5">
-          <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
-          30 dias de revisões incluídas · Sem fidelidade
+        <p className="text-center text-[11px] mt-3 font-medium flex items-center justify-center gap-1.5">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+            <CheckCircle2 className="w-3 h-3" />
+            30 dias de garantia · Sem fidelidade
+          </span>
         </p>
         <p className="text-center text-[11px] text-amber-500/80 mt-1 font-medium flex items-center justify-center gap-1">
           ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
