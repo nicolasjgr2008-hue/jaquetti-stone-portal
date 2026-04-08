@@ -3,6 +3,17 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
+const planCta: Record<string, string> = {
+  basico: 'plano_basico',
+  gestao: 'plano_gestao',
+  premium: 'plano_premium',
+};
+
 interface Feature {
   name: string;
   value: string;
@@ -26,7 +37,7 @@ const plans: Plan[] = [
     name: "Básico",
     price: "R$ 149",
     period: "/mês",
-    description: "Manutenção essencial para estabilidade e segurança do seu site ativo.",
+    description: "Garante que seu site exista e não caia. Sem acompanhamento ativo.",
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },
@@ -48,7 +59,7 @@ const plans: Plan[] = [
     name: "Gestão",
     price: "R$ 297",
     period: "/mês",
-    description: "Para empresas que precisam de atualizações frequentes e acompanhamento.",
+    description: "Para quem quer o site sempre atualizado e otimizado — sem precisar lembrar de nada.",
     popular: true,
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
@@ -71,7 +82,7 @@ const plans: Plan[] = [
     name: "Premium",
     price: "R$ 497",
     period: "/mês",
-    description: "Servidor dedicado e atenção total e exclusiva para máxima performance real.",
+    description: "Para negócios onde cada hora fora do ar representa perda financeira direta.",
     features: [
       { name: "Hospedagem", value: "Dedicada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },
@@ -209,6 +220,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
             <motion.a
               href={`https://wa.me/5511998409981?text=Olá,%20quero%20contratar%20o%20plano%20${plan.name}%20Mensal`}
               target="_blank" rel="noopener noreferrer"
+              onClick={() => trackWa(planCta[plan.id] || `plano_${plan.id}`)}
               className={`
                 w-full py-4 px-6 rounded-xl font-bold text-center block text-sm tracking-widest uppercase
                 transition-all duration-300 ease-out flex items-center justify-center gap-2
@@ -223,6 +235,9 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               Assinar {plan.name}
             </motion.a>
           </MagneticButton>
+          <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
+            ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
+          </p>
         </div>
       </motion.div>
     </motion.div>

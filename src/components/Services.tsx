@@ -7,6 +7,24 @@ import { useTilt } from "@/hooks/useTilt";
 import { ScrambleText } from "./ScrambleText";
 import { LiquidButton } from "./LiquidButton";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
+const siteTypeCta: Record<string, string> = {
+  landing: 'cta_landing_page',
+  institucional: 'cta_institucional',
+  ecommerce: 'cta_ecommerce',
+  portfolio: 'cta_portfolio',
+};
+
+const monthlyPlanCta: Record<string, string> = {
+  basico: 'plano_basico',
+  gestao: 'plano_gestao',
+  premium: 'plano_premium',
+};
+
 const siteTypes = [
   {
     id: "landing",
@@ -56,7 +74,7 @@ const siteTypes = [
     id: "ecommerce",
     title: "03 — E-COMMERCE",
     icon: ShoppingCart,
-    description: "Venda seus produtos 24 horas por dia, 7 dias por semana. Loja integrada com os principais meios de pagamento do Brasil.",
+    description: "Venda seus produtos 24h por dia. A recuperação de carrinho abandonado do plano Profissional sozinha recupera em média 10-15% das vendas perdidas — o suficiente para pagar a diferença do plano no primeiro mês.",
     ctaText: "Quero vender 24h →",
     ctaMessage: "Quero uma loja virtual",
     tiers: [
@@ -66,7 +84,7 @@ const siteTypes = [
       },
       { 
         name: "Profissional", price: "R$ 5.997", popular: true,
-        features: ["Até 500 produtos", "Recuperação de Carrinho Abandonado", "Integração avançada ERP / Bling", "Pixel rastreamento avançado"]
+        features: ["Recuperação de carrinho abandonado (paga o plano sozinha)", "Até 500 produtos cadastrados", "Integração avançada ERP / Bling", "Pixel e rastreamento avançado de conversão"]
       },
       { 
         name: "Premium", price: "R$ 9.997", popular: false,
@@ -103,7 +121,7 @@ const monthlyPlans = [
     id: "basico",
     name: "Básico",
     price: "R$ 149/mês",
-    subtitle: "Para manter seu site no ar com segurança",
+    subtitle: "Para quem só precisa existir online — sem crescimento ativo",
     popular: false,
     features: [
       "Hospedagem gerenciada SSD",
@@ -118,7 +136,7 @@ const monthlyPlans = [
     id: "gestao",
     name: "Gestão",
     price: "R$ 297/mês",
-    subtitle: "Para quem quer o site sempre atualizado e otimizado",
+    subtitle: "Para quem quer crescer, não apenas sobreviver online",
     popular: true,
     features: [
       "Tudo do Básico",
@@ -139,7 +157,7 @@ const monthlyPlans = [
     id: "premium",
     name: "Premium",
     price: "R$ 497/mês",
-    subtitle: "Para negócios que não podem parar",
+    subtitle: "Para negócios onde cada hora offline custa dinheiro real",
     popular: false,
     features: [
       "Tudo do Gestão",
@@ -249,7 +267,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
       <div className="mt-auto reveal relative z-10">
         <LiquidButton 
           asChild
-          onClick={() => window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`, "_blank")}
+          onClick={() => { trackWa(siteTypeCta[site.id] || `cta_${site.id}`); window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`, "_blank"); }}
           data-source={`cta_services_${site.id}`}
           className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-foreground/90 hover:shadow-lg transition-all duration-300"
         >
@@ -258,6 +276,9 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
         <p className="text-center text-[11px] text-muted-foreground/60 mt-3 font-medium flex items-center justify-center gap-1.5">
           <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
           30 dias de revisões incluídas · Sem fidelidade
+        </p>
+        <p className="text-center text-[11px] text-amber-500/80 mt-1 font-medium flex items-center justify-center gap-1">
+          ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
         </p>
       </div>
     </div>
@@ -320,7 +341,7 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
 
       <LiquidButton 
         asChild
-        onClick={() => window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`, "_blank")}
+        onClick={() => { trackWa(monthlyPlanCta[plan.id] || `plano_${plan.id}`); window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`, "_blank"); }}
         data-source={`cta_plan_${plan.id}`}
         className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 reveal relative z-10 ${
           plan.popular 
@@ -330,6 +351,9 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
       >
         {plan.ctaText}
       </LiquidButton>
+      <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
+        ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
+      </p>
     </div>
   );
 };
@@ -461,6 +485,7 @@ const Services = () => {
             href={bottomCtaProps.link}
             target="_blank" rel="noopener noreferrer"
             data-source={`cta_services_footer_${view}`}
+            onClick={() => trackWa('services_footer')}
             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-primary text-primary-foreground font-bold rounded-full transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary))] uppercase tracking-widest text-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="mr-1 filter brightness-0 invert">

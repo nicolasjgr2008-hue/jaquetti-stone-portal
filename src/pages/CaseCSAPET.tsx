@@ -7,6 +7,11 @@ import marbleBg from "@/assets/marble-bg.jpg";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
 const CaseCSAPET = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -357,7 +362,7 @@ const CaseCSAPET = () => {
             <div className="pt-8 border-t border-border">
               <p className="text-muted-foreground mb-4">Gostou deste projeto?</p>
               <Button asChild variant="outline" size="lg" className="border-primary hover:bg-primary hover:text-primary-foreground">
-                <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer" onClick={() => trackWa('case_csapet_orcamento')}>
                   Solicitar Orçamento
                 </a>
               </Button>

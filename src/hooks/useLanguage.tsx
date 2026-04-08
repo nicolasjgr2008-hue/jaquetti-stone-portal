@@ -71,7 +71,7 @@ const translations: Record<Language, Translations> = {
       badge: "RESULTADOS REAIS. ENTREGA EM 15 DIAS.",
       headline1: "Sites profissionais para ",
       headline2: "alcançar mais clientes",
-      subtitle: "Transformamos sua presença online com sites modernos, otimizados e responsivos, design exclusivo, SEO e estratégias digitais eficientes para crescer.",
+      subtitle: "Criamos sites profissionais para prestadores de serviço, e-commerces e empresas que precisam converter visitas em clientes — entregues em até 15 dias, com SEO técnico incluso.",
       cta1: "COMECE SEU PROJETO AGORA",
       cta2: "VER PROJETOS REAIS",
     },

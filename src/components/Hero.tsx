@@ -6,6 +6,11 @@ import HeroParticles from "./HeroParticles";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { LiquidButton } from "./LiquidButton";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
 /* ─── Typewriter Hook ─── */
 const useTypewriter = (text: string, speed = 60, startDelay = 0) => {
   const [displayed, setDisplayed] = useState("");
@@ -177,6 +182,7 @@ const Hero = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center"
+                    onClick={() => trackWa('hero_cta_principal')}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -211,17 +217,17 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-[12px] text-muted-foreground/80 font-medium">
               <div className="flex items-center gap-1.5 whitespace-nowrap">
                 <Check className="w-3.5 h-3.5 text-primary" />
-                <span>150+ projetos entregues</span>
+                <span>153 projetos entregues</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
               <div className="flex items-center gap-1.5 whitespace-nowrap">
                 <Check className="w-3.5 h-3.5 text-primary" />
-                <span>98% de satisfação</span>
+                <span>97 em cada 100 clientes indicam</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
               <div className="flex items-center gap-1.5 whitespace-nowrap">
                 <Check className="w-3.5 h-3.5 text-primary" />
-                <span>Resposta em 2 horas</span>
+                <span>Resposta em até 2 horas</span>
               </div>
             </div>
           </div>
