@@ -2,6 +2,7 @@ import { Check, Star, X } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const trackWa = (ctaName: string) => {
   if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
@@ -24,6 +25,7 @@ interface Plan {
   id: string;
   name: string;
   price: string;
+  priceUSD: string;
   period: string;
   description: string;
   features: Feature[];
@@ -36,6 +38,7 @@ const plans: Plan[] = [
     id: "basico",
     name: "Básico",
     price: "R$ 149",
+    priceUSD: "$49",
     period: "/mês",
     description: "Garante que seu site exista e não caia. Sem acompanhamento ativo.",
     features: [
@@ -58,6 +61,7 @@ const plans: Plan[] = [
     id: "gestao",
     name: "Gestão",
     price: "R$ 297",
+    priceUSD: "$97",
     period: "/mês",
     description: "Para quem quer o site sempre atualizado e otimizado — sem precisar lembrar de nada.",
     popular: true,
@@ -81,6 +85,7 @@ const plans: Plan[] = [
     id: "premium",
     name: "Premium",
     price: "R$ 497",
+    priceUSD: "$197",
     period: "/mês",
     description: "Para negócios onde cada hora fora do ar representa perda financeira direta.",
     features: [
@@ -103,6 +108,7 @@ const plans: Plan[] = [
 
 const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { language } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
@@ -179,9 +185,9 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
             >
-              {plan.price}
+              {language === 'en' ? plan.priceUSD : plan.price}
             </motion.span>
-            <span className="text-muted-foreground text-sm font-medium">{plan.period}</span>
+            <span className="text-muted-foreground text-sm font-medium">/{language === 'en' ? 'mo' : 'mês'}</span>
           </div>
 
           {/* Description */}
@@ -218,7 +224,11 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
           {/* CTA Button */}
           <MagneticButton className="w-full mt-auto">
             <motion.a
-              href={`https://wa.me/5511998409981?text=Olá,%20quero%20contratar%20o%20plano%20${plan.name}%20Mensal`}
+              href={`https://wa.me/5511998409981?text=${encodeURIComponent(
+                language === 'en'
+                  ? `Hi! I'd like the ${plan.name} plan at ${plan.priceUSD}/mo`
+                  : `Olá, quero contratar o plano ${plan.name} Mensal`
+              )}`}
               target="_blank" rel="noopener noreferrer"
               onClick={() => trackWa(planCta[plan.id] || `plano_${plan.id}`)}
               className={`
@@ -232,7 +242,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Assinar {plan.name}
+              {language === 'en' ? 'Subscribe' : 'Assinar'} {plan.name}
             </motion.a>
           </MagneticButton>
           <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">

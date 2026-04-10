@@ -5,7 +5,7 @@ import { AnimatedSection } from "./AnimatedSection";
 import { ScrambleText } from "./ScrambleText";
 import { useLanguage } from "@/hooks/useLanguage";
 
-const faqs = [
+const faqsPT = [
   {
     question: "Quanto custa um site profissional?",
     answer: "Nossos projetos partem de R$ 1.800 para sites institucionais e R$ 3.500 para e-commerces. Fazemos um orçamento personalizado gratuito — sem compromisso — em até 2 horas. A maioria dos clientes nos conta que o investimento se pagou nas primeiras semanas."
@@ -32,8 +32,36 @@ const faqs = [
   }
 ];
 
+const faqsEN = [
+  {
+    question: "How much does a professional website cost?",
+    answer: "Our projects start at $497 for landing pages and $1,997 for e-commerces. We offer a free custom quote — no commitment — within 2 hours. Most clients tell us the investment paid for itself within the first few weeks."
+  },
+  {
+    question: "What is the delivery time?",
+    answer: "Most projects are delivered in 10 to 15 business days after briefing approval. More complex projects can take up to 30 days. We meet deadlines — that's our commitment. None of our clients have been left waiting beyond what was agreed."
+  },
+  {
+    question: "Will my site appear on Google?",
+    answer: "Yes. All our sites are delivered with technical SEO configured: meta tags, optimized speed, and correct structure for indexing. Continuous content SEO is offered as an additional service. Clients who invest in SEO with us report appearing on the first page in less than 3 months for local keywords."
+  },
+  {
+    question: "Do I need to have the content ready before starting?",
+    answer: "No. We offer support for text, banner, and image creation as an additional service. However, the more content you have ready, the faster we deliver. In practice, we can start the project with the minimum — and build together."
+  },
+  {
+    question: "Is there a contract? How does payment work?",
+    answer: "We always work with digital contracts before starting. Payment is split: 50% upon briefing approval and 50% upon delivery. We accept wire transfer, credit card, and PayPal. This ensures security for both sides — and we have already served over 80 clients with this model without any disputes."
+  },
+  {
+    question: "And after delivery, how does support work?",
+    answer: "30 days of free support for adjustments after delivery. Afterward, you can hire our monthly maintenance or take the project wherever you want — no mandatory loyalty. But most clients choose to stay with us."
+  }
+];
+
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t, language } = useLanguage();
 
   const toggle = (index: number) => {
     const opening = openIndex !== index;
@@ -41,22 +69,22 @@ const FAQ = () => {
 
     if (opening) {
       if (typeof window !== 'undefined') {
+        const currentFaqs = language === 'en' ? faqsEN : faqsPT;
         if ((window as any).gtag) {
           (window as any).gtag('event', 'faq_open', {
             question_index: index,
-            question: faqs[index].question.substring(0, 50)
+            question: currentFaqs[index].question.substring(0, 50)
           });
         }
         if ((window as any).fbq) {
           (window as any).fbq('trackCustom', 'FAQOpen', {
-            question: faqs[index].question.substring(0, 50)
+            question: currentFaqs[index].question.substring(0, 50)
           });
         }
       }
     }
   };
 
-  const { t } = useLanguage();
 
   return (
     <section id="faq" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
@@ -71,7 +99,7 @@ const FAQ = () => {
         </AnimatedSection>
 
         <div className="space-y-4 grid">
-          {faqs.map((faq, index) => {
+          {(language === 'en' ? faqsEN : faqsPT).map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <AnimatedSection
@@ -102,7 +130,10 @@ const FAQ = () => {
                         <div className="w-full h-px bg-border/20 mb-6" />
                         {faq.answer}
                         <a
-                          href="https://wa.me/5511998409981?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20tenho%20uma%20d%C3%BAvida"
+                          href={language === 'en' 
+                            ? "https://wa.me/5511998409981?text=Hi!%20I%20came%20from%20the%20website%20and%20have%20a%20question"
+                            : "https://wa.me/5511998409981?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20tenho%20uma%20d%C3%BAvida"
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block mt-4 text-xs font-medium text-primary hover:text-primary/80 transition-colors duration-200 underline underline-offset-4"
@@ -113,7 +144,7 @@ const FAQ = () => {
                             }
                           }}
                         >
-                          Ainda tem dúvidas? Fale com a gente agora →
+                          {language === 'en' ? 'Still have questions? Talk to us now →' : 'Ainda tem dúvidas? Fale com a gente agora →'}
                         </a>
                       </div>
                     </motion.div>

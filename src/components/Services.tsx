@@ -33,17 +33,18 @@ const siteTypes = [
     description: "Transforme visitantes em leads e clientes. Ideal para lançamentos, infoprodutos e campanhas de tráfego pago.",
     ctaText: "Quero mais conversões →",
     ctaMessage: "Quero uma landing page que converte",
+    ctaMessageEN: "Hi! I'd like a landing page quote — seeing the $997 Professional plan",
     tiers: [
       { 
-        name: "Básica", price: "R$ 797", popular: false,
+        name: "Básica", price: "R$ 797", priceUSD: "$497", popular: false,
         features: ["1 página responsiva", "Formulário de captura", "Entrega em 7 dias"]
       },
       { 
-        name: "Profissional", price: "R$ 1.497", popular: true,
+        name: "Profissional", price: "R$ 1.497", priceUSD: "$997", popular: true,
         features: ["Até 3 seções personalizadas", "Integração com WhatsApp e pixel", "SEO básico configurado", "Entrega em 10 dias"]
       },
       { 
-        name: "Premium", price: "R$ 2.997", popular: false,
+        name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false,
         features: ["Páginas ilimitadas", "Copywriting profissional incluso", "A/B test configurado", "Suporte por 60 dias"]
       }
     ]
@@ -55,17 +56,18 @@ const siteTypes = [
     description: "Apareça antes da concorrência e conquiste credibilidade imediata. Seu cliente pesquisa antes de contratar — esteja lá.",
     ctaText: "Quero aparecer profissional →",
     ctaMessage: "Quero um site institucional profissional",
+    ctaMessageEN: "Hi! I'd like a quote for an institutional website — interested in the $2,997 Professional plan",
     tiers: [
       { 
-        name: "Essencial", price: "R$ 2.997", popular: false,
+        name: "Essencial", price: "R$ 2.997", priceUSD: "$1,497", popular: false,
         features: ["Até 5 páginas institucionais", "Design totalmente responsivo", "Botão WhatsApp fixo"]
       },
       { 
-        name: "Profissional", price: "R$ 3.997", popular: true,
+        name: "Profissional", price: "R$ 3.997", priceUSD: "$2,997", popular: true,
         features: ["Até 10 páginas", "Identidade visual premium", "SEO avançado em todas páginas", "Painel de blog configurado"]
       },
       { 
-        name: "Premium", price: "R$ 6.997", popular: false,
+        name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false,
         features: ["Páginas ilimitadas", "Sistema Multi-idioma integrado", "Integração nativa com CRM", "Consultoria de 3 meses"]
       }
     ]
@@ -77,17 +79,18 @@ const siteTypes = [
     description: "Venda seus produtos 24h por dia. A recuperação de carrinho abandonado do plano Profissional sozinha recupera em média 10-15% das vendas perdidas — o suficiente para pagar a diferença do plano no primeiro mês.",
     ctaText: "Quero vender 24h →",
     ctaMessage: "Quero uma loja virtual",
+    ctaMessageEN: "Hi! I'd like a quote for an online store — seeing the $4,997 Professional plan",
     tiers: [
       { 
-        name: "Starter", price: "R$ 2.997", popular: false,
+        name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false,
         features: ["Até 50 produtos cadastrados", "Meios de Pagamento e Frete", "Layout Otimizado para Mobile"]
       },
       { 
-        name: "Profissional", price: "R$ 5.997", popular: true,
+        name: "Profissional", price: "R$ 5.997", priceUSD: "$4,997", popular: true,
         features: ["Recuperação de carrinho abandonado (paga o plano sozinha)", "Até 500 produtos cadastrados", "Integração avançada ERP / Bling", "Pixel e rastreamento avançado de conversão"]
       },
       { 
-        name: "Premium", price: "R$ 9.997", popular: false,
+        name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false,
         features: ["Produtos Ilimitados (Banco próprio)", "Múltiplos centros de distribuição", "Recursos para B2B e Atacado", "Suporte técnico 24h dedicado"]
       }
     ]
@@ -99,17 +102,18 @@ const siteTypes = [
     description: "Impressione clientes antes de abrir a boca. Mostre seu trabalho de um jeito que ninguém esquece.",
     ctaText: "Quero impressionar clientes →",
     ctaMessage: "Quero um site portfólio",
+    ctaMessageEN: "Hi! I'd like a portfolio website quote — interested in the $1,497 Creative plan",
     tiers: [
       { 
-        name: "Básico", price: "R$ 997", popular: false,
+        name: "Básico", price: "R$ 997", priceUSD: "$597", popular: false,
         features: ["Galeria de projetos simples", "Link para redes sociais", "Design clean minimalista"]
       },
       { 
-        name: "Criativo", price: "R$ 1.997", popular: true,
+        name: "Criativo", price: "R$ 1.997", priceUSD: "$1,497", popular: true,
         features: ["Galeria interativa CMS", "Animações modernas fluidas", "Estudo de caso detalhado / página", "SEO Focado em Portfólio"]
       },
       { 
-        name: "Elite", price: "R$ 3.497", popular: false,
+        name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false,
         features: ["Filtros dinâmicos por categoria", "Área restrita por senha (Password)", "Vídeo Background em Loop", "Manutenção VIP 6 meses"]
       }
     ]
@@ -121,6 +125,7 @@ const monthlyPlans = [
     id: "basico",
     name: "Básico",
     price: "R$ 149/mês",
+    priceUSD: "$49/mo",
     subtitle: "Para quem só precisa existir online — sem crescimento ativo",
     popular: false,
     features: [
@@ -130,12 +135,14 @@ const monthlyPlans = [
       "1 alteração de conteúdo/mês"
     ],
     ctaText: "Contratar Básico →",
-    ctaMessage: "Quero o plano mensal Básico de R$ 149"
+    ctaMessage: "Quero o plano mensal Básico de R$ 149",
+    ctaMessageEN: "Hi! I'd like the Basic maintenance plan at $49/mo"
   },
   {
     id: "gestao",
     name: "Gestão",
     price: "R$ 297/mês",
+    priceUSD: "$97/mo",
     subtitle: "Para quem quer crescer, não apenas sobreviver online",
     popular: true,
     features: [
@@ -151,12 +158,14 @@ const monthlyPlans = [
       "Aviso de renovação de domínio"
     ],
     ctaText: "Contratar Gestão →",
-    ctaMessage: "Quero o plano mensal Gestão de R$ 297"
+    ctaMessage: "Quero o plano mensal Gestão de R$ 297",
+    ctaMessageEN: "Hi! I'd like the Management plan at $97/mo"
   },
   {
     id: "premium",
     name: "Premium",
     price: "R$ 497/mês",
+    priceUSD: "$197/mo",
     subtitle: "Para negócios onde cada hora offline custa dinheiro real",
     popular: false,
     features: [
@@ -173,13 +182,15 @@ const monthlyPlans = [
       "Renovação de domínio gerenciada por nós"
     ],
     ctaText: "Contratar Premium →",
-    ctaMessage: "Quero o plano mensal Premium de R$ 497"
+    ctaMessage: "Quero o plano mensal Premium de R$ 497",
+    ctaMessageEN: "Hi! I'd like the Premium plan at $197/mo"
   }
 ];
 
 const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   const Icon = site.icon;
   const tiltRef = useTilt();
+  const { language } = useLanguage();
 
   const [expandedTier, setExpandedTier] = useState<number>(
     site.tiers.findIndex(t => t.popular) !== -1 ? site.tiers.findIndex(t => t.popular) : 0
@@ -235,13 +246,13 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
                   {tier.popular && (
                     <div className="flex flex-col items-end">
                       <span className="text-[10px] text-muted-foreground/50 line-through leading-none">
-                        {site.tiers[site.tiers.length - 1].price}
+                        {language === 'en' ? (site.tiers[site.tiers.length - 1] as any).priceUSD : site.tiers[site.tiers.length - 1].price}
                       </span>
                       <span className="text-[9px] text-muted-foreground/40 leading-none">vs premium</span>
                     </div>
                   )}
                   <span className={`font-serif font-bold whitespace-nowrap ${tier.popular ? 'text-lg text-[#D4AF37]' : 'text-base text-foreground/90'}`}>
-                    {tier.price}
+                    {language === 'en' ? (tier as any).priceUSD : tier.price}
                   </span>
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''} ${tier.popular ? 'text-[#D4AF37]' : 'text-muted-foreground'}`}/>
                 </div>
@@ -275,7 +286,10 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
       <div className="mt-auto reveal relative z-10">
         <LiquidButton 
           asChild
-          onClick={() => { trackWa(siteTypeCta[site.id] || `cta_${site.id}`); window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(site.ctaMessage)}`, "_blank"); }}
+          onClick={() => { 
+            trackWa(siteTypeCta[site.id] || `cta_${site.id}`); 
+            window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(language === 'en' ? (site as any).ctaMessageEN : site.ctaMessage)}`, "_blank"); 
+          }}
           data-source={`cta_services_${site.id}`}
           className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-xs sm:text-sm tracking-wide uppercase hover:bg-foreground/90 hover:shadow-lg transition-all duration-300"
         >
@@ -303,6 +317,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
 
 const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
   const tiltRef = useTilt();
+  const { language } = useLanguage();
 
   return (
     <div 
@@ -330,9 +345,11 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
       
       <div className="mb-8 relative z-10">
         <span className={`font-serif font-black text-4xl ${plan.popular ? 'text-foreground' : 'text-foreground/90'}`}>
-          {plan.price.split('/')[0]}
+          {language === 'en'
+            ? (plan as any).priceUSD.split('/')[0]
+            : plan.price.split('/')[0]}
         </span>
-        <span className="text-muted-foreground font-medium">/mês</span>
+        <span className="text-muted-foreground font-medium">/{language === 'en' ? 'mo' : 'mês'}</span>
       </div>
 
       <div className="w-full h-px bg-border/30 mb-8 relative z-10" />
@@ -357,7 +374,10 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
 
       <LiquidButton 
         asChild
-        onClick={() => { trackWa(monthlyPlanCta[plan.id] || `plano_${plan.id}`); window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(plan.ctaMessage)}`, "_blank"); }}
+        onClick={() => { 
+          trackWa(monthlyPlanCta[plan.id] || `plano_${plan.id}`); 
+          window.open(`https://wa.me/5511998409981?text=${encodeURIComponent(language === 'en' ? (plan as any).ctaMessageEN : plan.ctaMessage)}`, "_blank"); 
+        }}
         data-source={`cta_plan_${plan.id}`}
         className={`w-full flex items-center justify-center py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all duration-300 reveal relative z-10 ${
           plan.popular 

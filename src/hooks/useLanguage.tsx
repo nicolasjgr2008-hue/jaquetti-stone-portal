@@ -10,6 +10,7 @@ interface Translations {
     subtitle: string;
     cta1: string;
     cta2: string;
+    stats: string[];
   };
   services: {
     badge: string;
@@ -42,6 +43,14 @@ interface Translations {
     subtitle: string;
     cta: string;
     viewCase: string;
+    testimonials: Array<{
+      quote: string;
+      author: string;
+      initials: string;
+      role: string;
+      company: string;
+      badge: string;
+    }>;
   };
   faq: {
     title: string;
@@ -62,6 +71,10 @@ interface Translations {
     solutions: string;
     cases: string;
     contact: string;
+  };
+  whatsapp: {
+    message: string;
+    ariaLabel: string;
   };
 }
 

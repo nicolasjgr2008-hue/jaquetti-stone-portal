@@ -15,8 +15,8 @@ const FloatingParticles = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    // Increase number of particles significantly to fill the empty space
-    const generated: Particle[] = Array.from({ length: 35 }, (_, i) => ({
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const generated: Particle[] = Array.from({ length: isMobile ? 12 : 35 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

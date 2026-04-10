@@ -5,6 +5,7 @@ import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { LiquidButton } from "./LiquidButton";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const trackWa = (ctaName: string) => {
   if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
@@ -102,6 +103,7 @@ const Hero = () => {
   const y = useTransform(scrollY, [0, 500], [0, 100]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const { t } = useLanguage();
+  const isMobile = useIsMobile();
   const heroRef = useRef<HTMLElement>(null);
 
   // Typewriter for headline2 — starts after headline1 stagger delay (280ms)
@@ -116,14 +118,16 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Spline 3D Background */}
-      <div className="absolute inset-0 z-0">
-        <SplineScene
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full"
-          followMouse={true}
-        />
-      </div>
+      {/* Spline 3D Background - Hidden on mobile for performance */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0">
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full"
+            followMouse={true}
+          />
+        </div>
+      )}
 
       {/* Canvas Particles */}
       <HeroParticles />
