@@ -98,6 +98,8 @@ const Portfolio = () => {
                         alt={caseItem.category}
                         loading="lazy"
                         decoding="async"
+                        width="240"
+                        height="240"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     </div>

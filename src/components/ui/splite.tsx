@@ -12,6 +12,8 @@ interface SplineSceneProps {
 }
 
 export function SplineScene({ scene, className, followMouse = false }: SplineSceneProps) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  if (isMobile) return null;
   const splineRef = useRef<Application | null>(null)
   const robotRef = useRef<SPEObject | null>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })

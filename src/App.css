@@ -1,3 +1,5 @@
 #root {
   min-height: 100vh;
 }
+img { max-width: 100%; height: auto; }
+.animate-marquee-infinite img { width: 120px; height: 48px; object-fit: contain; }

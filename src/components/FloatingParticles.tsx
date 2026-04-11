@@ -13,9 +13,10 @@ interface Particle {
 
 const FloatingParticles = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) return;
     const generated: Particle[] = Array.from({ length: isMobile ? 12 : 35 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -28,6 +29,20 @@ const FloatingParticles = () => {
     setParticles(generated);
   }, []);
 
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-[0]">
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-[0]">
       {/* Subtle Dark Grid Overlay */}
@@ -39,27 +54,15 @@ const FloatingParticles = () => {
         }}
       />
 
-      {/* Ambient Moving Glows */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-          x: ["0%", "5%", "-5%", "0%"],
-          y: ["0%", "5%", "-5%", "0%"]
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[20%] left-[10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[150px] mix-blend-screen"
+      {/* Ambient Glows - static, GPU composited */}
+      <div
+        className="absolute top-[20%] left-[10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px] mix-blend-screen"
+        style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
       />
       
-      <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-          x: ["0%", "-5%", "5%", "0%"],
-          y: ["0%", "-5%", "5%", "0%"]
-        }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear", delay: 2 }}
-        className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] rounded-full bg-yellow-600/10 blur-[150px] mix-blend-screen"
+      <div
+        className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] rounded-full bg-yellow-600/10 blur-[100px] mix-blend-screen"
+        style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
       />
 
       {/* Floating Particles */}
