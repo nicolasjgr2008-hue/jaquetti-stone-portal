@@ -205,6 +205,7 @@ const translations: Record<Language, Translations> = {
       solutions: "Solutions",
       cases: "Cases",
       contact: "Contact",
+    },
     whatsapp: {
       message: "Hi! I came from the website and want to start my project",
       ariaLabel: "Contact us via WhatsApp",
