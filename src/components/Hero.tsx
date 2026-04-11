@@ -2,7 +2,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import HeroParticles from "./HeroParticles";
-import { lazy, Suspense, useEffect, useRef, useState, useCallback } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useCallback, Fragment } from "react";
 import { LiquidButton } from "./LiquidButton";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -189,7 +189,7 @@ const Hero = () => {
                   className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium hero-btn-glow"
                 >
                   <a
-                    href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+                    href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center"
@@ -226,20 +226,17 @@ const Hero = () => {
           {/* ── Social Proof Micro-line (delay 750ms, duration 500ms) ── */}
           <div className="hero-stagger pt-2" style={{ "--stagger-delay": "750ms", "--stagger-duration": "500ms" } as React.CSSProperties}>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-[12px] text-muted-foreground/80 font-medium">
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>153 projetos entregues</span>
-              </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>97 em cada 100 clientes indicam</span>
-              </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>Resposta em até 2 horas</span>
-              </div>
+              {t.hero.stats.map((stat, index) => (
+                <Fragment key={index}>
+                  <div className="flex items-center gap-1.5 whitespace-nowrap">
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                    <span>{stat}</span>
+                  </div>
+                  {index < t.hero.stats.length - 1 && (
+                    <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+                  )}
+                </Fragment>
+              ))}
             </div>
           </div>
         </div>

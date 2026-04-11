@@ -108,7 +108,7 @@ const plans: Plan[] = [
 
 const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
@@ -135,7 +135,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
         >
           <div className="flex items-center gap-1.5 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_20px_0_hsl(var(--primary))]">
             <Star className="w-3.5 h-3.5 fill-current" />
-            Mais Escolhido
+            {t.pricing.mostChosen}
           </div>
         </motion.div>
       )}
@@ -187,7 +187,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
             >
               {language === 'en' ? plan.priceUSD : plan.price}
             </motion.span>
-            <span className="text-muted-foreground text-sm font-medium">/{language === 'en' ? 'mo' : 'mês'}</span>
+            <span className="text-muted-foreground text-sm font-medium">{t.pricing.mo}</span>
           </div>
 
           {/* Description */}
@@ -225,9 +225,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
           <MagneticButton className="w-full mt-auto">
             <motion.a
               href={`https://wa.me/5511998409981?text=${encodeURIComponent(
-                language === 'en'
-                  ? `Hi! I'd like the ${plan.name} plan at ${plan.priceUSD}/mo`
-                  : `Olá, quero contratar o plano ${plan.name} Mensal`
+                `${t.pricing.waMessage} ${plan.name}${language === 'en' ? ` at ${plan.priceUSD}/mo` : ' Mensal'}`
               )}`}
               target="_blank" rel="noopener noreferrer"
               onClick={() => trackWa(planCta[plan.id] || `plano_${plan.id}`)}
@@ -242,11 +240,11 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {language === 'en' ? 'Subscribe' : 'Assinar'} {plan.name}
+              {t.pricing.subscribe} {plan.name}
             </motion.a>
           </MagneticButton>
           <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
-            ⚡ 2 das 3 vagas de {new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas
+            ⚡ {t.pricing.scarcity1} {new Date().toLocaleDateString(language === 'en' ? 'en-US' : (language === 'es' ? 'es-ES' : 'pt-BR'), {month: 'long'})} {t.pricing.scarcity2}
           </p>
         </div>
       </motion.div>
@@ -255,6 +253,8 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
 };
 
 const Pricing = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="pricing" className="py-32 bg-[#050505] relative overflow-hidden">
       {/* Background Ambience */}
@@ -273,7 +273,7 @@ const Pricing = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Planos Mensais
+            {t.pricing.badge}
           </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-serif font-bold leading-tight reveal"
@@ -282,7 +282,7 @@ const Pricing = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Hospedagem &amp; Manutenção
+            {t.pricing.title}
           </motion.h2>
           <motion.p
             className="text-muted-foreground/80 text-lg mx-auto leading-relaxed reveal"
@@ -291,7 +291,7 @@ const Pricing = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Proteja seu investimento e garanta que seu site opere com excelência os 365 dias do ano. Esqueça dores de cabeça com servidores, quedas ou ataques e deixe tudo conosco.
+            {t.pricing.subtitle}
           </motion.p>
         </AnimatedSection>
 
@@ -304,7 +304,7 @@ const Pricing = () => {
         
         {/* Bottom CTA to remove friction */}
         <AnimatedSection delay={0.4} className="text-center mt-20">
-          <p className="text-sm text-muted-foreground mb-6 reveal">* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.</p>
+          <p className="text-sm text-muted-foreground mb-6 reveal">{t.pricing.disclaimer}</p>
         </AnimatedSection>
       </div>
     </section>

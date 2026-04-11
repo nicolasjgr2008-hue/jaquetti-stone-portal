@@ -43,6 +43,18 @@ interface Translations {
     cta: string;
     viewCase: string;
   };
+  pricing: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    mostChosen: string;
+    subscribe: string;
+    mo: string;
+    scarcity1: string;
+    scarcity2: string;
+    disclaimer: string;
+    waMessage: string;
+  };
   faq: {
     title: string;
   };
@@ -78,6 +90,7 @@ const translations: Record<Language, Translations> = {
       subtitle: "Criamos sites profissionais para prestadores de serviço, e-commerces e empresas que precisam converter visitas em clientes — entregues em até 15 dias, com SEO técnico incluso.",
       cta1: "COMECE SEU PROJETO AGORA",
       cta2: "VER PROJETOS REAIS",
+      stats: ["153 projetos entregues", "97 em cada 100 clientes indicam", "Resposta em até 2 horas"],
     },
     services: {
       badge: "Nossas Especialidades",
@@ -115,6 +128,26 @@ const translations: Record<Language, Translations> = {
       subtitle: "Conheça alguns dos projetos que desenvolvemos e os resultados alcançados por nossos clientes.",
       cta: "VER TODOS OS CASES",
       viewCase: "Ver Case",
+      testimonials: [
+        { quote: "Nosso site ficou moderno, funcional e responsivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio ficou muito mais eficiente. Em 30 dias já tínhamos reduzido 40% das ligações de suporte.", author: "Hermes Dos Anjos", initials: "HD", role: "Gestor Profissional", company: "Condomínio Hermes", badge: "+40% eficiência" },
+        { quote: "Em menos de 2 semanas tínhamos o site no ar. O processo foi transparente e o resultado superou expectativas. Já na primeira semana recebi 3 novos clientes pelo site.", author: "Marina Costa", initials: "MC", role: "Diretora Comercial", company: "Studio MC Design", badge: "+3 clientes/semana" },
+        { quote: "Profissionalismo do início ao fim. A Jaquetti entendeu o que a minha clínica precisava e entregou um site que realmente converte. O agendamento online dobrou em 45 dias.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentista", company: "Clínica Pereira", badge: "2x mais agendamentos" },
+        { quote: "Lançamos nosso e-commerce de roupas do zero. A plataforma é super rápida, fácil de gerenciar e totalmente integrada. As vendas online aumentaram 120% já no primeiro trimestre com a nova estrutura e estabilidade.", author: "Carolina Silva", initials: "CS", role: "CEO", company: "Use Carolina Brand", badge: "+120% Vendas" },
+        { quote: "A presença digital do escritório mudou completamente. O design transmite confiança de classe A, o que atraiu clientes corporativos de alto valor num ciclo de tempo muito menor do que o mercado tradicional.", author: "Dr. Marcos Alencar", initials: "MA", role: "Sócio", company: "Alencar & Associados", badge: "Clientes High-Ticket" },
+        { quote: "O portfólio que construíram capturou perfeitamente a essência dos nossos projetos de luxo. O site carrega as imagens 4K sem perder nada de performance técnica. Incrível o cuidado técnico com o detalhe.", author: "Isabela Muniz", initials: "IM", role: "Arquiteta Chefe", company: "IM Arquitetura", badge: "Performance A+" },
+      ],
+    },
+    pricing: {
+      badge: "Planos Mensais",
+      title: "Hospedagem & Manutenção",
+      subtitle: "Proteja seu investimento e garanta que seu site opere com excelência os 365 dias do ano. Esqueça dores de cabeça com servidores, quedas ou ataques e deixe tudo conosco.",
+      mostChosen: "Mais Escolhido",
+      subscribe: "Assinar",
+      mo: "/mês",
+      scarcity1: "2 das 3 vagas de",
+      scarcity2: "já reservadas",
+      disclaimer: "* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.",
+      waMessage: "Olá, quero contratar o plano",
     },
     faq: {
       title: "Dúvidas Frequentes",
@@ -138,7 +171,7 @@ const translations: Record<Language, Translations> = {
     },
     whatsapp: {
       message: "Olá! Vim pelo site e quero iniciar meu projeto",
-      ariaLabel: "Fale conosco pelo WhatsApp",
+      ariaLabel: "Fale conosco no WhatsApp",
     },
   },
   en: {
@@ -149,6 +182,7 @@ const translations: Record<Language, Translations> = {
       subtitle: "We transform your online presence with modern, optimized, and responsive websites, exclusive design, SEO, and efficient digital strategies to grow.",
       cta1: "START YOUR PROJECT NOW",
       cta2: "SEE REAL PROJECTS",
+      stats: ["153 projects delivered", "97 out of 100 clients recommend", "Response in up to 2 hours"],
     },
     services: {
       badge: "Our Specialties",
@@ -186,6 +220,26 @@ const translations: Record<Language, Translations> = {
       subtitle: "Discover some of the projects we developed and the results achieved by our clients.",
       cta: "VIEW ALL CASES",
       viewCase: "View Case",
+      testimonials: [
+        { quote: "Our site became modern, functional, and responsive. With online scheduling and easy access to documents, condominium management became much more efficient. Within 30 days we had already reduced support calls by 40%.", author: "Hermes Dos Anjos", initials: "HD", role: "Professional Manager", company: "Hermes Condominium", badge: "+40% efficiency" },
+        { quote: "In less than 2 weeks our site was live. The process was transparent and the result exceeded expectations. In the first week, I received 3 new clients through the site.", author: "Marina Costa", initials: "MC", role: "Commercial Director", company: "Studio MC Design", badge: "+3 clients/week" },
+        { quote: "Professionalism from start to finish. Jaquetti understood what my clinic needed and delivered a site that truly converts. Online scheduling doubled in 45 days.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentist", company: "Pereira Clinic", badge: "2x more appointments" },
+        { quote: "We launched our clothing e-commerce from scratch. The platform is super fast, easy to manage, and fully integrated. Online sales increased by 120% in the first quarter with the new structure.", author: "Carolina Silva", initials: "CS", role: "CEO", company: "Use Carolina Brand", badge: "+120% Sales" },
+        { quote: "The office's digital presence completely changed. The design transmits Class A trust, which attracted high-value corporate clients in a much shorter cycle than the traditional market.", author: "Dr. Marcos Alencar", initials: "MA", role: "Partner", company: "Alencar & Associates", badge: "High-Ticket Clients" },
+        { quote: "The portfolio they built perfectly captured the essence of our luxury projects. The site loads 4K images without losing any technical performance. Amazing technical care with detail.", author: "Isabela Muniz", initials: "IM", role: "Chief Architect", company: "IM Architecture", badge: "Performance A+" },
+      ],
+    },
+    pricing: {
+      badge: "Monthly Plans",
+      title: "Hosting & Maintenance",
+      subtitle: "Protect your investment and ensure your site operates with excellence 365 days a year. Forget about headaches with servers, downtime, or attacks and leave everything to us.",
+      mostChosen: "Most Chosen",
+      subscribe: "Subscribe",
+      mo: "/mo",
+      scarcity1: "2 of the 3 spots for",
+      scarcity2: "already reserved",
+      disclaimer: "* We do not charge an setup fee on any plan. Commitment required as described in the contract.",
+      waMessage: "Hi, I'd like to subscribe to the",
     },
     faq: {
       title: "Frequently Asked Questions",
@@ -208,8 +262,8 @@ const translations: Record<Language, Translations> = {
       contact: "Contact",
     },
     whatsapp: {
-      message: "Hi! I came from the website and want to start my project",
-      ariaLabel: "Contact us via WhatsApp",
+      message: "Hi! I came from the website and I'd like to start my project",
+      ariaLabel: "Chat with us on WhatsApp",
     },
   },
   es: {
@@ -220,6 +274,7 @@ const translations: Record<Language, Translations> = {
       subtitle: "Transformamos tu presencia online con sitios modernos, optimizados y responsivos, diseño exclusivo, SEO y estrategias digitales eficientes para crecer.",
       cta1: "COMIENZA TU PROYECTO AHORA",
       cta2: "VER PROYECTOS REALES",
+      stats: ["153 proyectos entregados", "97 de cada 100 clientes recomiendan", "Respuesta en hasta 2 horas"],
     },
     services: {
       badge: "Nuestras Especialidades",
@@ -231,8 +286,8 @@ const translations: Record<Language, Translations> = {
         { title: "Construcción de sitios", description: "Presencia digital profesional para atraer y convertir clientes." },
         { title: "Tráfico", description: "Campañas inteligentes para atraer clientes correctos y aumentar tus ventas." },
         { title: "Identidad Visual", description: "Creación de logotipo e identidad única que traducen la esencia de tu marca." },
-        { title: "Diseño", description: "Layouts creativos y profesionales que destacan tu negocio con impacto visual." },
-        { title: "SEO", description: "Optimización para Google: más visibilidad y clientes encontrando tu empresa online." },
+        { title: "Diseño", description: "Layouts creativos e profesionales que destacan tu negocio con impacto visual." },
+        { title: "SEO", description: "Optimización para Google: más visibilidade e clientes encontrando tu empresa online." },
         { title: "Copywriting", description: "Textos persuasivos que transforman visitantes en clientes y aumentan conversiones." },
       ],
     },
@@ -240,36 +295,56 @@ const translations: Record<Language, Translations> = {
       badge: "NUESTROS NÚMEROS",
       title1: "Resultados que",
       title2: "Hablan por Sí Solos",
-      subtitle: "Números que representan nuestra dedicación y compromiso con la excelencia en cada proyecto que desarrollamos.",
+      subtitle: "Números que representan nuestra dedicación e compromiso com a excelencia em cada proyecto que desenvolvemos.",
       cta: "¿Listo para ser parte de estas estadísticas?",
       ctaButton: "Iniciar Proyecto",
       items: [
-        { label: "Proyectos Entregados", description: "Sitios, apps y sistemas desarrollados", context: "Sitios, apps y sistemas que generan resultados reales" },
-        { label: "Clientes Satisfechos", description: "Empresas que confían en nuestro trabajo", context: "Empresas de 12 segmentos diferentes confían en nosotros" },
-        { label: "Años de Experiencia", description: "Actuando en el mercado digital", context: "Una década de experiencia en el mercado digital" },
-        { label: "Tasa de Satisfacción", description: "Clientes que nos recomiendan", context: "Clientes que nos recomiendan a amigos y socios" },
+        { label: "Proyectos Entregados", description: "Sitios, apps y sistemas desenvolvidos", context: "Sitios, apps y sistemas que geram resultados reais" },
+        { label: "Clientes Satisfechos", description: "Empresas que confían em nosso trabalho", context: "Empresas de 12 segmentos diferentes confiam em nós" },
+        { label: "Años de Experiencia", description: "Atuando no mercado digital", context: "Uma década de experiência no mercado digital" },
+        { label: "Tasa de Satisfação", description: "Clientes que nos recomendam", context: "Clientes que nos recomendam para amigos e parceiros" },
       ],
     },
     portfolio: {
       badge: "NUESTRO PORTAFOLIO",
       title1: "Casos de",
       title2: "Éxito",
-      subtitle: "Conoce algunos de los proyectos que desarrollamos y los resultados alcanzados por nuestros clientes.",
+      subtitle: "Conoce algunos de los proyectos que desenvolvemos y los resultados alcançados por nossos clientes.",
       cta: "VER TODOS LOS CASOS",
       viewCase: "Ver Caso",
+      testimonials: [
+        { quote: "Nuestro sitio ficou moderno, funcional y responsivo. Com agendamento online y acesso fácil a documentos, a gestão do condomínio ficou muito mais eficiente. En 30 dias já tínhamos reduzido 40% das ligações de suporte.", author: "Hermes Dos Anjos", initials: "HD", role: "Gestor Profissional", company: "Condomínio Hermes", badge: "+40% eficiencia" },
+        { quote: "En menos de 2 semanas tínhamos o site no ar. O processo foi transparente e o resultado superou expectativas. Já na primeira semana recebi 3 novos clientes pelo site.", author: "Marina Costa", initials: "MC", role: "Directora Comercial", company: "Studio MC Design", badge: "+3 clientes/semana" },
+        { quote: "Profissionalismo do início ao fim. A Jaquetti entendeu o que a minha clínica precisava e entregou um site que realmente converte. O agendamento online dobrou em 45 dias.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentista", company: "Clinica Pereira", badge: "2x mais agendamentos" },
+        { quote: "Lançamos nuestro e-commerce de roupas do zero. A plataforma é super rápida, fácil de gerenciar e totalmente integrada. As vendas online aumentaram 120% já no primeiro trimestre com a nova estrutura.", author: "Carolina Silva", initials: "CS", role: "CEO", company: "Use Carolina Brand", badge: "+120% Ventas" },
+        { quote: "A presença digital do escritório mudou completamente. O design transmite confiança de classe A, o que atraiu clientes corporativos de alto valor num ciclo de tempo muito menor do que o mercado tradicional.", author: "Dr. Marcos Alencar", initials: "MA", role: "Sócio", company: "Alencar & Associados", badge: "Clientes High-Ticket" },
+        { quote: "O portfólio que construíram capturou perfeitamente a essência dos nossos projetos de luxo. O site carrega as imagens 4K sem perder nada de performance técnica. Incrível o cuidado técnico com o detalhe.", author: "Isabela Muniz", initials: "IM", role: "Arquiteta Chefe", company: "IM Arquitetura", badge: "Performance A+" },
+      ],
+    },
+    pricing: {
+      badge: "Planes Mensuales",
+      title: "Hospedaje & Mantenimiento",
+      subtitle: "Proteja su inversión y garantice que su sitio opere con excelencia los 365 días del año. Olvídese de dolores de cabeza con servidores, caídas o ataques y deje todo en nuestras manos.",
+      mostChosen: "Más Elegido",
+      subscribe: "Suscribirse",
+      mo: "/mes",
+      scarcity1: "2 de los 3 cupos de",
+      scarcity2: "ya reservados",
+      disclaimer: "* No cobramos cuota de inscripción en ningún plan. Permanencia requerida según contrato.",
+      waMessage: "Hola, quiero contratar el plan",
     },
     faq: {
       title: "Preguntas Frecuentes",
     },
     footer: {
-      description: "Transformando ideas en experiencias digitales memorables. Especialistas en crear soluciones web que generan resultados.",
-      navigation: "Navegación",
+      description: "Transformando ideas em experiências digitais memoráveis. Especialistas em criar soluções web que geram resultados.",
+      navigation: "Navegação",
       services: "Servicios",
       contact: "Contacto",
       home: "Inicio",
       solutions: "Soluciones",
       cases: "Casos",
-      copyright: "Todos los derechos reservados.",
+      copyright: "Todos os direitos reservados.",
       scrollTop: "Volver arriba",
     },
     navbar: {
@@ -279,8 +354,8 @@ const translations: Record<Language, Translations> = {
       contact: "Contacto",
     },
     whatsapp: {
-      message: "¡Hola! Vine del sitio web y quiero iniciar mi proyecto",
-      ariaLabel: "Contáctanos por WhatsApp",
+      message: "¡Hola! Vengo de la web e quiero iniciar mi proyecto",
+      ariaLabel: "Habla con nosotros en WhatsApp",
     },
   },
 };

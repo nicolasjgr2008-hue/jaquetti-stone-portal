@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const trackWa = (ctaName: string) => {
   if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
@@ -6,9 +7,11 @@ const trackWa = (ctaName: string) => {
 };
 
 const FloatingWhatsApp = () => {
+  const { t } = useLanguage();
+
   return (
     <motion.a
-      href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+      href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`}
       target="_blank"
       rel="noopener noreferrer"
       data-source="floating_button"
@@ -24,7 +27,7 @@ const FloatingWhatsApp = () => {
         stiffness: 260,
         damping: 20 
       }}
-      aria-label="Fale conosco no WhatsApp"
+      aria-label={t.whatsapp.ariaLabel}
     >
       {/* Pulse effect rings */}
       <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping" style={{ animationDuration: '3s' }}></span>
