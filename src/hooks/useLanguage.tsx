@@ -3,15 +3,14 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 type Language = 'pt' | 'en' | 'es';
 
 interface Translations {
-  hero: {
-    badge: string;
-    headline1: string;
-    headline2: string;
-    subtitle: string;
-    cta1: string;
-    cta2: string;
-    stats: string[];
-  };
+    hero: {
+      badge: string;
+      headline1: string;
+      headline2: string;
+      subtitle: string;
+      cta1: string;
+      cta2: string;
+    };
   services: {
     badge: string;
     title1: string;
@@ -43,14 +42,6 @@ interface Translations {
     subtitle: string;
     cta: string;
     viewCase: string;
-    testimonials: Array<{
-      quote: string;
-      author: string;
-      initials: string;
-      role: string;
-      company: string;
-      badge: string;
-    }>;
   };
   faq: {
     title: string;
