@@ -1,11 +1,14 @@
 import { ArrowRight, Check } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
-import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useCallback } from "react";
 import { LiquidButton } from "./LiquidButton";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+const SplineScene = lazy(() =>
+  import('@/components/ui/splite').then(m => ({ default: m.SplineScene }))
+);
 
 const trackWa = (ctaName: string) => {
   if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
@@ -119,18 +122,22 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
       {/* Spline 3D Background - Hidden on mobile for performance */}
-      {!isMobile && (
-        <div className="absolute inset-0 z-0">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-            followMouse={true}
-          />
-        </div>
+      {!isMobile ? (
+        <Suspense fallback={<div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background to-primary/5" />}>
+          <div className="absolute inset-0 z-0">
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+              followMouse={true}
+            />
+          </div>
+        </Suspense>
+      ) : (
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background to-primary/5" />
       )}
 
-      {/* Canvas Particles */}
-      <HeroParticles />
+      {/* Canvas Particles - Desktop only */}
+      {!isMobile && <HeroParticles />}
 
       {/* Clean gradient overlay */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/70 via-background/50 to-background" />

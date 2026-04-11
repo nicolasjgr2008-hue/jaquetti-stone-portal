@@ -1,17 +1,16 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'pt' | 'en' | 'es';
 
 interface Translations {
-  hero: {
-    badge: string;
-    headline1: string;
-    headline2: string;
-    subtitle: string;
-    cta1: string;
-    cta2: string;
-    stats: string[];
-  };
+    hero: {
+      badge: string;
+      headline1: string;
+      headline2: string;
+      subtitle: string;
+      cta1: string;
+      cta2: string;
+    };
   services: {
     badge: string;
     title1: string;
@@ -43,14 +42,6 @@ interface Translations {
     subtitle: string;
     cta: string;
     viewCase: string;
-    testimonials: Array<{
-      quote: string;
-      author: string;
-      initials: string;
-      role: string;
-      company: string;
-      badge: string;
-    }>;
   };
   faq: {
     title: string;
@@ -145,6 +136,10 @@ const translations: Record<Language, Translations> = {
       cases: "Cases",
       contact: "Contato",
     },
+    whatsapp: {
+      message: "Olá! Vim pelo site e quero iniciar meu projeto",
+      ariaLabel: "Fale conosco pelo WhatsApp",
+    },
   },
   en: {
     hero: {
@@ -212,6 +207,10 @@ const translations: Record<Language, Translations> = {
       cases: "Cases",
       contact: "Contact",
     },
+    whatsapp: {
+      message: "Hi! I came from the website and want to start my project",
+      ariaLabel: "Contact us via WhatsApp",
+    },
   },
   es: {
     hero: {
@@ -278,6 +277,10 @@ const translations: Record<Language, Translations> = {
       solutions: "Soluciones",
       cases: "Casos",
       contact: "Contacto",
+    },
+    whatsapp: {
+      message: "¡Hola! Vine del sitio web y quiero iniciar mi proyecto",
+      ariaLabel: "Contáctanos por WhatsApp",
     },
   },
 };
