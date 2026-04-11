@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'pt' | 'en' | 'es';
 
@@ -135,6 +135,9 @@ const translations: Record<Language, Translations> = {
       solutions: "Soluções",
       cases: "Cases",
       contact: "Contato",
+    whatsapp: {
+      message: "Olá! Vim pelo site e quero iniciar meu projeto",
+      ariaLabel: "Fale conosco pelo WhatsApp",
     },
   },
   en: {
@@ -202,6 +205,9 @@ const translations: Record<Language, Translations> = {
       solutions: "Solutions",
       cases: "Cases",
       contact: "Contact",
+    whatsapp: {
+      message: "Hi! I came from the website and want to start my project",
+      ariaLabel: "Contact us via WhatsApp",
     },
   },
   es: {
@@ -269,6 +275,9 @@ const translations: Record<Language, Translations> = {
       solutions: "Soluciones",
       cases: "Casos",
       contact: "Contacto",
+    whatsapp: {
+      message: "¡Hola! Vine del sitio web y quiero iniciar mi proyecto",
+      ariaLabel: "Contáctanos por WhatsApp",
     },
   },
 };
