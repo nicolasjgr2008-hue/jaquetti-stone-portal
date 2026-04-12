@@ -10,6 +10,7 @@ interface Translations {
       subtitle: string;
       cta1: string;
       cta2: string;
+      stats: string[];
     };
   services: {
     badge: string;
@@ -42,6 +43,14 @@ interface Translations {
     subtitle: string;
     cta: string;
     viewCase: string;
+    testimonials: {
+      quote: string;
+      author: string;
+      initials: string;
+      role: string;
+      company: string;
+      badge: string;
+    }[];
   };
   pricing: {
     badge: string;

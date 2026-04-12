@@ -25,7 +25,7 @@ const sectionText = {
 const Portfolio = () => {
   const [testiSlide, setTestiSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const text = sectionText[language];
 
   useEffect(() => {
