@@ -30,10 +30,10 @@ const siteTypes = [
     id: "landing",
     title: "01 — LANDING PAGE",
     icon: Rocket,
-    description: "Transforme visitantes em leads e clientes. Ideal para lançamentos, infoprodutos e campanhas de tráfego pago.",
-    ctaText: "Quero mais conversões →",
+    description: "Página focada em uma única ação: fazer o visitante virar cliente. Ideal para campanhas de tráfego pago, lançamentos e captação de leads qualificados.",
+    ctaText: "Quero converter mais visitantes →",
     ctaMessage: "Quero uma landing page que converte",
-    ctaMessageEN: "Hi! I'd like a landing page quote — seeing the $997 Professional plan",
+    ctaMessageEN: "Hi! I want a landing page that converts visitors into clients",
     tiers: [
       { 
         name: "Básica", price: "R$ 797", priceUSD: "$497", popular: false,
@@ -41,11 +41,11 @@ const siteTypes = [
       },
       { 
         name: "Profissional", price: "R$ 1.497", priceUSD: "$997", popular: true,
-        features: ["Até 3 seções personalizadas", "Integração com WhatsApp e pixel", "SEO básico configurado", "Entrega em 10 dias"]
+        features: ["Até 3 seções estratégicas", "WhatsApp + pixel de rastreamento", "SEO configurado para Google", "Entrega em 10 dias"]
       },
       { 
         name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false,
-        features: ["Páginas ilimitadas", "Copywriting profissional incluso", "A/B test configurado", "Suporte por 60 dias"]
+        features: ["Páginas ilimitadas", "Textos persuasivos inclusos", "Teste A/B para máxima conversão", "Suporte por 60 dias"]
       }
     ]
   },
@@ -53,22 +53,22 @@ const siteTypes = [
     id: "institucional",
     title: "02 — SITE INSTITUCIONAL",
     icon: Building2,
-    description: "Apareça antes da concorrência e conquiste credibilidade imediata. Seu cliente pesquisa antes de contratar — esteja lá.",
-    ctaText: "Quero aparecer profissional →",
-    ctaMessage: "Quero um site institucional profissional",
-    ctaMessageEN: "Hi! I'd like a quote for an institutional website — interested in the $2,997 Professional plan",
+    description: "Seu cliente pesquisa no Google antes de contratar. Se ele não te encontra — ou encontra um site amador — ele vai pro concorrente. Resolva isso agora.",
+    ctaText: "Quero aparecer no Google →",
+    ctaMessage: "Quero um site que traga credibilidade e clientes",
+    ctaMessageEN: "Hi! I want a professional website that brings credibility and clients",
     tiers: [
       { 
         name: "Essencial", price: "R$ 2.997", priceUSD: "$1,497", popular: false,
-        features: ["Até 5 páginas institucionais", "Design totalmente responsivo", "Botão WhatsApp fixo"]
+        features: ["Até 5 páginas otimizadas", "Design 100% responsivo", "Botão WhatsApp fixo"]
       },
       { 
         name: "Profissional", price: "R$ 3.997", priceUSD: "$2,997", popular: true,
-        features: ["Até 10 páginas", "Identidade visual premium", "SEO avançado em todas páginas", "Painel de blog configurado"]
+        features: ["Até 10 páginas", "Visual premium que passa confiança", "SEO avançado em todas páginas", "Blog para atrair tráfego orgânico"]
       },
       { 
         name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false,
-        features: ["Páginas ilimitadas", "Sistema Multi-idioma integrado", "Integração nativa com CRM", "Consultoria de 3 meses"]
+        features: ["Páginas ilimitadas", "Multi-idioma integrado", "Integração com CRM", "3 meses de consultoria inclusa"]
       }
     ]
   },
@@ -76,22 +76,22 @@ const siteTypes = [
     id: "ecommerce",
     title: "03 — E-COMMERCE",
     icon: ShoppingCart,
-    description: "Venda seus produtos 24h por dia. A recuperação de carrinho abandonado do plano Profissional sozinha recupera em média 10-15% das vendas perdidas — o suficiente para pagar a diferença do plano no primeiro mês.",
-    ctaText: "Quero vender 24h →",
-    ctaMessage: "Quero uma loja virtual",
-    ctaMessageEN: "Hi! I'd like a quote for an online store — seeing the $4,997 Professional plan",
+    description: "Sua loja vendendo 24h por dia, 7 dias por semana. A recuperação de carrinho do plano Profissional sozinha recupera 10-15% das vendas perdidas — paga a diferença no primeiro mês.",
+    ctaText: "Quero vender online 24h →",
+    ctaMessage: "Quero uma loja virtual que venda de verdade",
+    ctaMessageEN: "Hi! I want an online store that actually sells",
     tiers: [
       { 
         name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false,
-        features: ["Até 50 produtos cadastrados", "Meios de Pagamento e Frete", "Layout Otimizado para Mobile"]
+        features: ["Até 50 produtos", "Pagamento e frete configurados", "Layout otimizado para celular"]
       },
       { 
         name: "Profissional", price: "R$ 5.997", priceUSD: "$4,997", popular: true,
-        features: ["Recuperação de carrinho abandonado (paga o plano sozinha)", "Até 500 produtos cadastrados", "Integração avançada ERP / Bling", "Pixel e rastreamento avançado de conversão"]
+        features: ["Recuperação de carrinho (se paga sozinha)", "Até 500 produtos", "Integração ERP / Bling", "Rastreamento completo de conversão"]
       },
       { 
         name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false,
-        features: ["Produtos Ilimitados (Banco próprio)", "Múltiplos centros de distribuição", "Recursos para B2B e Atacado", "Suporte técnico 24h dedicado"]
+        features: ["Produtos ilimitados", "Múltiplos centros de distribuição", "B2B e atacado integrados", "Suporte técnico 24h dedicado"]
       }
     ]
   },
@@ -99,22 +99,22 @@ const siteTypes = [
     id: "portfolio",
     title: "04 — PORTFÓLIO",
     icon: Briefcase,
-    description: "Impressione clientes antes de abrir a boca. Mostre seu trabalho de um jeito que ninguém esquece.",
-    ctaText: "Quero impressionar clientes →",
-    ctaMessage: "Quero um site portfólio",
-    ctaMessageEN: "Hi! I'd like a portfolio website quote — interested in the $1,497 Creative plan",
+    description: "Seu trabalho é incrível, mas ninguém vê. Um portfólio profissional faz o cliente decidir antes mesmo de ligar pra você.",
+    ctaText: "Quero fechar mais projetos →",
+    ctaMessage: "Quero um portfólio que venda meu trabalho",
+    ctaMessageEN: "Hi! I want a portfolio that sells my work",
     tiers: [
       { 
         name: "Básico", price: "R$ 997", priceUSD: "$597", popular: false,
-        features: ["Galeria de projetos simples", "Link para redes sociais", "Design clean minimalista"]
+        features: ["Galeria de projetos", "Links para redes sociais", "Design clean e moderno"]
       },
       { 
         name: "Criativo", price: "R$ 1.997", priceUSD: "$1,497", popular: true,
-        features: ["Galeria interativa CMS", "Animações modernas fluidas", "Estudo de caso detalhado / página", "SEO Focado em Portfólio"]
+        features: ["Galeria interativa com CMS", "Animações modernas fluidas", "Estudo de caso por projeto", "SEO focado em portfólio"]
       },
       { 
         name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false,
-        features: ["Filtros dinâmicos por categoria", "Área restrita por senha (Password)", "Vídeo Background em Loop", "Manutenção VIP 6 meses"]
+        features: ["Filtros dinâmicos por categoria", "Área restrita com senha", "Vídeo background em loop", "Manutenção VIP 6 meses"]
       }
     ]
   }
@@ -126,7 +126,7 @@ const monthlyPlans = [
     name: "Básico",
     price: "R$ 149/mês",
     priceUSD: "$49/mo",
-    subtitle: "Para quem só precisa existir online — sem crescimento ativo",
+    subtitle: "Seu site no ar e funcionando. Sem acompanhamento — mas sem risco de cair.",
     popular: false,
     features: [
       "Hospedagem gerenciada SSD",
@@ -134,16 +134,16 @@ const monthlyPlans = [
       "Backup quinzenal automático",
       "1 alteração de conteúdo/mês"
     ],
-    ctaText: "Contratar Básico →",
-    ctaMessage: "Quero o plano mensal Básico de R$ 149",
-    ctaMessageEN: "Hi! I'd like the Basic maintenance plan at $49/mo"
+    ctaText: "Garantir meu site no ar →",
+    ctaMessage: "Quero o plano Básico — meu site no ar sem preocupação",
+    ctaMessageEN: "Hi! I want the Basic plan to keep my site running"
   },
   {
     id: "gestao",
     name: "Gestão",
     price: "R$ 297/mês",
     priceUSD: "$97/mo",
-    subtitle: "Para quem quer crescer, não apenas sobreviver online",
+    subtitle: "Site sempre rápido, atualizado e trazendo clientes. Você não precisa lembrar de nada.",
     popular: true,
     features: [
       "Tudo do Básico",
@@ -152,21 +152,21 @@ const monthlyPlans = [
       "Manutenção técnica mensal",
       "4 alterações de conteúdo/mês",
       "Suporte via WhatsApp (até 8h úteis)",
-      "Relatório de desempenho simplificado",
+      "Relatório de desempenho mensal",
       "Otimização de velocidade semestral",
-      "Pequenas melhorias de design (até 1h/mês)",
+      "Melhorias de design (até 1h/mês)",
       "Aviso de renovação de domínio"
     ],
-    ctaText: "Contratar Gestão →",
-    ctaMessage: "Quero o plano mensal Gestão de R$ 297",
-    ctaMessageEN: "Hi! I'd like the Management plan at $97/mo"
+    ctaText: "Quero meu site sempre otimizado →",
+    ctaMessage: "Quero o plano Gestão — site sempre otimizado e atualizado",
+    ctaMessageEN: "Hi! I want the Management plan — site always optimized"
   },
   {
     id: "premium",
     name: "Premium",
     price: "R$ 497/mês",
     priceUSD: "$197/mo",
-    subtitle: "Para negócios onde cada hora offline custa dinheiro real",
+    subtitle: "Para negócios onde 1 hora fora do ar custa mais que o plano inteiro. Proteção total.",
     popular: false,
     features: [
       "Tudo do Gestão",
@@ -176,14 +176,14 @@ const monthlyPlans = [
       "Manutenção quinzenal + urgências",
       "Alterações de conteúdo ILIMITADAS",
       "Suporte WhatsApp prioritário (até 4h úteis)",
-      "Relatório completo com insights",
+      "Relatório completo com insights de crescimento",
       "Otimização de velocidade trimestral",
       "Melhorias de design (até 3h/mês)",
-      "Renovação de domínio gerenciada por nós"
+      "Renovação de domínio gerenciada"
     ],
-    ctaText: "Contratar Premium →",
-    ctaMessage: "Quero o plano mensal Premium de R$ 497",
-    ctaMessageEN: "Hi! I'd like the Premium plan at $197/mo"
+    ctaText: "Quero proteção total →",
+    ctaMessage: "Quero o plano Premium — proteção e performance total",
+    ctaMessageEN: "Hi! I want the Premium plan — full protection and performance"
   }
 ];
 
@@ -298,7 +298,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
         <p className="text-center text-[11px] mt-3 font-medium flex items-center justify-center gap-1.5">
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
             <CheckCircle2 className="w-3 h-3" />
-            30 dias de garantia · Sem fidelidade
+            30 dias de garantia · Risco zero
           </span>
         </p>
         <p className="text-center text-[11px] text-amber-500/80 mt-1 font-medium flex items-center justify-center gap-1">
@@ -406,14 +406,14 @@ const Services = () => {
 
   const bottomCtaProps = view === 'sites' 
     ? {
-        text: "Não sabe qual plano escolher? Fale com a gente — em 5 minutos indicamos o ideal para você.",
-        btn: "Conversar no WhatsApp",
-        link: "https://wa.me/5511998409981?text=Olá,%20gostaria%20de%20ajuda%20para%20escolher%20o%20plano%20ideal%20para%20o%20meu%20projeto"
+        text: "Ainda tem dúvida? Em 5 minutos te dizemos exatamente qual plano traz mais resultado pro seu negócio.",
+        btn: "Falar com especialista agora",
+        link: "https://wa.me/5511998409981?text=Olá,%20quero%20ajuda%20para%20escolher%20o%20melhor%20plano%20para%20o%20meu%20negócio"
       }
     : {
-        text: "Não sabe qual plano escolher? Em 5 minutos indicamos o ideal.",
-        btn: "Falar no WhatsApp",
-        link: "https://wa.me/5511998409981?text=Quero%20ajuda%20para%20escolher%20um%20plano%20mensal"
+        text: "Cada dia sem manutenção é um dia que seu site pode cair. Fale conosco e proteja seu investimento.",
+        btn: "Proteger meu site agora",
+        link: "https://wa.me/5511998409981?text=Quero%20proteger%20meu%20site%20com%20um%20plano%20mensal"
       };
 
   return (
@@ -511,7 +511,7 @@ const Services = () => {
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
                   className="text-center text-[12px] text-muted-foreground/60 font-medium mt-10"
                 >
-                  Planos com fidelidade mínima de 3 a 6 meses. Consulte condições no WhatsApp.
+                  Sem taxa de adesão. Fidelidade mínima de 3 a 6 meses. Dúvidas? Resposta em até 2h no WhatsApp.
                 </motion.p>
               </motion.div>
             )}

@@ -40,7 +40,7 @@ const plans: Plan[] = [
     price: "R$ 149",
     priceUSD: "$49",
     period: "/mês",
-    description: "Garante que seu site exista e não caia. Sem acompanhamento ativo.",
+    description: "Seu site no ar e protegido. Para quem precisa do básico sem complicação.",
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },
@@ -63,7 +63,7 @@ const plans: Plan[] = [
     price: "R$ 297",
     priceUSD: "$97",
     period: "/mês",
-    description: "Para quem quer o site sempre atualizado e otimizado — sem precisar lembrar de nada.",
+    description: "Site sempre rápido, atualizado e convertendo. Você foca em vender — a gente cuida do resto.",
     popular: true,
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
@@ -87,7 +87,7 @@ const plans: Plan[] = [
     price: "R$ 497",
     priceUSD: "$197",
     period: "/mês",
-    description: "Para negócios onde cada hora fora do ar representa perda financeira direta.",
+    description: "1 hora fora do ar custa mais que o plano inteiro. Proteção total, performance máxima.",
     features: [
       { name: "Hospedagem", value: "Dedicada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },

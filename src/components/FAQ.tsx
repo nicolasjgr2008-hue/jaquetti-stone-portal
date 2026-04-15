@@ -7,55 +7,55 @@ import { useLanguage } from "@/hooks/useLanguage";
 
 const faqsPT = [
   {
-    question: "Quanto custa um site profissional?",
-    answer: "Nossos projetos partem de R$ 1.800 para sites institucionais e R$ 3.500 para e-commerces. Fazemos um orçamento personalizado gratuito — sem compromisso — em até 2 horas. A maioria dos clientes nos conta que o investimento se pagou nas primeiras semanas."
+    question: "Quanto custa um site que traz clientes?",
+    answer: "Projetos a partir de R$ 797 para landing pages e R$ 2.997 para sites institucionais. Enviamos orçamento personalizado grátis em até 2 horas — sem compromisso. A maioria dos clientes nos conta que o investimento se pagou nas primeiras semanas com os novos clientes que o site trouxe."
   },
   {
-    question: "Qual é o prazo de entrega?",
-    answer: "A maioria dos projetos é entregue em 10 a 15 dias úteis após aprovação do briefing. Projetos mais complexos podem levar até 30 dias. Cumprimos prazos — isso é compromisso. Nenhum cliente nosso ficou esperando além do combinado."
+    question: "Em quanto tempo meu site fica pronto?",
+    answer: "A maioria dos projetos fica pronta em 10 a 15 dias úteis. Projetos mais complexos podem levar até 30 dias. Cumprimos prazo — isso é inegociável. Nenhum cliente nosso ficou esperando além do combinado."
   },
   {
     question: "Meu site vai aparecer no Google?",
-    answer: "Sim. Todos os nossos sites são entregues com SEO técnico configurado: meta tags, velocidade otimizada e estrutura correta para indexação. SEO de conteúdo contínuo é oferecido como serviço adicional. Clientes que investem em SEO com a gente relatam aparecer na primeira página em menos de 3 meses para palavras-chave locais."
+    answer: "Sim. Todos os sites saem com SEO técnico configurado: meta tags, velocidade otimizada e estrutura correta. Clientes que investem em SEO contínuo conosco aparecem na primeira página em menos de 3 meses para buscas da sua região. Seu concorrente já está lá — você deveria estar também."
   },
   {
-    question: "Preciso ter o conteúdo pronto antes de começar?",
-    answer: "Não. Oferecemos suporte para criação de textos, banners e imagens como serviço adicional. Mas quanto mais conteúdo você tiver pronto, mais rápido entregamos. Na prática, conseguimos iniciar o projeto com o mínimo — e construímos juntos."
+    question: "Preciso ter tudo pronto antes de começar?",
+    answer: "Não. A maioria dos nossos clientes começa sem nada — e a gente constrói junto. Textos, fotos, estrutura... cuidamos de tudo. Quanto mais você tiver pronto, mais rápido entregamos. Mas não deixe isso te atrasar."
   },
   {
-    question: "Tem contrato? Como funciona o pagamento?",
-    answer: "Sempre trabalhamos com contrato digital antes de iniciar. O pagamento é dividido: 50% na aprovação do briefing e 50% na entrega. Aceitamos Pix, cartão e transferência. Isso garante segurança para os dois lados — e já atendemos mais de 80 clientes com esse modelo sem nenhuma disputa."
+    question: "E se eu não gostar do resultado?",
+    answer: "30 dias de garantia em todos os projetos. Se não ficar satisfeito, ajustamos até ficar. E trabalhamos sempre com contrato digital: 50% na aprovação e 50% na entrega. Já atendemos mais de 150 clientes com esse modelo — zero disputas."
   },
   {
-    question: "E após a entrega, como funciona o suporte?",
-    answer: "30 dias de suporte gratuito para ajustes após a entrega. Depois, você pode contratar nossa manutenção mensal ou levar o projeto para onde quiser — sem fidelidade obrigatória. Mas a maioria dos clientes escolhe continuar com a gente."
+    question: "E depois que o site fica pronto?",
+    answer: "30 dias de suporte grátis para ajustes. Depois, você escolhe: contrata nosso plano mensal (a partir de R$ 149/mês) ou leva o projeto para onde quiser. Sem fidelidade obrigatória. Mas 9 em cada 10 clientes ficam — porque funciona."
   }
 ];
 
 const faqsEN = [
   {
-    question: "How much does a professional website cost?",
-    answer: "Our projects start at $497 for landing pages and $1,997 for e-commerces. We offer a free custom quote — no commitment — within 2 hours. Most clients tell us the investment paid for itself within the first few weeks."
+    question: "How much does a website that brings clients cost?",
+    answer: "Projects start at $497 for landing pages and $1,497 for business websites. We send a free custom quote within 2 hours — no commitment. Most clients tell us the investment paid for itself in the first few weeks with new clients the site brought in."
   },
   {
-    question: "What is the delivery time?",
-    answer: "Most projects are delivered in 10 to 15 business days after briefing approval. More complex projects can take up to 30 days. We meet deadlines — that's our commitment. None of our clients have been left waiting beyond what was agreed."
+    question: "How fast will my site be ready?",
+    answer: "Most projects are delivered in 10 to 15 business days. More complex projects can take up to 30 days. We meet deadlines — that's non-negotiable. No client has ever been left waiting beyond what was agreed."
   },
   {
-    question: "Will my site appear on Google?",
-    answer: "Yes. All our sites are delivered with technical SEO configured: meta tags, optimized speed, and correct structure for indexing. Continuous content SEO is offered as an additional service. Clients who invest in SEO with us report appearing on the first page in less than 3 months for local keywords."
+    question: "Will my site show up on Google?",
+    answer: "Yes. All sites ship with technical SEO configured: meta tags, optimized speed, and proper structure. Clients who invest in ongoing SEO with us appear on the first page in less than 3 months for local searches. Your competitor is already there — you should be too."
   },
   {
-    question: "Do I need to have the content ready before starting?",
-    answer: "No. We offer support for text, banner, and image creation as an additional service. However, the more content you have ready, the faster we deliver. In practice, we can start the project with the minimum — and build together."
+    question: "Do I need everything ready before starting?",
+    answer: "No. Most of our clients start with nothing — and we build together. Text, photos, structure... we handle everything. The more you have ready, the faster we deliver. But don't let that delay you."
   },
   {
-    question: "Is there a contract? How does payment work?",
-    answer: "We always work with digital contracts before starting. Payment is split: 50% upon briefing approval and 50% upon delivery. We accept wire transfer, credit card, and PayPal. This ensures security for both sides — and we have already served over 80 clients with this model without any disputes."
+    question: "What if I don't like the result?",
+    answer: "30-day guarantee on all projects. If you're not satisfied, we adjust until you are. We always work with digital contracts: 50% on approval, 50% on delivery. Over 150 clients served with this model — zero disputes."
   },
   {
-    question: "And after delivery, how does support work?",
-    answer: "30 days of free support for adjustments after delivery. Afterward, you can hire our monthly maintenance or take the project wherever you want — no mandatory loyalty. But most clients choose to stay with us."
+    question: "What happens after the site is done?",
+    answer: "30 days of free support for adjustments. After that, you choose: hire our monthly plan (starting at $49/mo) or take the project wherever you want. No mandatory loyalty. But 9 out of 10 clients stay — because it works."
   }
 ];
 
@@ -94,7 +94,7 @@ const FAQ = () => {
             <ScrambleText text={t.faq.title} />
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto reveal">
-            Tudo o que você precisa saber antes de começar o seu projeto.
+            {language === 'en' ? 'Everything you need to know before we start bringing you clients.' : 'Tudo o que você precisa saber antes de começar a receber mais clientes.'}
           </p>
         </AnimatedSection>
 
