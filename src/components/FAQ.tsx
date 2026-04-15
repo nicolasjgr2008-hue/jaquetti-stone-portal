@@ -94,7 +94,7 @@ const FAQ = () => {
             <ScrambleText text={t.faq.title} />
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto reveal">
-            Tudo o que você precisa saber antes de começar o seu projeto.
+            {language === 'en' ? 'Everything you need to know before we start bringing you clients.' : 'Tudo o que você precisa saber antes de começar a receber mais clientes.'}
           </p>
         </AnimatedSection>
 

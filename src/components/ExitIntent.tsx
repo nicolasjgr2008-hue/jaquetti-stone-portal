@@ -118,15 +118,15 @@ const ExitIntent = () => {
             {/* Content */}
             <div className="space-y-4 text-center">
               <h2 className="font-serif text-2xl font-bold text-foreground">
-                Antes de ir...
+                Espera — seu concorrente já tem site.
               </h2>
 
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Receba um orçamento gratuito em até 2 horas, sem compromisso.
+                Cada dia sem um site profissional é um dia que seus clientes vão pra concorrência. Receba um orçamento grátis em 2 horas.
               </p>
 
               <a
-                href="https://wa.me/5511998409981?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20gratuito"
+                href="https://wa.me/5511998409981?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20para%20parar%20de%20perder%20clientes"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
@@ -135,11 +135,11 @@ const ExitIntent = () => {
                 }}
                 className="inline-flex items-center justify-center w-full py-3.5 px-6 rounded-xl bg-primary text-primary-foreground font-bold text-sm tracking-wide hover:bg-primary/90 transition-colors duration-200"
               >
-                Quero meu orçamento grátis →
+                Quero parar de perder clientes →
               </a>
 
               <p className="text-xs text-muted-foreground/60">
-                Sem spam. Só o orçamento.
+                Sem spam. Orçamento gratuito em 2 horas.
               </p>
             </div>
           </motion.div>

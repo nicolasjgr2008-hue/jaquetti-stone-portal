@@ -173,7 +173,7 @@ const Stats = () => {
               rel="noopener noreferrer"
               onClick={() => trackWa('stats_cta')}
             >
-              Quero um site assim para minha empresa
+              Quero resultados assim no meu negócio
             </a>
           </LiquidButton>
         </AnimatedSection>
@@ -182,7 +182,7 @@ const Stats = () => {
         <div className="mt-32 pt-16 border-t border-border/20 relative">
           <AnimatedSection className="text-center mb-10">
             <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground/60">
-              Empresas que confiam na Jaquetti
+              Empresas que já faturam mais com a Jaquetti
             </span>
           </AnimatedSection>
           

@@ -50,7 +50,7 @@ const TopBanner = () => {
               className="flex items-center gap-2 text-[13px] font-medium hover:opacity-80 transition-opacity whitespace-nowrap"
             >
               <Zap className="w-4 h-4 text-yellow-300" strokeWidth={2.5} />
-              {`⚡ Apenas ${getVagas()} vaga${getVagas() > 1 ? 's' : ''} ${getVagas() > 1 ? 'disponíveis' : 'disponível'} este mês — Garanta a sua`}
+              {`⚡ Apenas ${getVagas()} vaga${getVagas() > 1 ? 's' : ''} para novos projetos este mês — Fale agora antes que acabe`}
             </button>
             
             <button 
