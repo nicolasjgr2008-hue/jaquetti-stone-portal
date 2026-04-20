@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 // Easily replaceable IDs
 const PIXEL_ID = "1213331447225251";
@@ -13,6 +14,67 @@ declare global {
 }
 
 export const Analytics = () => {
+  const location = useLocation();
+  const engagementStartRef = useRef<number>(Date.now());
+  const accumulatedEngagementRef = useRef<number>(0);
+  const isVisibleRef = useRef<boolean>(true);
+
+  // Track SPA route changes as page_view
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.gtag) return;
+    window.gtag('event', 'page_view', {
+      page_path: location.pathname + location.search,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [location.pathname, location.search]);
+
+  // Engagement tracking: visibility + heartbeat + flush on hide/unload
+  useEffect(() => {
+    const flushEngagement = () => {
+      if (isVisibleRef.current) {
+        accumulatedEngagementRef.current += Date.now() - engagementStartRef.current;
+        engagementStartRef.current = Date.now();
+      }
+      const ms = accumulatedEngagementRef.current;
+      if (ms > 0 && typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'user_engagement', {
+          engagement_time_msec: ms,
+          page_path: window.location.pathname,
+        });
+        accumulatedEngagementRef.current = 0;
+      }
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        if (isVisibleRef.current) {
+          accumulatedEngagementRef.current += Date.now() - engagementStartRef.current;
+          isVisibleRef.current = false;
+        }
+        flushEngagement();
+      } else {
+        isVisibleRef.current = true;
+        engagementStartRef.current = Date.now();
+      }
+    };
+
+    // Heartbeat every 15s to keep GA4 engagement metric fresh
+    const heartbeat = window.setInterval(flushEngagement, 15000);
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('pagehide', flushEngagement);
+    window.addEventListener('beforeunload', flushEngagement);
+
+    return () => {
+      window.clearInterval(heartbeat);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('pagehide', flushEngagement);
+      window.removeEventListener('beforeunload', flushEngagement);
+      flushEngagement();
+    };
+  }, []);
+
   useEffect(() => {
     let scrolled50 = false;
     
