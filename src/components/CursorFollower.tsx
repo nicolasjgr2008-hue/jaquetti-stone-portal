@@ -2,6 +2,10 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const CursorFollower = () => {
+  const isTouch =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+
   const [isHovering, setIsHovering] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -11,6 +15,8 @@ const CursorFollower = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    if (isTouch) return; // bail out BEFORE attaching any listeners
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -24,7 +30,7 @@ const CursorFollower = () => {
     const interactiveElements = document.querySelectorAll(
       "a, button, [role='button'], input, textarea, select"
     );
-    
+
     interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleMouseEnter);
       el.addEventListener("mouseleave", handleMouseLeave);
@@ -37,11 +43,9 @@ const CursorFollower = () => {
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, isTouch]);
 
-  if (typeof window !== "undefined" && window.innerWidth < 768) {
-    return null;
-  }
+  if (isTouch) return null;
 
   return (
     <motion.div
