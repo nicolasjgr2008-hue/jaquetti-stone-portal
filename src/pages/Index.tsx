@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
@@ -21,6 +21,36 @@ import { useGlobalAnimations } from "@/hooks/useGlobalAnimations";
 const Index = () => {
   const { t } = useLanguage();
   useGlobalAnimations();
+
+  // ── UTM-driven auto-scroll: guide the visitor to the right section ──
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utm = params.get('utm_content') || params.get('utm_campaign');
+    if (!utm) return;
+
+    const scrollMap: Record<string, string> = {
+      'ad07': 'solucoes',
+      'ecommerce': 'solucoes',
+      'ad09': 'solucoes',
+      'portfolio': 'solucoes',
+      'ad04': 'solucoes',
+      'closer': 'solucoes',
+      'ad02': 'cases',
+      'autoridade': 'cases',
+    };
+
+    const targetSection = scrollMap[utm];
+    if (!targetSection) return;
+
+    const timer = setTimeout(() => {
+      const el = document.getElementById(targetSection);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 3500); // fires after hero entrance animations complete
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const navItems = [
     { name: t.navbar.solutions, link: "#solucoes", icon: <Layers className="w-4 h-4" /> },

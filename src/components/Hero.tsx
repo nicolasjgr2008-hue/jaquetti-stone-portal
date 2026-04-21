@@ -3,7 +3,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { LiquidButton } from "./LiquidButton";
 
 /* ─── Typewriter Hook ─── */
@@ -99,9 +99,85 @@ const Hero = () => {
   const { t } = useLanguage();
   const heroRef = useRef<HTMLElement>(null);
 
+  // ── UTM detection ──
+  const [adVariant, setAdVariant] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utm = params.get('utm_content') || params.get('utm_campaign');
+    setAdVariant(utm);
+  }, []);
+
+  // ── Copy helper: returns overrides when a known ad variant is detected ──
+  const getHeroCopy = () => {
+    switch (adVariant) {
+      case 'ad02':
+      case 'autoridade':
+        return {
+          badge: 'SEU CONCORRENTE NÃO VAI CONSEGUIR COPIAR ISSO.',
+          headline2: 'autoridade antes da conversa começar',
+          subtitle: 'Enquanto seu concorrente explica o que faz, seu site já convenceu. Design que comunica valor antes do visitante ler uma linha — e transforma dúvida em decisão.',
+          proofPoints: [
+            'Design que comunica valor imediato',
+            '98% dos clientes fecham novo contrato',
+            'Entrega em até 15 dias',
+          ],
+        };
+      case 'ad04':
+      case 'closer':
+        return {
+          badge: 'TRABALHA ENQUANTO VOCÊ DORME. FECHA ENQUANTO VOCÊ ENTREGA.',
+          headline2: 'fechar sem você estar presente',
+          subtitle: 'Uma página que conduz, quebra objeções e transforma interesse em decisão — sem depender da sua disponibilidade em nenhum momento do processo.',
+          proofPoints: [
+            'Página que vende 24h sem você presente',
+            'Integração com WhatsApp e pixel inclusa',
+            'Entrega em até 15 dias',
+          ],
+        };
+      case 'ad07':
+      case 'ecommerce':
+        return {
+          badge: 'SUA LOJA ABERTA 24H. EM QUALQUER LUGAR DO BRASIL.',
+          headline2: 'vender online enquanto a loja física dorme',
+          subtitle: 'Plataforma de e-commerce completa: vitrine, pagamento integrado e estrutura pronta para receber clientes — mesmo quando você está fechado. Entrega em até 15 dias.',
+          proofPoints: [
+            'Loja integrada com Pix, cartão e boleto',
+            'Pronta para vender em 15 dias',
+            'Gestão simples, sem depender de programador',
+          ],
+        };
+      case 'ad09':
+      case 'portfolio':
+        return {
+          badge: 'UM PORTFÓLIO QUE FECHA CONTRATO ANTES DE VOCÊ FALAR.',
+          headline2: 'impressionar antes da conversa começar',
+          subtitle: 'O cliente decide em milissegundos se o seu trabalho vale atenção. Um portfólio com autoridade visual muda esse julgamento antes de qualquer projeto ser visto.',
+          proofPoints: [
+            'Portfólio que fecha contrato',
+            'Animações e CMS incluso',
+            'Entrega em até 15 dias',
+          ],
+        };
+      default:
+        return null;
+    }
+  };
+
+  const heroCopy = getHeroCopy();
+
+  // Default proof points (no UTM)
+  const defaultProofPoints = [
+    '150+ projetos entregues',
+    '98% de satisfação',
+    'Resposta em 2 horas',
+  ];
+
+  const proofPoints = heroCopy?.proofPoints ?? defaultProofPoints;
+
   // Typewriter for headline2 — starts after headline1 stagger delay (280ms)
   const { displayed, showCursor } = useTypewriter(
-    t.hero.headline2,
+    heroCopy?.headline2 || t.hero.headline2,
     60,
     280
   );
@@ -135,7 +211,7 @@ const Hero = () => {
           {/* ── Eyebrow (delay 0ms, duration 600ms) ── */}
           <div className="hero-stagger" style={{ "--stagger-delay": "0ms", "--stagger-duration": "600ms" } as React.CSSProperties}>
             <span className="inline-block text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground">
-              {t.hero.badge}
+              {heroCopy?.badge || t.hero.badge}
             </span>
           </div>
 
@@ -159,7 +235,7 @@ const Hero = () => {
           {/* ── Subtitle (delay 420ms, duration 600ms) ── */}
           <div className="hero-stagger" style={{ "--stagger-delay": "420ms", "--stagger-duration": "600ms" } as React.CSSProperties}>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              {t.hero.subtitle}
+              {heroCopy?.subtitle || t.hero.subtitle}
             </p>
           </div>
 
@@ -209,20 +285,17 @@ const Hero = () => {
           {/* ── Social Proof Micro-line (delay 750ms, duration 500ms) ── */}
           <div className="hero-stagger pt-2" style={{ "--stagger-delay": "750ms", "--stagger-duration": "500ms" } as React.CSSProperties}>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-[12px] text-muted-foreground/80 font-medium">
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>150+ projetos entregues</span>
-              </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>98% de satisfação</span>
-              </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-              <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-primary" />
-                <span>Resposta em 2 horas</span>
-              </div>
+              {proofPoints.map((point, index) => (
+                <React.Fragment key={point}>
+                  {index > 0 && (
+                    <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+                  )}
+                  <div className="flex items-center gap-1.5 whitespace-nowrap">
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                    <span>{point}</span>
+                  </div>
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </div>

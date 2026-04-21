@@ -68,10 +68,10 @@ interface Translations {
 const translations: Record<Language, Translations> = {
   pt: {
     hero: {
-      badge: "RESULTADOS REAIS. ENTREGA EM 15 DIAS.",
-      headline1: "Sites profissionais para ",
-      headline2: "alcançar mais clientes",
-      subtitle: "Transformamos sua presença online com sites modernos, otimizados e responsivos, design exclusivo, SEO e estratégias digitais eficientes para crescer.",
+      badge: "SEU CONCORRENTE NÃO VAI CONSEGUIR COPIAR ISSO.",
+      headline1: "Sites que constroem ",
+      headline2: "autoridade e convertem",
+      subtitle: "Enquanto você entrega, seu site trabalha. Criamos plataformas que comunicam valor, quebram objeções e transformam visitas em clientes — entregues em até 15 dias.",
       cta1: "COMECE SEU PROJETO AGORA",
       cta2: "VER PROJETOS REAIS",
     },

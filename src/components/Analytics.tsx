@@ -15,24 +15,32 @@ declare global {
 export const Analytics = () => {
   useEffect(() => {
     let scrolled50 = false;
-    
+
+    // Capture UTM variant once — used in all event payloads below
+    const utmVariant =
+      new URLSearchParams(window.location.search).get('utm_content') ||
+      new URLSearchParams(window.location.search).get('utm_campaign') ||
+      'direct';
+
     const trackEvent = (eventName: string, source?: string) => {
       // 1. Google Analytics 4 (dataLayer)
       if (typeof window !== 'undefined' && window.dataLayer) {
-        window.dataLayer.push({ 
-          event: eventName, 
-          source: source || 'unknown' 
+        window.dataLayer.push({
+          event: eventName,
+          source: source || 'unknown',
+          utm_variant: utmVariant,
         });
       }
       
       // 2. Meta Pixel (fbq)
       if (typeof window !== 'undefined' && window.fbq) {
         if (eventName === 'whatsapp_click') {
-           window.fbq('track', 'Contact', { source });
+           window.fbq('track', 'Contact', { source, utm_variant: utmVariant });
+           window.fbq('trackCustom', 'CTAClick', { source, utm_variant: utmVariant });
         } else if (eventName === 'scroll_50_percent') {
            window.fbq('trackCustom', 'ViewContent');
         } else if (eventName === 'form_submit') {
-           window.fbq('track', 'Lead');
+           window.fbq('track', 'Lead', { utm_variant: utmVariant });
         }
       }
       
