@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import HeroParticles from "./HeroParticles";
 import { lazy, Suspense, useEffect, useRef, useState, useCallback, Fragment } from "react";
 import { LiquidButton } from "./LiquidButton";
-import { useIsMobile } from "@/hooks/use-mobile";
+
 
 const SplineScene = lazy(() =>
   import('@/components/ui/splite').then(m => ({ default: m.SplineScene }))
