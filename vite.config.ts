@@ -10,33 +10,11 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === "development" && componentTagger(),
+    mode === "development" && componentTagger()
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  build: {
-    target: "es2020",
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          "vendor-react": ["react", "react-dom"],
-          "vendor-framer": ["framer-motion"],
-          "vendor-router": ["react-router-dom"],
-          "vendor-spline": [
-            "@splinetool/react-spline",
-            "@splinetool/runtime",
-          ],
-          "vendor-radix": [
-            "@radix-ui/react-accordion",
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-dropdown-menu",
-            "@radix-ui/react-tooltip",
-          ],
-        },
-      },
     },
   },
 }));
