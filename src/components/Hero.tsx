@@ -186,13 +186,13 @@ const Hero = () => {
               <MagneticHeroButton>
                 <LiquidButton
                   asChild
-                  className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium hero-btn-glow"
+                  className="hero-btn-glow"
                 >
                   <a
                     href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center"
+                    className="inline-flex items-center justify-center bg-white text-black hover:bg-white/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium transition-colors"
                     onClick={() => trackWa('hero_cta_principal')}
                   >
                     <svg
