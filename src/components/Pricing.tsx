@@ -295,6 +295,23 @@ const Pricing = () => {
           </motion.p>
         </AnimatedSection>
 
+        {/* Micro-CTA for undecided users */}
+        <div className="text-center mb-10">
+          <p className="text-sm text-muted-foreground">
+            Não sabe qual plano precisa?{" "}
+            <a
+              href="https://wa.me/5511998409981?text=Quero%20ajuda%20para%20escolher%20um%20plano%20mensal"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-source="cta_pricing_undecided"
+              onClick={() => trackWa('pricing_undecided')}
+              className="text-primary font-semibold hover:underline underline-offset-2"
+            >
+              Fale com a gente em 2 minutos
+            </a>
+          </p>
+        </div>
+
         {/* Pricing Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
