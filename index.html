@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Secondary Meta Tags -->
-    <title>Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital</title>
+    <title>Jaquetti | Criação de Sites Profissionais — Entrega em 15 dias</title>
     <meta name="title" content="Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital" />
-    <meta name="description" content="Agência especializada em criação de sites profissionais, SEO, identidade visual, tráfego pago e marketing digital. Transforme sua presença online e aumente suas vendas." />
-    <meta name="keywords" content="criação de sites, desenvolvimento web, agência digital, SEO, marketing digital, identidade visual, tráfego pago, sites profissionais, web design, São Paulo" />
+    <meta name="description" content="Criamos sites profissionais para empresas e prestadores de serviço. Landing pages, sites institucionais, e-commerces e portfólios — entregues em até 15 dias com SEO técnico incluso." />
+    <meta name="keywords" content="criação de sites, webdesign profissional, landing page, site institucional, e-commerce, portfólio digital, desenvolvimento web, São Paulo" />
     <meta name="author" content="Jaquetti Web Agency" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://jaquettiweb.com" />
@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://jaquettiweb.com" />
     <meta property="og:title" content="Jaquetti Web Agency | Criação de Sites Profissionais e Marketing Digital" />
     <meta property="og:description" content="Agência especializada em criação de sites profissionais, SEO, identidade visual, tráfego pago e marketing digital. Transforme sua presença online." />
-    <meta property="og:image" content="https://jaquettiweb.com/og-image.jpg" />
+    <meta property="og:image" content="/og-image.jpg" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Jaquetti Web Agency" />
 
@@ -28,7 +28,7 @@
     <meta name="twitter:url" content="https://jaquettiweb.com" />
     <meta name="twitter:title" content="Jaquetti Web Agency | Criação de Sites Profissionais" />
     <meta name="twitter:description" content="Agência especializada em criação de sites profissionais, SEO e marketing digital. Transforme sua presença online." />
-    <meta name="twitter:image" content="https://jaquettiweb.com/og-image.jpg" />
+    <meta name="twitter:image" content="/og-image.jpg" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://storage.googleapis.com/gpt-engineer-file-uploads/Wb38FtVHPiXyrmsNwVqDZTLjmbk1/uploads/1764730141474-Favicon.png" />
@@ -37,15 +37,11 @@
     <!-- 2. preconnect externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://prod.spline.design" />
 
-    <!-- 3. preload fonte (opcional hero image) -->
-    <!-- We skip hero image preload as there is no specific LCP image tag for it, just CSS background -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" />
-    
-    <!-- 4. stylesheet CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- 3. Non-blocking font loading -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" /></noscript>
     
     <!-- Structured Data / JSON-LD -->
     <script type="application/ld+json">
@@ -58,7 +54,7 @@
       "logo": "https://storage.googleapis.com/gpt-engineer-file-uploads/Wb38FtVHPiXyrmsNwVqDZTLjmbk1/uploads/1764730141474-Favicon.png",
       "email": "jaquettiweb@gmail.com",
       "priceRange": "$$",
-      "serviceType": ["Web Design", "SEO", "Marketing Digital", "Identidade Visual", "Tráfego Pago"],
+      "serviceType": ["Web Design", "Landing Page", "Site Institucional", "E-commerce", "Portfólio Digital"],
       "areaServed": {
         "@type": "Country",
         "name": "Brasil"
@@ -99,37 +95,44 @@
       ]
     }
     </script>
-
-    <!-- 5. scripts defer/async por último -->
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    
-    <!-- Meta Pixel Code -->
-    <script async>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'SEU_PIXEL_ID');
-      fbq('track', 'PageView');
-    </script>
   </head>
 
   <body>
     <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=SEU_PIXEL_ID&ev=PageView&noscript=1"
+      src="https://www.facebook.com/tr?id=1213331447225251&ev=PageView&noscript=1"
     /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+    function loadAnalytics() {
+      var ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-EBZLX0G9B4';
+      document.head.appendChild(ga);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-EBZLX0G9B4', {
+        anonymize_ip: true,
+        send_page_view: false,
+        engagement_time_msec: 100
+      });
+      gtag('event', 'session_start');
+      gtag('event', 'page_view', {
+        page_path: window.location.pathname + window.location.search,
+        page_location: window.location.href,
+        page_title: document.title
+      });
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1213331447225251');
+      fbq('track', 'PageView');
+    }
+    if (document.readyState === 'complete') {
+      setTimeout(loadAnalytics, 1000);
+    } else {
+      window.addEventListener('load', function() { setTimeout(loadAnalytics, 1000); });
+    }
+    </script>
   </body>
 </html>

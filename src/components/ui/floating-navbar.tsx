@@ -49,7 +49,8 @@ export const FloatingNav = ({
       e.preventDefault();
       const el = document.getElementById(href.replace("#", ""));
       if (el) {
-        const offset = el.offsetTop - 80;
+        const rect = el.getBoundingClientRect();
+        const offset = rect.top + window.pageYOffset - 80;
         window.scrollTo({ top: offset, behavior: "smooth" });
       }
     }

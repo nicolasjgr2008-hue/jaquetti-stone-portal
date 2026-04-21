@@ -12,8 +12,8 @@ import NotFound from "./pages/NotFound";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import { CustomCursor } from "./components/CustomCursor";
 import { NoiseOverlay } from "./components/NoiseOverlay";
-import { LoadingScreen } from "./components/LoadingScreen";
 import { PageTransition } from "./components/PageTransition";
+import ExitIntent from "./components/ExitIntent";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +23,8 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <NoiseOverlay />
-          <LoadingScreen />
           <CustomCursor />
+          <ExitIntent />
           <Toaster />
           <Sonner />
           <BrowserRouter>

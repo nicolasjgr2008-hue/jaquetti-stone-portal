@@ -9,37 +9,34 @@ import { LiquidButton } from "./LiquidButton";
 import { ScrambleText } from "./ScrambleText";
 import { cases } from "@/data/cases";
 
-const testimonials = {
-  pt: [
-    { quote: "Nosso site ficou moderno, funcional e responsivo. Com agendamento online e acesso fácil a documentos, a gestão do condomínio ficou muito mais eficiente. Em 30 dias já tínhamos reduzido 40% das ligações de suporte.", author: "Hermes Dos Anjos", initials: "HD", role: "Gestor Profissional", company: "Condomínio Hermes", badge: "+40% eficiência" },
-    { quote: "Em menos de 2 semanas tínhamos o site no ar. O processo foi transparente e o resultado superou expectativas. Já na primeira semana recebi 3 novos clientes pelo site.", author: "Marina Costa", initials: "MC", role: "Diretora Comercial", company: "Studio MC Design", badge: "+3 clientes/semana" },
-    { quote: "Profissionalismo do início ao fim. A Jaquetti entendeu o que a minha clínica precisava e entregou um site que realmente converte. O agendamento online dobrou em 45 dias.", author: "Dr. Rafael Pereira", initials: "RP", role: "Dentista", company: "Clínica Pereira", badge: "2x mais agendamentos" },
-    { quote: "Lançamos nosso e-commerce de roupas do zero. A plataforma é super rápida, fácil de gerenciar e totalmente integrada. As vendas online aumentaram 120% já no primeiro trimestre com a nova estrutura e estabilidade.", author: "Carolina Silva", initials: "CS", role: "CEO", company: "Use Carolina Brand", badge: "+120% Vendas" },
-    { quote: "A presença digital do escritório mudou completamente. O design transmite confiança de classe A, o que atraiu clientes corporativos de alto valor num ciclo de tempo muito menor do que o mercado tradicional.", author: "Dr. Marcos Alencar", initials: "MA", role: "Sócio", company: "Alencar & Associados", badge: "Clientes High-Ticket" },
-    { quote: "O portfólio que construíram capturou perfeitamente a essência dos nossos projetos de luxo. O site carrega as imagens 4K sem perder nada de performance técnica. Incrível o cuidado técnico com o detalhe.", author: "Isabela Muniz", initials: "IM", role: "Arquiteta Chefe", company: "IM Arquitetura", badge: "Performance A+" },
-  ]
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
 };
 
+
+
 const sectionText = {
-  pt: { title1: "Empresas que", title2: "Crescem", title3: "Conosco", subtitle: "Cada cliente recebe um atendimento personalizado, com soluções sob medida e suporte contínuo.", cta: "Transforme seu negócio hoje mesmo", testimonialTitle: "O que dizem nossos clientes", portfolio: { badge: "Nosso Portfólio", title1: "Projetos que", title2: "Inspiram", desc: "Cada projeto é uma oportunidade de criar algo único. Veja como ajudamos empresas a se destacarem no digital." } },
-  en: { title1: "Companies that", title2: "Grow", title3: "With Us", subtitle: "Each client receives personalized service, with tailored solutions and continuous support.", cta: "Transform your business today", testimonialTitle: "What our clients say", portfolio: { badge: "Our Portfolio", title1: "Projects that", title2: "Inspire", desc: "Each project is an opportunity to create something unique. See how we help businesses stand out digitally." } },
-  es: { title1: "Empresas que", title2: "Crecen", title3: "Con Nosotros", subtitle: "Cada cliente recibe atención personalizada, con soluciones a medida y soporte continuo.", cta: "Transforma tu negocio hoy", testimonialTitle: "Lo que dicen nuestros clientes", portfolio: { badge: "Nuestro Portafolio", title1: "Proyectos que", title2: "Inspiran", desc: "Cada proyecto es una oportunidad de crear algo único. Mira cómo ayudamos a las empresas a destacarse digitalmente." } },
+  pt: { title1: "Empresas que", title2: "Faturam Mais", title3: "Conosco", subtitle: "Esses negócios confiaram na Jaquetti. Veja quanto cresceram.", cta: "Quero resultados assim pro meu negócio →", testimonialTitle: "Quem contratou, recomenda", portfolio: { badge: "Resultados Comprovados", title1: "Projetos que", title2: "Geram Vendas", desc: "Não fazemos sites bonitos que ninguém visita. Fazemos sites que trazem clientes todos os dias." } },
+  en: { title1: "Companies that", title2: "Earn More", title3: "With Us", subtitle: "These businesses trusted Jaquetti. See how much they grew.", cta: "I want results like these for my business →", testimonialTitle: "Our clients recommend us", portfolio: { badge: "Proven Results", title1: "Projects that", title2: "Drive Sales", desc: "We don't build pretty sites nobody visits. We build sites that bring clients every day." } },
+  es: { title1: "Empresas que", title2: "Facturan Más", title3: "Con Nosotros", subtitle: "Estos negocios confiaron en Jaquetti. Mira cuánto crecieron.", cta: "Quiero resultados así para mi negocio →", testimonialTitle: "Quien contrató, recomienda", portfolio: { badge: "Resultados Comprobados", title1: "Proyectos que", title2: "Generan Ventas", desc: "No hacemos sitios bonitos que nadie visita. Hacemos sitios que traen clientes todos los días." } },
 };
 
 const Portfolio = () => {
   const [testiSlide, setTestiSlide] = useState(0);
-  const { language } = useLanguage();
+  const [isPaused, setIsPaused] = useState(false);
+  const { language, t } = useLanguage();
   const text = sectionText[language];
 
   useEffect(() => {
-    const testiList = testimonials[language as keyof typeof testimonials] || testimonials.pt;
+    const testiList = t.portfolio.testimonials;
     const testiSlideSize = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 2 : 1;
     const testiTotal = Math.ceil(testiList.length / testiSlideSize);
     const interval = setInterval(() => {
-      setTestiSlide((prev) => (prev + 1) % testiTotal);
+      if (!isPaused) setTestiSlide((prev) => (prev + 1) % testiTotal);
     }, 5000);
     return () => clearInterval(interval);
-  }, [language]);
+  }, [language, isPaused, t.portfolio.testimonials]);
 
   return (
     <section id="cases" className="py-32 bg-background relative overflow-hidden">
@@ -72,7 +69,7 @@ const Portfolio = () => {
         <AnimatedSection className="relative mb-20 w-[100vw] left-1/2 -ml-[50vw]">
           <div className="overflow-hidden relative" style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
             <div className="animate-marquee-infinite gap-5 py-4" style={{ display: "flex", width: "max-content" }}>
-              {[...cases, ...cases, ...cases, ...cases].map((caseItem, index) => {
+              {[...cases, ...cases].map((caseItem, index) => {
                 const isClickable = caseItem.isInternal || (caseItem.url && caseItem.url !== '#');
                 const CardWrapper = caseItem.isInternal ? Link : 'a';
                 const linkProps = caseItem.isInternal 
@@ -92,6 +89,8 @@ const Portfolio = () => {
                         alt={caseItem.category}
                         loading="lazy"
                         decoding="async"
+                        width="240"
+                        height="240"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     </div>
@@ -116,13 +115,12 @@ const Portfolio = () => {
         </AnimatedSection>
 
 
-        {/* CTA */}
         <AnimatedSection className="text-center mb-24">
           <LiquidButton
             asChild
             className="inline-flex items-center justify-center text-xs px-10 py-5 rounded-md border border-border/50 text-muted-foreground bg-card/20 hover:text-foreground hover:border-foreground/30 tracking-widest uppercase reveal transition-all"
           >
-            <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{text.cta}</a>
+            <a href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`} target="_blank" rel="noopener noreferrer" onClick={() => trackWa('portfolio_cta')}>{text.cta}</a>
           </LiquidButton>
         </AnimatedSection>
 
@@ -132,6 +130,10 @@ const Portfolio = () => {
         {/* Testimonials Carousel */}
         <div 
           className="max-w-7xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
         >
           <AnimatedSection className="text-center mb-16">
             <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground reveal">
@@ -140,7 +142,7 @@ const Portfolio = () => {
           </AnimatedSection>
           
           {(() => {
-            const testiList = testimonials[language as keyof typeof testimonials] || testimonials.pt;
+            const testiList = t.portfolio.testimonials;
             const testiSlideSize = typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 2 : 1;
             const testiTotalSlides = Math.ceil(testiList.length / testiSlideSize);
             

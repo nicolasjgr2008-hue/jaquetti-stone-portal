@@ -2,10 +2,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
-
-const Services = lazy(() => import("@/components/Services"));
-const Stats = lazy(() => import("@/components/Stats"));
-const Portfolio = lazy(() => import("@/components/Portfolio"));
 import CursorFollower from "@/components/CursorFollower";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingParticles from "@/components/FloatingParticles";
@@ -14,9 +10,13 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Layers, FolderOpen } from "lucide-react";
 import TopBanner from "@/components/TopBanner";
-const FAQ = lazy(() => import("@/components/FAQ"));
 import { Analytics } from "@/components/Analytics";
 import { useGlobalAnimations } from "@/hooks/useGlobalAnimations";
+
+const Services = lazy(() => import("@/components/Services"));
+const Stats = lazy(() => import("@/components/Stats"));
+const Portfolio = lazy(() => import("@/components/Portfolio"));
+const FAQ = lazy(() => import("@/components/FAQ"));
 
 const Index = () => {
   const { t } = useLanguage();

@@ -1,13 +1,23 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/hooks/useLanguage";
+
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
 
 const FloatingWhatsApp = () => {
+  const { t } = useLanguage();
+
   return (
     <motion.a
-      href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+      href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`}
       target="_blank"
       rel="noopener noreferrer"
       data-source="floating_button"
+      onClick={() => trackWa('floating_whatsapp')}
       className="fixed bottom-6 right-6 z-[6000] flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-[#20bd5a] transition-all duration-300"
+      style={{ width: 56, height: 56 }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       whileHover={{ scale: 1.1 }}
@@ -17,7 +27,7 @@ const FloatingWhatsApp = () => {
         stiffness: 260,
         damping: 20 
       }}
-      aria-label="Fale conosco no WhatsApp"
+      aria-label={t.whatsapp.ariaLabel}
     >
       {/* Pulse effect rings */}
       <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping" style={{ animationDuration: '3s' }}></span>

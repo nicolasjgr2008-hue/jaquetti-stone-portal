@@ -15,4 +15,18 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    target: ['es2020', 'chrome87', 'firefox78', 'safari14'],
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-router': ['react-router-dom'],
+          'vendor-spline': ['@splinetool/react-spline', '@splinetool/runtime'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 }));

@@ -6,6 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import LanguageSwitcher from "./LanguageSwitcher";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +20,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -84,7 +89,7 @@ const Navbar = () => {
               transition={{ delay: 0.6 }}
             >
               <Button asChild size="sm" className="text-xs tracking-wide px-6">
-                <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{t.navbar.contact}</a>
+                <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer" onClick={() => trackWa('navbar_contato')}>{t.navbar.contact}</a>
               </Button>
             </motion.div>
           </div>
@@ -135,7 +140,7 @@ const Navbar = () => {
                   </a>
                 ))}
                 <Button asChild size="sm" className="w-full text-xs tracking-wide">
-                  <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer">{t.navbar.contact}</a>
+                  <a href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto" target="_blank" rel="noopener noreferrer" onClick={() => trackWa('navbar_contato')}>{t.navbar.contact}</a>
                 </Button>
               </div>
             </motion.div>

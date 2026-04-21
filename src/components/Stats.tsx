@@ -7,6 +7,11 @@ import { LiquidButton } from "./LiquidButton";
 import { ScrambleText } from "./ScrambleText";
 import csapetLogo from "@/assets/csapet-logo.png";
 
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
 const statIcons = [Briefcase, Users, Award, Clock];
 const statValues = [150, 80, 12, 98];
 const statSuffixes = ["+", "+", "", "%"];
@@ -156,11 +161,28 @@ const Stats = () => {
           ))}
         </div>
 
+        {/* CTA após stats */}
+        <AnimatedSection className="text-center mt-14 mb-4" delay={0.2}>
+          <LiquidButton
+            asChild
+            className="inline-flex items-center justify-center text-xs px-10 py-5 rounded-md border border-border/50 text-muted-foreground bg-card/20 hover:text-foreground hover:border-foreground/30 tracking-widest uppercase reveal transition-all"
+          >
+            <a
+              href="https://wa.me/5511998409981?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWa('stats_cta')}
+            >
+              Quero resultados assim no meu negócio
+            </a>
+          </LiquidButton>
+        </AnimatedSection>
+
         {/* Client Logos Marquee */}
         <div className="mt-32 pt-16 border-t border-border/20 relative">
           <AnimatedSection className="text-center mb-10">
             <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground/60">
-              Empresas que confiam na Jaquetti
+              Empresas que já faturam mais com a Jaquetti
             </span>
           </AnimatedSection>
           
@@ -186,6 +208,9 @@ const Stats = () => {
                         alt={client.name} 
                         loading="lazy" 
                         decoding="async" 
+                        width="160"
+                        height="64"
+                        style={{ objectFit: "contain" }}
                         className="max-w-full max-h-[80%] object-contain"
                       />
                     </div>

@@ -2,6 +2,18 @@ import { Check, Star, X } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { AnimatedSection, MagneticButton } from "./AnimatedSection";
+import { useLanguage } from "@/hooks/useLanguage";
+
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
+
+const planCta: Record<string, string> = {
+  basico: 'plano_basico',
+  gestao: 'plano_gestao',
+  premium: 'plano_premium',
+};
 
 interface Feature {
   name: string;
@@ -13,6 +25,7 @@ interface Plan {
   id: string;
   name: string;
   price: string;
+  priceUSD: string;
   period: string;
   description: string;
   features: Feature[];
@@ -25,8 +38,9 @@ const plans: Plan[] = [
     id: "basico",
     name: "Básico",
     price: "R$ 149",
+    priceUSD: "$49",
     period: "/mês",
-    description: "Manutenção essencial para estabilidade e segurança do seu site ativo.",
+    description: "Seu site no ar e protegido. Para quem precisa do básico sem complicação.",
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },
@@ -47,8 +61,9 @@ const plans: Plan[] = [
     id: "gestao",
     name: "Gestão",
     price: "R$ 297",
+    priceUSD: "$97",
     period: "/mês",
-    description: "Para empresas que precisam de atualizações frequentes e acompanhamento.",
+    description: "Site sempre rápido, atualizado e convertendo. Você foca em vender — a gente cuida do resto.",
     popular: true,
     features: [
       { name: "Hospedagem", value: "Gerenciada", check: true },
@@ -70,8 +85,9 @@ const plans: Plan[] = [
     id: "premium",
     name: "Premium",
     price: "R$ 497",
+    priceUSD: "$197",
     period: "/mês",
-    description: "Servidor dedicado e atenção total e exclusiva para máxima performance real.",
+    description: "1 hora fora do ar custa mais que o plano inteiro. Proteção total, performance máxima.",
     features: [
       { name: "Hospedagem", value: "Dedicada", check: true },
       { name: "Certificado SSL", value: "Incluso", check: true },
@@ -92,6 +108,7 @@ const plans: Plan[] = [
 
 const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { language, t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
@@ -118,7 +135,7 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
         >
           <div className="flex items-center gap-1.5 px-4 py-1.5 bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_20px_0_hsl(var(--primary))]">
             <Star className="w-3.5 h-3.5 fill-current" />
-            Mais Escolhido
+            {t.pricing.mostChosen}
           </div>
         </motion.div>
       )}
@@ -168,9 +185,9 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
             >
-              {plan.price}
+              {language === 'en' ? plan.priceUSD : plan.price}
             </motion.span>
-            <span className="text-muted-foreground text-sm font-medium">{plan.period}</span>
+            <span className="text-muted-foreground text-sm font-medium">{t.pricing.mo}</span>
           </div>
 
           {/* Description */}
@@ -207,8 +224,11 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
           {/* CTA Button */}
           <MagneticButton className="w-full mt-auto">
             <motion.a
-              href={`https://wa.me/5511998409981?text=Olá,%20quero%20contratar%20o%20plano%20${plan.name}%20Mensal`}
+              href={`https://wa.me/5511998409981?text=${encodeURIComponent(
+                `${t.pricing.waMessage} ${plan.name}${language === 'en' ? ` at ${plan.priceUSD}/mo` : ' Mensal'}`
+              )}`}
               target="_blank" rel="noopener noreferrer"
+              onClick={() => trackWa(planCta[plan.id] || `plano_${plan.id}`)}
               className={`
                 w-full py-4 px-6 rounded-xl font-bold text-center block text-sm tracking-widest uppercase
                 transition-all duration-300 ease-out flex items-center justify-center gap-2
@@ -220,9 +240,12 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Assinar {plan.name}
+              {t.pricing.subscribe} {plan.name}
             </motion.a>
           </MagneticButton>
+          <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
+            ⚡ {t.pricing.scarcity1} {new Date().toLocaleDateString(language === 'en' ? 'en-US' : (language === 'es' ? 'es-ES' : 'pt-BR'), {month: 'long'})} {t.pricing.scarcity2}
+          </p>
         </div>
       </motion.div>
     </motion.div>
@@ -230,6 +253,8 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
 };
 
 const Pricing = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="pricing" className="py-32 bg-[#050505] relative overflow-hidden">
       {/* Background Ambience */}
@@ -248,7 +273,7 @@ const Pricing = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Planos Mensais
+            {t.pricing.badge}
           </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-serif font-bold leading-tight reveal"
@@ -257,7 +282,7 @@ const Pricing = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Hospedagem &amp; Manutenção
+            {t.pricing.title}
           </motion.h2>
           <motion.p
             className="text-muted-foreground/80 text-lg mx-auto leading-relaxed reveal"
@@ -266,7 +291,7 @@ const Pricing = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Proteja seu investimento e garanta que seu site opere com excelência os 365 dias do ano. Esqueça dores de cabeça com servidores, quedas ou ataques e deixe tudo conosco.
+            {t.pricing.subtitle}
           </motion.p>
         </AnimatedSection>
 
@@ -279,7 +304,7 @@ const Pricing = () => {
         
         {/* Bottom CTA to remove friction */}
         <AnimatedSection delay={0.4} className="text-center mt-20">
-          <p className="text-sm text-muted-foreground mb-6 reveal">* Não cobramos taxa de adesão em nenhum plano. Fidelidade exigida como descrita em contrato.</p>
+          <p className="text-sm text-muted-foreground mb-6 reveal">{t.pricing.disclaimer}</p>
         </AnimatedSection>
       </div>
     </section>
