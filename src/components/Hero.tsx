@@ -1,10 +1,19 @@
 import { ArrowRight, Check } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
-import { SplineScene } from "@/components/ui/splite";
 import HeroParticles from "./HeroParticles";
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useCallback, Fragment } from "react";
 import { LiquidButton } from "./LiquidButton";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const SplineScene = lazy(() =>
+  import('@/components/ui/splite').then(m => ({ default: m.SplineScene }))
+);
+
+const trackWa = (ctaName: string) => {
+  if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Lead', { content_name: ctaName });
+  if (typeof (window as any).gtag === 'function') (window as any).gtag('event', 'generate_lead', { event_category: 'whatsapp', event_label: ctaName });
+};
 
 /* ─── Typewriter Hook ─── */
 const useTypewriter = (text: string, speed = 60, startDelay = 0) => {
@@ -95,8 +104,8 @@ const MagneticHeroButton = ({
 const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 100]);
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const { t } = useLanguage();
+  const isMobile = useIsMobile();
   const heroRef = useRef<HTMLElement>(null);
 
   // ── UTM detection ──
@@ -166,14 +175,8 @@ const Hero = () => {
 
   const heroCopy = getHeroCopy();
 
-  // Default proof points (no UTM)
-  const defaultProofPoints = [
-    '150+ projetos entregues',
-    '98% de satisfação',
-    'Resposta em 2 horas',
-  ];
-
-  const proofPoints = heroCopy?.proofPoints ?? defaultProofPoints;
+  // Proof points — use UTM variant or fall back to translation stats
+  const proofPoints: string[] = heroCopy?.proofPoints ?? t.hero.stats;
 
   // Typewriter for headline2 — starts after headline1 stagger delay (280ms)
   const { displayed, showCursor } = useTypewriter(
@@ -187,24 +190,30 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Spline 3D Background */}
-      <div className="absolute inset-0 z-0">
-        <SplineScene
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full"
-          followMouse={true}
-        />
-      </div>
+      {/* Spline 3D Background - Hidden on mobile for performance */}
+      {!isMobile ? (
+        <Suspense fallback={<div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background to-primary/5" />}>
+          <div className="absolute inset-0 z-0">
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+              followMouse={true}
+            />
+          </div>
+        </Suspense>
+      ) : (
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      )}
 
-      {/* Canvas Particles */}
-      <HeroParticles />
+      {/* Canvas Particles - Desktop only */}
+      {!isMobile && <HeroParticles />}
 
       {/* Clean gradient overlay */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/70 via-background/50 to-background" />
 
       <motion.div
         className="container mx-auto px-6 relative z-10"
-        style={{ y, opacity }}
+        style={{ y }}
       >
         {/* Bind framer-motion transforms */}
         <div className="max-w-3xl mx-auto text-center space-y-10">
@@ -246,13 +255,14 @@ const Hero = () => {
               <MagneticHeroButton>
                 <LiquidButton
                   asChild
-                  className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium hero-btn-glow"
+                  className="hero-btn-glow"
                 >
                   <a
-                    href="https://wa.me/5511998409981?text=Olá!%20Vim%20pelo%20site%20e%20quero%20iniciar%20meu%20projeto"
+                    href={`https://wa.me/5511998409981?text=${encodeURIComponent(t.whatsapp.message)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center"
+                    className="inline-flex items-center justify-center bg-white text-black hover:bg-white/90 h-11 rounded-md px-8 text-sm py-6 tracking-wide font-medium transition-colors"
+                    onClick={() => trackWa('hero_cta_principal')}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -286,15 +296,15 @@ const Hero = () => {
           <div className="hero-stagger pt-2" style={{ "--stagger-delay": "750ms", "--stagger-duration": "500ms" } as React.CSSProperties}>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-[12px] text-muted-foreground/80 font-medium">
               {proofPoints.map((point, index) => (
-                <React.Fragment key={point}>
-                  {index > 0 && (
-                    <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
-                  )}
+                <Fragment key={point}>
                   <div className="flex items-center gap-1.5 whitespace-nowrap">
                     <Check className="w-3.5 h-3.5 text-primary" />
                     <span>{point}</span>
                   </div>
-                </React.Fragment>
+                  {index < proofPoints.length - 1 && (
+                    <div className="hidden sm:block w-1 h-1 rounded-full bg-muted-foreground/30" />
+                  )}
+                </Fragment>
               ))}
             </div>
           </div>
