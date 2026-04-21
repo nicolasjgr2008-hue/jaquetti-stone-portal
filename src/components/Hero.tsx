@@ -105,7 +105,10 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 100]);
   const { t } = useLanguage();
-  const isMobile = useIsMobile();
+  // Synchronous mobile detection — runs BEFORE first render to prevent Spline flash on mobile
+  const isMobile = typeof window !== 'undefined'
+    ? window.matchMedia('(max-width: 767px)').matches
+    : false;
   const heroRef = useRef<HTMLElement>(null);
 
   // ── UTM detection ──
