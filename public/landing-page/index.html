@@ -69,10 +69,10 @@
     /* ── Scroll Reveal ──
        Fast (450ms), small travel (22px) → content reads immediately */
     .reveal {
-      opacity: 0; transform: translateY(22px);
-      transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+      opacity: 0; transform: translateY(22px); filter: blur(6px);
+      transition: opacity .45s var(--ease-out), transform .45s var(--ease-out), filter .5s var(--ease-out);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
     .reveal-d1 { transition-delay: .08s; }
     .reveal-d2 { transition-delay: .16s; }
     .reveal-d3 { transition-delay: .24s; }
@@ -377,6 +377,18 @@
       .bento { grid-template-columns:1fr; }
       .bento-large { grid-row:span 1; }
       [data-mc] { grid-template-columns:1fr !important; }
+    }
+
+    /* ===== CINEMATIC LAYER ===== */
+    @keyframes ctaPulse{
+      0%,100%{box-shadow:0 6px 20px hsl(0 0% 0%/.35)}
+      50%{box-shadow:0 6px 30px hsl(43 96% 56%/.5),0 0 0 8px hsl(43 96% 56%/.08)}
+    }
+    .btn-primary{animation:ctaPulse 2.8s ease-in-out infinite}
+    .btn-primary:hover{animation:none}
+    #hero-canvas,.hero-grid,.hero-glow{will-change:transform}
+    @media(prefers-reduced-motion:reduce){
+      .btn-primary{animation:none}
     }
   </style>
 </head>
@@ -988,7 +1000,12 @@ document.querySelectorAll('.bento-cell').forEach(cell=>{
     vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22,
     r:Math.random()*1.3+.4
   }));
-  (function draw(){
+  let lastPF=0,cvVisible=true;
+  const cvIO=new IntersectionObserver(es=>{cvVisible=es[0].isIntersecting;},{threshold:0});
+  cvIO.observe(cv);
+  (function draw(ts){
+    if(!cvVisible||ts-lastPF<33){requestAnimationFrame(draw);return;}
+    lastPF=ts;
     ctx.clearRect(0,0,W,H);
     pts.forEach((p,i)=>{
       p.x+=p.vx; p.y+=p.vy;
@@ -1008,7 +1025,7 @@ document.querySelectorAll('.bento-cell').forEach(cell=>{
       }
     });
     requestAnimationFrame(draw);
-  })();
+  })(0);
 })();
 
 /* ─────────────────────────────────
@@ -1083,6 +1100,26 @@ setTimeout(()=>{showToast(); setInterval(showToast,12000);},5000);
 if(window.innerWidth<768){
   document.querySelectorAll('[data-mc]').forEach(el=>el.style.gridTemplateColumns='1fr');
 }
+
+/* ===== PARALLAX ENGINE ===== */
+(function(){
+  if(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)||window.innerWidth<768) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const pBg=[
+    document.getElementById('hero-canvas'),
+    document.querySelector('.hero-grid'),
+    document.querySelector('.hero-glow')
+  ].filter(Boolean);
+  const pFg=document.querySelector('.hero > div[style*="max-width:780px"]')||document.querySelector('.hero > div[style*="max-width"]');
+  let raf=false;
+  function run(){
+    const y=window.scrollY;
+    pBg.forEach(el=>el.style.transform=`translateY(${y*.35}px)`);
+    if(pFg) pFg.style.transform=`translateY(${y*.08}px)`;
+    raf=false;
+  }
+  window.addEventListener('scroll',()=>{if(!raf){raf=true;requestAnimationFrame(run);}},{passive:true});
+})();
 </script>
 </body>
 </html>
