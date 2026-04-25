@@ -23,20 +23,24 @@ jobs:
       - name: Build do projeto
         run: bun run build
 
-      - name: Mostrar arquivos gerados
-        run: ls -al dist/ && cat dist/index.html | grep -o 'assets/index-[^"]*\.js'
+      - name: Verificar build
+        run: |
+          ls -al dist/
+          ls dist/autoridade-visual/
+          ls dist/e-commerce/
+          ls dist/landing-page/
+          ls dist/site-institucional/
 
       - name: Deploy FTP para Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           port: 21
           username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: /
-          dangerous-clean-slate: true
-          dry-run: false
+          server-dir: public_html/
+          dangerous-clean-slate: false
           log-level: verbose
           exclude: |
             **/.git*
