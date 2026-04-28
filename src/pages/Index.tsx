@@ -83,7 +83,7 @@ const Index = () => {
         </div>
         <main>
           <Hero />
-          <Suspense fallback={<div className="h-screen bg-background" />}>
+          <Suspense fallback={null}>
             <Stats />
             <Services />
             <Portfolio />

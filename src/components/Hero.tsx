@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import HeroParticles from "./HeroParticles";
 import { lazy, Suspense, useEffect, useRef, useState, useCallback, Fragment } from "react";
 import { LiquidButton } from "./LiquidButton";
-import { useIsMobile } from "@/hooks/use-mobile";
+
 
 const SplineScene = lazy(() =>
   import('@/components/ui/splite').then(m => ({ default: m.SplineScene }))
@@ -105,7 +105,10 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 100]);
   const { t } = useLanguage();
-  const isMobile = useIsMobile();
+  // Synchronous mobile detection — runs BEFORE first render to prevent Spline flash on mobile
+  const isMobile = typeof window !== 'undefined'
+    ? window.matchMedia('(max-width: 767px)').matches
+    : false;
   const heroRef = useRef<HTMLElement>(null);
 
   // ── UTM detection ──
