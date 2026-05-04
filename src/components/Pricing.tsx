@@ -38,7 +38,7 @@ const plans: Plan[] = [
     id: "basico",
     name: "Básico",
     price: "R$ 149",
-    priceUSD: "$29",
+    priceUSD: "$49",
     period: "/mês",
     description: "Seu site no ar e protegido. Para quem precisa do básico sem complicação.",
     features: [
@@ -61,7 +61,7 @@ const plans: Plan[] = [
     id: "gestao",
     name: "Gestão",
     price: "R$ 297",
-    priceUSD: "$59",
+    priceUSD: "$97",
     period: "/mês",
     description: "Site sempre rápido, atualizado e convertendo. Você foca em vender — a gente cuida do resto.",
     popular: true,
@@ -85,7 +85,7 @@ const plans: Plan[] = [
     id: "premium",
     name: "Premium",
     price: "R$ 497",
-    priceUSD: "$99",
+    priceUSD: "$197",
     period: "/mês",
     description: "1 hora fora do ar custa mais que o plano inteiro. Proteção total, performance máxima.",
     features: [
@@ -111,7 +111,7 @@ const plansEN: Plan[] = [
     id: "basico",
     name: "Basic",
     price: "R$ 149",
-    priceUSD: "$29",
+    priceUSD: "$49",
     period: "/mo",
     description: "Your site live and protected. For those who need the essentials without the hassle.",
     features: [
@@ -134,7 +134,7 @@ const plansEN: Plan[] = [
     id: "gestao",
     name: "Management",
     price: "R$ 297",
-    priceUSD: "$59",
+    priceUSD: "$97",
     period: "/mo",
     description: "Site always fast, updated and converting. You focus on selling — we handle the rest.",
     popular: true,
@@ -158,7 +158,7 @@ const plansEN: Plan[] = [
     id: "premium",
     name: "Premium",
     price: "R$ 497",
-    priceUSD: "$99",
+    priceUSD: "$197",
     period: "/mo",
     description: "1 hour offline costs more than the whole plan. Total protection, maximum performance.",
     features: [
