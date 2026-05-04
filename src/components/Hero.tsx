@@ -122,10 +122,20 @@ const Hero = () => {
 
   // ── Copy helper: returns overrides when a known ad variant is detected ──
   const getHeroCopy = () => {
+    const isEN = t.hero.cta1.includes('WANT') || t.hero.cta1.includes('I WANT');
     switch (adVariant) {
       case 'ad02':
       case 'autoridade':
-        return {
+        return isEN ? {
+          badge: 'YOUR COMPETITOR WON\'T BE ABLE TO COPY THIS.',
+          headline2: 'authority before the conversation even starts',
+          subtitle: 'While your competitor is still explaining what they do, your site has already convinced. Design that communicates value before the visitor reads a single line.',
+          proofPoints: [
+            'Design that communicates immediate value',
+            '98% of clients sign a new contract',
+            'Delivered in up to 15 days',
+          ],
+        } : {
           badge: 'SEU CONCORRENTE NÃO VAI CONSEGUIR COPIAR ISSO.',
           headline2: 'autoridade antes da conversa começar',
           subtitle: 'Enquanto seu concorrente explica o que faz, seu site já convenceu. Design que comunica valor antes do visitante ler uma linha — e transforma dúvida em decisão.',
@@ -137,7 +147,16 @@ const Hero = () => {
         };
       case 'ad04':
       case 'closer':
-        return {
+        return isEN ? {
+          badge: 'WORKS WHILE YOU SLEEP. CLOSES WHILE YOU DELIVER.',
+          headline2: 'close deals without you being present',
+          subtitle: 'A page that guides, breaks objections, and turns interest into decisions — without depending on your availability at any point in the process.',
+          proofPoints: [
+            'Page that sells 24h without you',
+            'WhatsApp & pixel integration included',
+            'Delivered in up to 15 days',
+          ],
+        } : {
           badge: 'TRABALHA ENQUANTO VOCÊ DORME. FECHA ENQUANTO VOCÊ ENTREGA.',
           headline2: 'fechar sem você estar presente',
           subtitle: 'Uma página que conduz, quebra objeções e transforma interesse em decisão — sem depender da sua disponibilidade em nenhum momento do processo.',
@@ -149,7 +168,16 @@ const Hero = () => {
         };
       case 'ad07':
       case 'ecommerce':
-        return {
+        return isEN ? {
+          badge: 'YOUR STORE OPEN 24H. ANYWHERE IN THE WORLD.',
+          headline2: 'sell online while your physical store sleeps',
+          subtitle: 'Complete e-commerce platform: storefront, integrated payments, and a structure ready to receive clients — even when you\'re closed. Delivered in 15 days.',
+          proofPoints: [
+            'Store with card, bank transfer & more',
+            'Ready to sell in 15 days',
+            'Simple management, no developer needed',
+          ],
+        } : {
           badge: 'SUA LOJA ABERTA 24H. EM QUALQUER LUGAR DO BRASIL.',
           headline2: 'vender online enquanto a loja física dorme',
           subtitle: 'Plataforma de e-commerce completa: vitrine, pagamento integrado e estrutura pronta para receber clientes — mesmo quando você está fechado. Entrega em até 15 dias.',
@@ -161,7 +189,16 @@ const Hero = () => {
         };
       case 'ad09':
       case 'portfolio':
-        return {
+        return isEN ? {
+          badge: 'A PORTFOLIO THAT CLOSES DEALS BEFORE YOU SPEAK.',
+          headline2: 'impress before the conversation even starts',
+          subtitle: 'The client decides in milliseconds if your work deserves attention. A portfolio with visual authority changes that judgment before any project is even seen.',
+          proofPoints: [
+            'Portfolio that closes contracts',
+            'Animations & CMS included',
+            'Delivered in up to 15 days',
+          ],
+        } : {
           badge: 'UM PORTFÓLIO QUE FECHA CONTRATO ANTES DE VOCÊ FALAR.',
           headline2: 'impressionar antes da conversa começar',
           subtitle: 'O cliente decide em milissegundos se o seu trabalho vale atenção. Um portfólio com autoridade visual muda esse julgamento antes de qualquer projeto ser visto.',

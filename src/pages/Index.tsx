@@ -10,7 +10,6 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Layers, FolderOpen } from "lucide-react";
 import TopBanner from "@/components/TopBanner";
-import { Analytics } from "@/components/Analytics";
 import { useGlobalAnimations } from "@/hooks/useGlobalAnimations";
 
 const Services = lazy(() => import("@/components/Services"));
@@ -66,7 +65,6 @@ const Index = () => {
       </Helmet>
       
       <div className="min-h-screen bg-background flex flex-col">
-        <Analytics />
         <TopBanner />
         <ScrollProgress />
         <FloatingParticles />

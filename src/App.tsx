@@ -14,6 +14,7 @@ import { CustomCursor } from "./components/CustomCursor";
 import { NoiseOverlay } from "./components/NoiseOverlay";
 import { PageTransition } from "./components/PageTransition";
 import ExitIntent from "./components/ExitIntent";
+import { Analytics } from "./components/Analytics";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <Analytics />
             <PageTransition />
             <Routes>
               <Route path="/" element={<Index />} />

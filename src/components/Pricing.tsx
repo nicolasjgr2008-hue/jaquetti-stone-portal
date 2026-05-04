@@ -106,6 +106,85 @@ const plans: Plan[] = [
   },
 ];
 
+const plansEN: Plan[] = [
+  {
+    id: "basico",
+    name: "Basic",
+    price: "R$ 149",
+    priceUSD: "$49",
+    period: "/mo",
+    description: "Your site live and protected. For those who need the essentials without the hassle.",
+    features: [
+      { name: "Hosting", value: "Managed", check: true },
+      { name: "SSL Certificate", value: "Included", check: true },
+      { name: "Backup", value: "Bi-weekly", check: true },
+      { name: "Updates", value: "1/mo", check: true },
+      { name: "Commitment", value: "3 months", check: true },
+      { name: "Monitoring", value: "—", check: false },
+      { name: "Maintenance", value: "—", check: false },
+      { name: "WhatsApp Support", value: "—", check: false },
+      { name: "Report", value: "—", check: false },
+      { name: "Performance", value: "—", check: false },
+      { name: "Design", value: "—", check: false },
+      { name: "Domain", value: "—", check: false },
+    ],
+    gradient: "from-muted/50 to-muted/30",
+  },
+  {
+    id: "gestao",
+    name: "Management",
+    price: "R$ 297",
+    priceUSD: "$97",
+    period: "/mo",
+    description: "Site always fast, updated and converting. You focus on selling — we handle the rest.",
+    popular: true,
+    features: [
+      { name: "Hosting", value: "Managed", check: true },
+      { name: "SSL Certificate", value: "Included", check: true },
+      { name: "Backup", value: "Weekly", check: true },
+      { name: "Monitoring", value: "Weekly", check: true },
+      { name: "Maintenance", value: "Monthly", check: true },
+      { name: "Updates", value: "4/mo", check: true },
+      { name: "WhatsApp Support", value: "Up to 8h", check: true },
+      { name: "Report", value: "Simplified", check: true },
+      { name: "Performance", value: "Bi-annual", check: true },
+      { name: "Design", value: "Up to 1h/mo", check: true },
+      { name: "Domain", value: "30-day notice", check: true },
+      { name: "Commitment", value: "6 months", check: true },
+    ],
+    gradient: "from-primary/20 to-primary/5",
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    price: "R$ 497",
+    priceUSD: "$197",
+    period: "/mo",
+    description: "1 hour offline costs more than the whole plan. Total protection, maximum performance.",
+    features: [
+      { name: "Hosting", value: "Dedicated", check: true },
+      { name: "SSL Certificate", value: "Included", check: true },
+      { name: "Backup", value: "Daily", check: true },
+      { name: "Monitoring", value: "24/7", check: true },
+      { name: "Maintenance", value: "Bi-wkly + urgent", check: true },
+      { name: "Updates", value: "Unlimited", check: true },
+      { name: "WhatsApp Support", value: "Up to 4h", check: true },
+      { name: "Report", value: "Full", check: true },
+      { name: "Performance", value: "Quarterly", check: true },
+      { name: "Design", value: "Up to 3h/mo", check: true },
+      { name: "Domain", value: "Full management", check: true },
+      { name: "Commitment", value: "6 months", check: true },
+    ],
+    gradient: "from-accent/30 to-accent/10",
+  },
+];
+
+const pricingMicroCTA = {
+  pt: { text: "Não sabe qual plano precisa?", link: "Fale com a gente em 2 minutos", url: "https://wa.me/5511998409981?text=Quero%20ajuda%20para%20escolher%20um%20plano%20mensal" },
+  en: { text: "Not sure which plan you need?", link: "Talk to us in 2 minutes", url: "https://wa.me/5511998409981?text=I%20need%20help%20choosing%20a%20monthly%20plan" },
+  es: { text: "¿No sabes qué plan necesitas?", link: "Háblanos en 2 minutos", url: "https://wa.me/5511998409981?text=Quiero%20ayuda%20para%20elegir%20un%20plan%20mensual" },
+};
+
 const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { language, t } = useLanguage();
@@ -253,7 +332,8 @@ const PricingCard = ({ plan, index }: { plan: Plan; index: number }) => {
 };
 
 const Pricing = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const activePlans = language === 'en' ? plansEN : plans;
 
   return (
     <section id="pricing" className="py-32 bg-[#050505] relative overflow-hidden">
@@ -298,23 +378,23 @@ const Pricing = () => {
         {/* Micro-CTA for undecided users */}
         <div className="text-center mb-10">
           <p className="text-sm text-muted-foreground">
-            Não sabe qual plano precisa?{" "}
+            {pricingMicroCTA[language].text}{" "}
             <a
-              href="https://wa.me/5511998409981?text=Quero%20ajuda%20para%20escolher%20um%20plano%20mensal"
+              href={pricingMicroCTA[language].url}
               target="_blank"
               rel="noopener noreferrer"
               data-source="cta_pricing_undecided"
               onClick={() => trackWa('pricing_undecided')}
               className="text-primary font-semibold hover:underline underline-offset-2"
             >
-              Fale com a gente em 2 minutos
+              {pricingMicroCTA[language].link}
             </a>
           </p>
         </div>
 
         {/* Pricing Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {plans.map((plan, index) => (
+          {activePlans.map((plan, index) => (
             <PricingCard key={plan.id} plan={plan} index={index} />
           ))}
         </div>

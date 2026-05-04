@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 import { X, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/hooks/useLanguage";
+
+const bannerText = {
+  pt: (vagas: number) => `⚡ Apenas ${vagas} vaga${vagas > 1 ? 's' : ''} para novos projetos este mês — Fale agora antes que acabe`,
+  en: (vagas: number) => `⚡ Only ${vagas} spot${vagas > 1 ? 's' : ''} left for new projects this month — Talk to us before it's gone`,
+  es: (vagas: number) => `⚡ Solo ${vagas} cupo${vagas > 1 ? 's' : ''} para nuevos proyectos este mes — Habla ahora antes de que se agote`,
+};
 
 const TopBanner = () => {
+  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   const getVagas = () => {
@@ -50,13 +58,13 @@ const TopBanner = () => {
               className="flex items-center gap-2 text-[13px] font-medium hover:opacity-80 transition-opacity whitespace-nowrap"
             >
               <Zap className="w-4 h-4 text-yellow-300" strokeWidth={2.5} />
-              {`⚡ Apenas ${getVagas()} vaga${getVagas() > 1 ? 's' : ''} para novos projetos este mês — Fale agora antes que acabe`}
+              {bannerText[language](getVagas())}
             </button>
             
             <button 
               onClick={dismiss}
               className="absolute right-4 p-1 hover:bg-black/20 rounded-full transition-colors flex items-center justify-center"
-              aria-label="Fechar aviso"
+              aria-label={language === 'en' ? 'Close notice' : language === 'es' ? 'Cerrar aviso' : 'Fechar aviso'}
             >
               <X className="w-4 h-4" />
             </button>

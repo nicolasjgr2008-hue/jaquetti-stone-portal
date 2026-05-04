@@ -1,6 +1,37 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
+
+const exitContent = {
+  pt: {
+    ariaLabel: "Oferta de orçamento gratuito",
+    closeLabel: "Fechar",
+    heading: "Espera — seu concorrente já tem site.",
+    body: "Cada dia sem um site profissional é um dia que seus clientes vão pra concorrência. Receba um orçamento grátis em 2 horas.",
+    cta: "Quero parar de perder clientes →",
+    disclaimer: "Sem spam. Orçamento gratuito em 2 horas.",
+    waUrl: "https://wa.me/5511998409981?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20para%20parar%20de%20perder%20clientes",
+  },
+  en: {
+    ariaLabel: "Free quote offer",
+    closeLabel: "Close",
+    heading: "Wait — your competitor already has a website.",
+    body: "Every day without a professional site is a day your clients go to the competition. Get a free quote in 2 hours.",
+    cta: "I want to stop losing clients →",
+    disclaimer: "No spam. Free quote in 2 hours.",
+    waUrl: "https://wa.me/5511998409981?text=Hi!%20I%20want%20a%20quote%20to%20stop%20losing%20clients",
+  },
+  es: {
+    ariaLabel: "Oferta de presupuesto gratuito",
+    closeLabel: "Cerrar",
+    heading: "Espera — tu competidor ya tiene sitio web.",
+    body: "Cada día sin un sitio profesional es un día que tus clientes van a la competencia. Recibe un presupuesto gratis en 2 horas.",
+    cta: "Quiero dejar de perder clientes →",
+    disclaimer: "Sin spam. Presupuesto gratuito en 2 horas.",
+    waUrl: "https://wa.me/5511998409981?text=Hola!%20Quiero%20un%20presupuesto%20para%20dejar%20de%20perder%20clientes",
+  },
+};
 
 const SESSION_KEY = "exit_shown";
 const MIN_DELAY_MS = 8000;
@@ -19,6 +50,8 @@ const trackGtag = (eventName: string, params: Record<string, string>) => {
 };
 
 const ExitIntent = () => {
+  const { language } = useLanguage();
+  const copy = exitContent[language];
   const [visible, setVisible] = useState(false);
   const readyRef = useRef(false);         // true after MIN_DELAY_MS
   const shownRef = useRef(false);         // guard against double-fire
@@ -87,7 +120,7 @@ const ExitIntent = () => {
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
           aria-modal="true"
           role="dialog"
-          aria-label="Oferta de orçamento gratuito"
+          aria-label={copy.ariaLabel}
         >
           {/* Overlay */}
           <motion.div
@@ -109,7 +142,7 @@ const ExitIntent = () => {
             {/* Close button */}
             <button
               onClick={close}
-              aria-label="Fechar"
+              aria-label={copy.closeLabel}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors duration-200"
             >
               <X size={16} />
@@ -118,15 +151,15 @@ const ExitIntent = () => {
             {/* Content */}
             <div className="space-y-4 text-center">
               <h2 className="font-serif text-2xl font-bold text-foreground">
-                Espera — seu concorrente já tem site.
+                {copy.heading}
               </h2>
 
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Cada dia sem um site profissional é um dia que seus clientes vão pra concorrência. Receba um orçamento grátis em 2 horas.
+                {copy.body}
               </p>
 
               <a
-                href="https://wa.me/5511998409981?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20para%20parar%20de%20perder%20clientes"
+                href={copy.waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
@@ -135,11 +168,11 @@ const ExitIntent = () => {
                 }}
                 className="inline-flex items-center justify-center w-full py-3.5 px-6 rounded-xl bg-primary text-primary-foreground font-bold text-sm tracking-wide hover:bg-primary/90 transition-colors duration-200"
               >
-                Quero parar de perder clientes →
+                {copy.cta}
               </a>
 
               <p className="text-xs text-muted-foreground/60">
-                Sem spam. Orçamento gratuito em 2 horas.
+                {copy.disclaimer}
               </p>
             </div>
           </motion.div>

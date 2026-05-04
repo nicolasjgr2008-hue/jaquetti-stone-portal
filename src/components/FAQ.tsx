@@ -7,6 +7,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 
 const WA_PT = "https://wa.me/5511998409981?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20tenho%20uma%20d%C3%BAvida";
 const WA_EN = "https://wa.me/5511998409981?text=Hi!%20I%20came%20from%20the%20website%20and%20have%20a%20question";
+const WA_ES = "https://wa.me/5511998409981?text=Hola!%20Vine%20desde%20el%20sitio%20y%20tengo%20una%20consulta";
 
 // ── Perguntas de quem vem dos anúncios (quebram as objeções específicas) ──
 const faqsAdsPT = [
@@ -25,6 +26,26 @@ const faqsAdsPT = [
   {
     question: "Como um portfólio pode fechar contrato antes de eu falar com o cliente?",
     answer: "O cliente decide se o seu trabalho vale atenção em milissegundos — antes de ver qualquer projeto. Um portfólio com hierarquia visual correta, velocidade de carregamento profissional e apresentação de casos com resultado (não só imagem bonita) muda esse julgamento antes de qualquer conversa. Isabela Muniz, arquiteta, passou a atrair clientes de ticket maior depois que seu portfólio começou a carregar projetos 4K sem perder performance.",
+  },
+];
+
+// ── Ad-objection FAQs (EN) ──
+const faqsAdsEN = [
+  {
+    question: "Will my site really look more professional than my competitor's?",
+    answer: "Yes — and that's exactly the difference our clients report most. It's not about being 'pretty': it's about communicating authority before the visitor reads a single line. Hermes Dos Anjos, manager at Condomínio Hermes, reported a 40% reduction in support calls within 30 days because the site conveyed enough credibility to answer questions before people even reached out.",
+  },
+  {
+    question: "Can a landing page really close clients without me being present?",
+    answer: "That's exactly what it's built for. Every element — headline, visual hierarchy, social proof, FAQ, CTA — is positioned to guide the visitor from doubt to decision without needing you. Marina Costa, director at Studio MC Design, received 3 new clients in the first week after launch, with zero manual interaction.",
+  },
+  {
+    question: "Is an e-commerce hard to manage day to day?",
+    answer: "Not with the structure we deliver. You manage products, inventory, and orders through a simple dashboard — no developer needed for day-to-day updates. We integrate with major payment methods and set up shipping automatically. Carolina Silva, CEO at Use Carolina Brand, increased online sales by 120% in the first quarter without a tech team.",
+  },
+  {
+    question: "How can a portfolio close a deal before I even speak to the client?",
+    answer: "The client decides if your work deserves attention in milliseconds — before seeing any project. A portfolio with correct visual hierarchy, professional loading speed, and result-driven case presentations changes that judgment before any conversation happens. Isabela Muniz, architect, started attracting higher-ticket clients after her portfolio began loading 4K projects without losing performance.",
   },
 ];
 
@@ -83,13 +104,42 @@ const faqsEN = [
   },
 ];
 
+const faqsES = [
+  {
+    question: "¿Cuánto cuesta un sitio que trae clientes?",
+    answer: "Proyectos desde R$ 797 para landing pages y R$ 2.997 para sitios institucionales. Enviamos presupuesto personalizado gratis en hasta 2 horas — sin compromiso. La mayoría de clientes nos cuenta que la inversión se pagó en las primeras semanas con los nuevos clientes que trajo el sitio.",
+  },
+  {
+    question: "¿Cuánto tiempo tarda mi sitio en estar listo?",
+    answer: "La mayoría de los proyectos están listos en 10 a 15 días hábiles. Proyectos más complejos pueden llevar hasta 30 días. Cumplimos el plazo — eso no es negociable.",
+  },
+  {
+    question: "¿Mi sitio va a aparecer en Google?",
+    answer: "Sí. Todos los sitios salen con SEO técnico configurado: meta tags, velocidad optimizada y estructura correcta. Los clientes que invierten en SEO continuo con nosotros aparecen en la primera página en menos de 3 meses para búsquedas de su región.",
+  },
+  {
+    question: "¿Necesito tener todo listo antes de comenzar?",
+    answer: "No. La mayoría de nuestros clientes empieza sin nada — y construimos juntos. Textos, fotos, estructura... nos encargamos de todo. Cuanto más tengas listo, más rápido entregamos.",
+  },
+  {
+    question: "¿Y si no me gusta el resultado?",
+    answer: "30 días de garantía en todos los proyectos. Si no quedas satisfecho, ajustamos hasta que lo estés. Trabajamos siempre con contrato digital: 50% en la aprobación y 50% en la entrega.",
+  },
+  {
+    question: "¿Qué pasa después de que el sitio esté listo?",
+    answer: "30 días de soporte gratuito para ajustes. Después, tú eliges: contrata nuestro plan mensual o lleva el proyecto a donde quieras. Sin fidelidad obligatoria.",
+  },
+];
+
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { t, language } = useLanguage();
 
-  // Build the full list: ad-objection questions first (PT only), then general FAQs
+  // Build the full list: ad-objection questions first, then general FAQs
   const allFaqs = language === 'en'
-    ? faqsEN
+    ? [...faqsAdsEN, ...faqsEN]
+    : language === 'es'
+    ? faqsES
     : [...faqsAdsPT, ...faqsPT];
 
   const toggle = (index: number) => {
@@ -123,6 +173,8 @@ const FAQ = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto reveal">
             {language === 'en'
               ? 'Everything you need to know before we start bringing you clients.'
+              : language === 'es'
+              ? 'Todo lo que necesitas saber antes de empezar a recibir más clientes.'
               : 'Tudo o que você precisa saber antes de começar a receber mais clientes.'}
           </p>
         </AnimatedSection>
@@ -159,7 +211,7 @@ const FAQ = () => {
                         <div className="w-full h-px bg-border/20 mb-6" />
                         {faq.answer}
                         <a
-                          href={language === 'en' ? WA_EN : WA_PT}
+                          href={language === 'en' ? WA_EN : language === 'es' ? WA_ES : WA_PT}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block mt-4 text-xs font-medium text-primary hover:text-primary/80 transition-colors duration-200 underline underline-offset-4"
@@ -170,7 +222,7 @@ const FAQ = () => {
                             }
                           }}
                         >
-                          {language === 'en' ? 'Still have questions? Talk to us now →' : 'Ainda tem dúvidas? Fale com a gente agora →'}
+                          {language === 'en' ? 'Still have questions? Talk to us now →' : language === 'es' ? '¿Tienes más dudas? Habla con nosotros →' : 'Ainda tem dúvidas? Fale com a gente agora →'}
                         </a>
                       </div>
                     </motion.div>

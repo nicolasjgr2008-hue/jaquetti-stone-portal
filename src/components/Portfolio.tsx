@@ -104,7 +104,7 @@ const Portfolio = () => {
                     </div>
                     {isClickable && (
                       <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50 group-hover:text-primary/80 transition-colors duration-300">
-                        Ver Case →
+                        {t.portfolio.viewCase} →
                       </span>
                     )}
                   </CardWrapper>
