@@ -25,172 +25,199 @@ const monthlyPlanCta: Record<string, string> = {
   premium: 'plano_premium',
 };
 
-const siteTypes = [
+const siteTypesPT = [
   {
-    id: "landing",
-    title: "01 — LANDING PAGE",
-    icon: Rocket,
+    id: "landing", title: "01 — LANDING PAGE", icon: Rocket,
     description: "Página focada em uma única ação: fazer o visitante virar cliente. Ideal para campanhas de tráfego pago, lançamentos e captação de leads qualificados.",
     ctaText: "Quero converter mais visitantes →",
     ctaMessage: "Quero uma landing page que converte",
-    ctaMessageEN: "Hi! I want a landing page that converts visitors into clients",
     tiers: [
-      { 
-        name: "Básica", price: "R$ 797", priceUSD: "$497", popular: false,
-        features: ["1 página responsiva", "Formulário de captura", "Entrega em 7 dias"]
-      },
-      { 
-        name: "Profissional", price: "R$ 1.497", priceUSD: "$997", popular: true,
-        features: ["Até 3 seções estratégicas", "WhatsApp + pixel de rastreamento", "SEO configurado para Google", "Entrega em 10 dias"]
-      },
-      { 
-        name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false,
-        features: ["Páginas ilimitadas", "Textos persuasivos inclusos", "Teste A/B para máxima conversão", "Suporte por 60 dias"]
-      }
+      { name: "Básica", price: "R$ 797", priceUSD: "$497", popular: false, features: ["1 página responsiva", "Formulário de captura", "Entrega em 7 dias"] },
+      { name: "Profissional", price: "R$ 1.497", priceUSD: "$997", popular: true, features: ["Até 3 seções estratégicas", "WhatsApp + pixel de rastreamento", "SEO configurado para Google", "Entrega em 10 dias"] },
+      { name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false, features: ["Páginas ilimitadas", "Textos persuasivos inclusos", "Teste A/B para máxima conversão", "Suporte por 60 dias"] }
     ]
   },
   {
-    id: "institucional",
-    title: "02 — SITE INSTITUCIONAL",
-    icon: Building2,
+    id: "institucional", title: "02 — SITE INSTITUCIONAL", icon: Building2,
     description: "Seu cliente pesquisa no Google antes de contratar. Se ele não te encontra — ou encontra um site amador — ele vai pro concorrente. Resolva isso agora.",
     ctaText: "Quero aparecer no Google →",
     ctaMessage: "Quero um site que traga credibilidade e clientes",
-    ctaMessageEN: "Hi! I want a professional website that brings credibility and clients",
     tiers: [
-      { 
-        name: "Essencial", price: "R$ 2.997", priceUSD: "$1,497", popular: false,
-        features: ["Até 5 páginas otimizadas", "Design 100% responsivo", "Botão WhatsApp fixo"]
-      },
-      { 
-        name: "Profissional", price: "R$ 3.997", priceUSD: "$2,997", popular: true,
-        features: ["Até 10 páginas", "Visual premium que passa confiança", "SEO avançado em todas páginas", "Blog para atrair tráfego orgânico"]
-      },
-      { 
-        name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false,
-        features: ["Páginas ilimitadas", "Multi-idioma integrado", "Integração com CRM", "3 meses de consultoria inclusa"]
-      }
+      { name: "Essencial", price: "R$ 2.997", priceUSD: "$1,497", popular: false, features: ["Até 5 páginas otimizadas", "Design 100% responsivo", "Botão WhatsApp fixo"] },
+      { name: "Profissional", price: "R$ 3.997", priceUSD: "$2,997", popular: true, features: ["Até 10 páginas", "Visual premium que passa confiança", "SEO avançado em todas páginas", "Blog para atrair tráfego orgânico"] },
+      { name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false, features: ["Páginas ilimitadas", "Multi-idioma integrado", "Integração com CRM", "3 meses de consultoria inclusa"] }
     ]
   },
   {
-    id: "ecommerce",
-    title: "03 — E-COMMERCE",
-    icon: ShoppingCart,
+    id: "ecommerce", title: "03 — E-COMMERCE", icon: ShoppingCart,
     description: "Sua loja vendendo 24h por dia, 7 dias por semana. A recuperação de carrinho do plano Profissional sozinha recupera 10-15% das vendas perdidas — paga a diferença no primeiro mês.",
     ctaText: "Quero vender online 24h →",
     ctaMessage: "Quero uma loja virtual que venda de verdade",
-    ctaMessageEN: "Hi! I want an online store that actually sells",
     tiers: [
-      { 
-        name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false,
-        features: ["Até 50 produtos", "Pagamento e frete configurados", "Layout otimizado para celular"]
-      },
-      { 
-        name: "Profissional", price: "R$ 5.997", priceUSD: "$4,997", popular: true,
-        features: ["Recuperação de carrinho (se paga sozinha)", "Até 500 produtos", "Integração ERP / Bling", "Rastreamento completo de conversão"]
-      },
-      { 
-        name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false,
-        features: ["Produtos ilimitados", "Múltiplos centros de distribuição", "B2B e atacado integrados", "Suporte técnico 24h dedicado"]
-      }
+      { name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false, features: ["Até 50 produtos", "Pagamento e frete configurados", "Layout otimizado para celular"] },
+      { name: "Profissional", price: "R$ 5.997", priceUSD: "$4,997", popular: true, features: ["Recuperação de carrinho (se paga sozinha)", "Até 500 produtos", "Integração ERP / Bling", "Rastreamento completo de conversão"] },
+      { name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false, features: ["Produtos ilimitados", "Múltiplos centros de distribuição", "B2B e atacado integrados", "Suporte técnico 24h dedicado"] }
     ]
   },
   {
-    id: "portfolio",
-    title: "04 — PORTFÓLIO",
-    icon: Briefcase,
+    id: "portfolio", title: "04 — PORTFÓLIO", icon: Briefcase,
     description: "Seu trabalho é incrível, mas ninguém vê. Um portfólio profissional faz o cliente decidir antes mesmo de ligar pra você.",
     ctaText: "Quero fechar mais projetos →",
     ctaMessage: "Quero um portfólio que venda meu trabalho",
-    ctaMessageEN: "Hi! I want a portfolio that sells my work",
     tiers: [
-      { 
-        name: "Básico", price: "R$ 997", priceUSD: "$597", popular: false,
-        features: ["Galeria de projetos", "Links para redes sociais", "Design clean e moderno"]
-      },
-      { 
-        name: "Criativo", price: "R$ 1.997", priceUSD: "$1,497", popular: true,
-        features: ["Galeria interativa com CMS", "Animações modernas fluidas", "Estudo de caso por projeto", "SEO focado em portfólio"]
-      },
-      { 
-        name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false,
-        features: ["Filtros dinâmicos por categoria", "Área restrita com senha", "Vídeo background em loop", "Manutenção VIP 6 meses"]
-      }
+      { name: "Básico", price: "R$ 997", priceUSD: "$597", popular: false, features: ["Galeria de projetos", "Links para redes sociais", "Design clean e moderno"] },
+      { name: "Criativo", price: "R$ 1.997", priceUSD: "$1,497", popular: true, features: ["Galeria interativa com CMS", "Animações modernas fluidas", "Estudo de caso por projeto", "SEO focado em portfólio"] },
+      { name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false, features: ["Filtros dinâmicos por categoria", "Área restrita com senha", "Vídeo background em loop", "Manutenção VIP 6 meses"] }
     ]
   }
 ];
 
-const monthlyPlans = [
+const siteTypesEN = [
   {
-    id: "basico",
-    name: "Básico",
-    price: "R$ 149/mês",
-    priceUSD: "$49/mo",
-    subtitle: "Seu site no ar e funcionando. Sem acompanhamento — mas sem risco de cair.",
-    popular: false,
-    features: [
-      "Hospedagem gerenciada SSD",
-      "Certificado SSL (HTTPS)",
-      "Backup quinzenal automático",
-      "1 alteração de conteúdo/mês"
-    ],
-    ctaText: "Garantir meu site no ar →",
-    ctaMessage: "Quero o plano Básico — meu site no ar sem preocupação",
-    ctaMessageEN: "Hi! I want the Basic plan to keep my site running"
+    id: "landing", title: "01 — LANDING PAGE", icon: Rocket,
+    description: "A page focused on one action: turning visitors into clients. Perfect for paid traffic campaigns, launches, and qualified lead generation.",
+    ctaText: "I want to convert more visitors →",
+    ctaMessage: "Hi! I want a landing page that converts visitors into clients",
+    tiers: [
+      { name: "Basic", price: "R$ 797", priceUSD: "$497", popular: false, features: ["1 responsive page", "Lead capture form", "Delivered in 7 days"] },
+      { name: "Professional", price: "R$ 1.497", priceUSD: "$997", popular: true, features: ["Up to 3 strategic sections", "WhatsApp + tracking pixel", "SEO configured for Google", "Delivered in 10 days"] },
+      { name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false, features: ["Unlimited pages", "Persuasive copy included", "A/B testing for max conversion", "60-day support"] }
+    ]
   },
   {
-    id: "gestao",
-    name: "Gestão",
-    price: "R$ 297/mês",
-    priceUSD: "$97/mo",
-    subtitle: "Site sempre rápido, atualizado e trazendo clientes. Você não precisa lembrar de nada.",
-    popular: true,
-    features: [
-      "Tudo do Básico",
-      "Backup semanal",
-      "Monitoramento semanal de disponibilidade",
-      "Manutenção técnica mensal",
-      "4 alterações de conteúdo/mês",
-      "Suporte via WhatsApp (até 8h úteis)",
-      "Relatório de desempenho mensal",
-      "Otimização de velocidade semestral",
-      "Melhorias de design (até 1h/mês)",
-      "Aviso de renovação de domínio"
-    ],
-    ctaText: "Quero meu site sempre otimizado →",
-    ctaMessage: "Quero o plano Gestão — site sempre otimizado e atualizado",
-    ctaMessageEN: "Hi! I want the Management plan — site always optimized"
+    id: "institucional", title: "02 — BUSINESS WEBSITE", icon: Building2,
+    description: "Your client Googles you before hiring. If they can't find you — or find an amateur site — they go to your competitor. Fix that now.",
+    ctaText: "I want to show up on Google →",
+    ctaMessage: "Hi! I want a professional website that brings credibility and clients",
+    tiers: [
+      { name: "Essential", price: "R$ 2.997", priceUSD: "$1,497", popular: false, features: ["Up to 5 optimized pages", "100% responsive design", "Fixed WhatsApp button"] },
+      { name: "Professional", price: "R$ 3.997", priceUSD: "$2,997", popular: true, features: ["Up to 10 pages", "Premium look that builds trust", "Advanced SEO on all pages", "Blog to attract organic traffic"] },
+      { name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false, features: ["Unlimited pages", "Multi-language built-in", "CRM integration", "3 months of consulting included"] }
+    ]
   },
   {
-    id: "premium",
-    name: "Premium",
-    price: "R$ 497/mês",
-    priceUSD: "$197/mo",
-    subtitle: "Para negócios onde 1 hora fora do ar custa mais que o plano inteiro. Proteção total.",
-    popular: false,
-    features: [
-      "Tudo do Gestão",
-      "Servidor dedicado",
-      "Backup DIÁRIO",
-      "Monitoramento contínuo 24h/7",
-      "Manutenção quinzenal + urgências",
-      "Alterações de conteúdo ILIMITADAS",
-      "Suporte WhatsApp prioritário (até 4h úteis)",
-      "Relatório completo com insights de crescimento",
-      "Otimização de velocidade trimestral",
-      "Melhorias de design (até 3h/mês)",
-      "Renovação de domínio gerenciada"
-    ],
-    ctaText: "Quero proteção total →",
-    ctaMessage: "Quero o plano Premium — proteção e performance total",
-    ctaMessageEN: "Hi! I want the Premium plan — full protection and performance"
+    id: "ecommerce", title: "03 — E-COMMERCE", icon: ShoppingCart,
+    description: "Your store selling 24/7. The cart recovery feature in the Professional plan alone recovers 10–15% of lost sales — it pays the difference in the first month.",
+    ctaText: "I want to sell online 24/7 →",
+    ctaMessage: "Hi! I want an online store that actually sells",
+    tiers: [
+      { name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false, features: ["Up to 50 products", "Payment & shipping configured", "Mobile-optimized layout"] },
+      { name: "Professional", price: "R$ 5.997", priceUSD: "$4,997", popular: true, features: ["Cart recovery (pays for itself)", "Up to 500 products", "ERP / Bling integration", "Full conversion tracking"] },
+      { name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false, features: ["Unlimited products", "Multiple distribution centers", "B2B & wholesale integrated", "Dedicated 24h technical support"] }
+    ]
+  },
+  {
+    id: "portfolio", title: "04 — PORTFOLIO", icon: Briefcase,
+    description: "Your work is incredible, but nobody sees it. A professional portfolio makes the client decide before they even call you.",
+    ctaText: "I want to close more projects →",
+    ctaMessage: "Hi! I want a portfolio that sells my work",
+    tiers: [
+      { name: "Basic", price: "R$ 997", priceUSD: "$597", popular: false, features: ["Project gallery", "Social media links", "Clean & modern design"] },
+      { name: "Creative", price: "R$ 1.997", priceUSD: "$1,497", popular: true, features: ["Interactive gallery with CMS", "Smooth modern animations", "Case study per project", "Portfolio-focused SEO"] },
+      { name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false, features: ["Dynamic filters by category", "Password-protected area", "Looping video background", "VIP maintenance 6 months"] }
+    ]
   }
 ];
 
-const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
+const monthlyPlansPT = [
+  {
+    id: "basico", name: "Básico", price: "R$ 149/mês", priceUSD: "$49/mo", popular: false,
+    subtitle: "Seu site no ar e funcionando. Sem acompanhamento — mas sem risco de cair.",
+    features: ["Hospedagem gerenciada SSD", "Certificado SSL (HTTPS)", "Backup quinzenal automático", "1 alteração de conteúdo/mês"],
+    ctaText: "Garantir meu site no ar →",
+    ctaMessage: "Quero o plano Básico — meu site no ar sem preocupação",
+  },
+  {
+    id: "gestao", name: "Gestão", price: "R$ 297/mês", priceUSD: "$97/mo", popular: true,
+    subtitle: "Site sempre rápido, atualizado e trazendo clientes. Você não precisa lembrar de nada.",
+    features: ["Tudo do Básico", "Backup semanal", "Monitoramento semanal de disponibilidade", "Manutenção técnica mensal", "4 alterações de conteúdo/mês", "Suporte via WhatsApp (até 8h úteis)", "Relatório de desempenho mensal", "Otimização de velocidade semestral", "Melhorias de design (até 1h/mês)", "Aviso de renovação de domínio"],
+    ctaText: "Quero meu site sempre otimizado →",
+    ctaMessage: "Quero o plano Gestão — site sempre otimizado e atualizado",
+  },
+  {
+    id: "premium", name: "Premium", price: "R$ 497/mês", priceUSD: "$197/mo", popular: false,
+    subtitle: "Para negócios onde 1 hora fora do ar custa mais que o plano inteiro. Proteção total.",
+    features: ["Tudo do Gestão", "Servidor dedicado", "Backup DIÁRIO", "Monitoramento contínuo 24h/7", "Manutenção quinzenal + urgências", "Alterações de conteúdo ILIMITADAS", "Suporte WhatsApp prioritário (até 4h úteis)", "Relatório completo com insights de crescimento", "Otimização de velocidade trimestral", "Melhorias de design (até 3h/mês)", "Renovação de domínio gerenciada"],
+    ctaText: "Quero proteção total →",
+    ctaMessage: "Quero o plano Premium — proteção e performance total",
+  }
+];
+
+const monthlyPlansEN = [
+  {
+    id: "basico", name: "Basic", price: "R$ 149/mês", priceUSD: "$49/mo", popular: false,
+    subtitle: "Your site live and running. No hand-holding — but no risk of going down.",
+    features: ["Managed SSD hosting", "SSL Certificate (HTTPS)", "Automatic bi-weekly backup", "1 content update/mo"],
+    ctaText: "Keep my site running →",
+    ctaMessage: "Hi! I want the Basic plan to keep my site running",
+  },
+  {
+    id: "gestao", name: "Management", price: "R$ 297/mês", priceUSD: "$97/mo", popular: true,
+    subtitle: "Site always fast, updated, and bringing clients. You don't have to think about anything.",
+    features: ["Everything in Basic", "Weekly backup", "Weekly uptime monitoring", "Monthly technical maintenance", "4 content updates/mo", "WhatsApp support (up to 8 business hours)", "Monthly performance report", "Bi-annual speed optimization", "Design improvements (up to 1h/mo)", "Domain renewal reminder"],
+    ctaText: "Keep my site always optimized →",
+    ctaMessage: "Hi! I want the Management plan — site always optimized",
+  },
+  {
+    id: "premium", name: "Premium", price: "R$ 497/mês", priceUSD: "$197/mo", popular: false,
+    subtitle: "For businesses where 1 hour offline costs more than the whole plan. Total protection.",
+    features: ["Everything in Management", "Dedicated server", "DAILY backup", "Continuous 24/7 monitoring", "Bi-weekly maintenance + emergencies", "UNLIMITED content updates", "Priority WhatsApp support (up to 4 business hours)", "Full report with growth insights", "Quarterly speed optimization", "Design improvements (up to 3h/mo)", "Managed domain renewal"],
+    ctaText: "I want total protection →",
+    ctaMessage: "Hi! I want the Premium plan — full protection and performance",
+  }
+];
+
+// inline i18n helpers
+const servicesI18n = {
+  pt: {
+    bestSeller: "⭐ Mais Vendido",
+    mostChosen: "⭐ Mais Escolhido",
+    guarantee: "30 dias de garantia · Risco zero",
+    scarcity: (occ: number, tot: number, month: string) => `⚡ ${occ} das ${tot} vagas de ${month} já reservadas`,
+    toggleSite: "Site único",
+    togglePlan: "+ Plano mensal",
+    disclaimer: "Sem taxa de adesão. Fidelidade mínima de 3 a 6 meses. Dúvidas? Resposta em até 2h no WhatsApp.",
+    bottomCta: {
+      sites: { text: "Ainda tem dúvida? Em 5 minutos te dizemos exatamente qual plano traz mais resultado pro seu negócio.", btn: "Falar com especialista agora", link: "https://wa.me/5511998409981?text=Olá,%20quero%20ajuda%20para%20escolher%20o%20melhor%20plano%20para%20o%20meu%20negócio" },
+      plans: { text: "Cada dia sem manutenção é um dia que seu site pode cair. Fale conosco e proteja seu investimento.", btn: "Proteger meu site agora", link: "https://wa.me/5511998409981?text=Quero%20proteger%20meu%20site%20com%20um%20plano%20mensal" },
+    },
+  },
+  en: {
+    bestSeller: "⭐ Best Seller",
+    mostChosen: "⭐ Most Chosen",
+    guarantee: "30-day guarantee · Zero risk",
+    scarcity: (occ: number, tot: number, month: string) => `⚡ ${occ} of ${tot} spots for ${month} already taken`,
+    toggleSite: "One-time site",
+    togglePlan: "+ Monthly plan",
+    disclaimer: "No setup fee. Minimum commitment 3–6 months. Questions? Reply within 2h on WhatsApp.",
+    bottomCta: {
+      sites: { text: "Still unsure? In 5 minutes we'll tell you exactly which plan brings the best results for your business.", btn: "Talk to a specialist now", link: "https://wa.me/5511998409981?text=Hi!%20I%20want%20help%20choosing%20the%20best%20plan%20for%20my%20business" },
+      plans: { text: "Every day without maintenance is a day your site could go down. Talk to us and protect your investment.", btn: "Protect my site now", link: "https://wa.me/5511998409981?text=I%20want%20to%20protect%20my%20site%20with%20a%20monthly%20plan" },
+    },
+  },
+  es: {
+    bestSeller: "⭐ Más Vendido",
+    mostChosen: "⭐ Más Elegido",
+    guarantee: "30 días de garantía · Riesgo cero",
+    scarcity: (occ: number, tot: number, month: string) => `⚡ ${occ} de ${tot} cupos de ${month} ya reservados`,
+    toggleSite: "Sitio único",
+    togglePlan: "+ Plan mensual",
+    disclaimer: "Sin cuota de alta. Permanencia mínima de 3 a 6 meses. ¿Dudas? Respuesta en hasta 2h por WhatsApp.",
+    bottomCta: {
+      sites: { text: "¿Todavía tienes dudas? En 5 minutos te decimos exactamente qué plan trae más resultados para tu negocio.", btn: "Hablar con un especialista", link: "https://wa.me/5511998409981?text=Hola!%20Quiero%20ayuda%20para%20elegir%20el%20mejor%20plan" },
+      plans: { text: "Cada día sin mantenimiento es un día que tu sitio puede caer. Habla con nosotros y protege tu inversión.", btn: "Proteger mi sitio ahora", link: "https://wa.me/5511998409981?text=Quiero%20proteger%20mi%20sitio%20con%20un%20plan%20mensual" },
+    },
+  },
+};
+
+
+
+
+const SiteTypeCard = ({ site }: { site: typeof siteTypesPT[0] }) => {
   const Icon = site.icon;
   const tiltRef = useTilt();
   const { language } = useLanguage();
+  const i18n = servicesI18n[language];
 
   const [expandedTier, setExpandedTier] = useState<number>(
     site.tiers.findIndex(t => t.popular) !== -1 ? site.tiers.findIndex(t => t.popular) : 0
@@ -230,7 +257,7 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
             >
               {tier.popular && (
                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:-translate-x-0 sm:right-4 bg-[#D4AF37] text-black text-[9px] sm:text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap z-10">
-                   ⭐ Mais Vendido
+                   {i18n.bestSeller}
                  </span>
               )}
               
@@ -298,16 +325,16 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
         <p className="text-center text-[11px] mt-3 font-medium flex items-center justify-center gap-1.5">
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
             <CheckCircle2 className="w-3 h-3" />
-            30 dias de garantia · Risco zero
+            {i18n.guarantee}
           </span>
         </p>
         <p className="text-center text-[11px] text-amber-500/80 mt-1 font-medium flex items-center justify-center gap-1">
           {(() => {
             const day = new Date().getDate();
-            const vagasTotais = 3;
-            const vagasRestantes = day <= 7 ? 3 : day <= 14 ? 2 : 1;
-            const ocupadas = vagasTotais - vagasRestantes;
-            return `⚡ ${ocupadas} das ${vagasTotais} vagas de ${new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas`;
+            const tot = 3;
+            const occ = tot - (day <= 7 ? 3 : day <= 14 ? 2 : 1);
+            const month = new Date().toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'pt-BR', {month: 'long'});
+            return i18n.scarcity(occ, tot, month);
           })()}
         </p>
       </div>
@@ -315,9 +342,10 @@ const SiteTypeCard = ({ site }: { site: typeof siteTypes[0] }) => {
   );
 };
 
-const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
+const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlansPT[0] }) => {
   const tiltRef = useTilt();
   const { language } = useLanguage();
+  const i18n = servicesI18n[language];
 
   return (
     <div 
@@ -332,7 +360,7 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
     >
       {plan.popular && (
         <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-[11px] uppercase font-bold tracking-widest px-4 py-1 rounded-full shadow-lg border border-yellow-200/20 whitespace-nowrap z-10">
-          ⭐ Mais Escolhido
+          {i18n.mostChosen}
         </span>
       )}
       
@@ -390,10 +418,10 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
       <p className="text-center text-[11px] text-amber-500/80 mt-3 font-medium flex items-center justify-center gap-1">
         {(() => {
           const day = new Date().getDate();
-          const vagasTotais = 3;
-          const vagasRestantes = day <= 7 ? 3 : day <= 14 ? 2 : 1;
-          const ocupadas = vagasTotais - vagasRestantes;
-          return `⚡ ${ocupadas} das ${vagasTotais} vagas de ${new Date().toLocaleDateString('pt-BR', {month: 'long'})} já reservadas`;
+          const tot = 3;
+          const occ = tot - (day <= 7 ? 3 : day <= 14 ? 2 : 1);
+          const month = new Date().toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'pt-BR', {month: 'long'});
+          return i18n.scarcity(occ, tot, month);
         })()}
       </p>
     </div>
@@ -401,20 +429,12 @@ const MonthlyPlanCard = ({ plan }: { plan: typeof monthlyPlans[0] }) => {
 };
 
 const Services = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [view, setView] = useState<'sites' | 'plans'>('sites');
-
-  const bottomCtaProps = view === 'sites' 
-    ? {
-        text: "Ainda tem dúvida? Em 5 minutos te dizemos exatamente qual plano traz mais resultado pro seu negócio.",
-        btn: "Falar com especialista agora",
-        link: "https://wa.me/5511998409981?text=Olá,%20quero%20ajuda%20para%20escolher%20o%20melhor%20plano%20para%20o%20meu%20negócio"
-      }
-    : {
-        text: "Cada dia sem manutenção é um dia que seu site pode cair. Fale conosco e proteja seu investimento.",
-        btn: "Proteger meu site agora",
-        link: "https://wa.me/5511998409981?text=Quero%20proteger%20meu%20site%20com%20um%20plano%20mensal"
-      };
+  const i18n = servicesI18n[language];
+  const activeSiteTypes = language === 'en' ? siteTypesEN : siteTypesPT;
+  const activeMonthlyPlans = language === 'en' ? monthlyPlansEN : monthlyPlansPT;
+  const bottomCtaProps = i18n.bottomCta[view];
 
   return (
     <section id="solucoes" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
@@ -447,7 +467,7 @@ const Services = () => {
                   : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5 scale-95'
               }`}
             >
-              Site único
+              {i18n.toggleSite}
             </button>
             <button
               onClick={() => setView('plans')}
@@ -457,7 +477,7 @@ const Services = () => {
                   : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5 scale-95'
               }`}
             >
-              + Plano mensal
+              {i18n.togglePlan}
             </button>
           </div>
         </AnimatedSection>
@@ -474,7 +494,7 @@ const Services = () => {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto"
               >
-                {siteTypes.map((site, index) => (
+                {activeSiteTypes.map((site, index) => (
                   <motion.div 
                     key={site.id} 
                     initial={{ opacity: 0, y: 20 }} 
@@ -495,7 +515,7 @@ const Services = () => {
                 className="max-w-7xl mx-auto"
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {monthlyPlans.map((plan, index) => (
+                  {activeMonthlyPlans.map((plan, index) => (
                     <motion.div 
                       key={plan.id} 
                       initial={{ opacity: 0, y: 20 }} 
@@ -511,7 +531,7 @@ const Services = () => {
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
                   className="text-center text-[12px] text-muted-foreground/60 font-medium mt-10"
                 >
-                  Sem taxa de adesão. Fidelidade mínima de 3 a 6 meses. Dúvidas? Resposta em até 2h no WhatsApp.
+                  {i18n.disclaimer}
                 </motion.p>
               </motion.div>
             )}
