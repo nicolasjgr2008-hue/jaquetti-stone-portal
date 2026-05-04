@@ -79,9 +79,9 @@ const siteTypesEN = [
     ctaText: "I want to convert more visitors →",
     ctaMessage: "Hi! I want a landing page that converts visitors into clients",
     tiers: [
-      { name: "Basic", price: "R$ 797", priceUSD: "$497", popular: false, features: ["1 responsive page", "Lead capture form", "Delivered in 7 days"] },
-      { name: "Professional", price: "R$ 1.497", priceUSD: "$997", popular: true, features: ["Up to 3 strategic sections", "WhatsApp + tracking pixel", "SEO configured for Google", "Delivered in 10 days"] },
-      { name: "Premium", price: "R$ 2.997", priceUSD: "$2,497", popular: false, features: ["Unlimited pages", "Persuasive copy included", "A/B testing for max conversion", "60-day support"] }
+      { name: "Basic", price: "R$ 797", priceUSD: "$160", popular: false, features: ["1 responsive page", "Lead capture form", "Delivered in 7 days"] },
+      { name: "Professional", price: "R$ 1.497", priceUSD: "$299", popular: true, features: ["Up to 3 strategic sections", "WhatsApp + tracking pixel", "SEO configured for Google", "Delivered in 10 days"] },
+      { name: "Premium", price: "R$ 2.997", priceUSD: "$597", popular: false, features: ["Unlimited pages", "Persuasive copy included", "A/B testing for max conversion", "60-day support"] }
     ]
   },
   {
@@ -90,9 +90,9 @@ const siteTypesEN = [
     ctaText: "I want to show up on Google →",
     ctaMessage: "Hi! I want a professional website that brings credibility and clients",
     tiers: [
-      { name: "Essential", price: "R$ 2.997", priceUSD: "$1,497", popular: false, features: ["Up to 5 optimized pages", "100% responsive design", "Fixed WhatsApp button"] },
-      { name: "Professional", price: "R$ 3.997", priceUSD: "$2,997", popular: true, features: ["Up to 10 pages", "Premium look that builds trust", "Advanced SEO on all pages", "Blog to attract organic traffic"] },
-      { name: "Premium", price: "R$ 6.997", priceUSD: "$5,997", popular: false, features: ["Unlimited pages", "Multi-language built-in", "CRM integration", "3 months of consulting included"] }
+      { name: "Essential", price: "R$ 2.997", priceUSD: "$597", popular: false, features: ["Up to 5 optimized pages", "100% responsive design", "Fixed WhatsApp button"] },
+      { name: "Professional", price: "R$ 3.997", priceUSD: "$797", popular: true, features: ["Up to 10 pages", "Premium look that builds trust", "Advanced SEO on all pages", "Blog to attract organic traffic"] },
+      { name: "Premium", price: "R$ 6.997", priceUSD: "$1,397", popular: false, features: ["Unlimited pages", "Multi-language built-in", "CRM integration", "3 months of consulting included"] }
     ]
   },
   {
@@ -101,9 +101,9 @@ const siteTypesEN = [
     ctaText: "I want to sell online 24/7 →",
     ctaMessage: "Hi! I want an online store that actually sells",
     tiers: [
-      { name: "Starter", price: "R$ 2.997", priceUSD: "$1,997", popular: false, features: ["Up to 50 products", "Payment & shipping configured", "Mobile-optimized layout"] },
-      { name: "Professional", price: "R$ 5.997", priceUSD: "$4,997", popular: true, features: ["Cart recovery (pays for itself)", "Up to 500 products", "ERP / Bling integration", "Full conversion tracking"] },
-      { name: "Premium", price: "R$ 9.997", priceUSD: "$9,997", popular: false, features: ["Unlimited products", "Multiple distribution centers", "B2B & wholesale integrated", "Dedicated 24h technical support"] }
+      { name: "Starter", price: "R$ 2.997", priceUSD: "$597", popular: false, features: ["Up to 50 products", "Payment & shipping configured", "Mobile-optimized layout"] },
+      { name: "Professional", price: "R$ 5.997", priceUSD: "$1,197", popular: true, features: ["Cart recovery (pays for itself)", "Up to 500 products", "ERP / Bling integration", "Full conversion tracking"] },
+      { name: "Premium", price: "R$ 9.997", priceUSD: "$1,997", popular: false, features: ["Unlimited products", "Multiple distribution centers", "B2B & wholesale integrated", "Dedicated 24h technical support"] }
     ]
   },
   {
@@ -112,9 +112,9 @@ const siteTypesEN = [
     ctaText: "I want to close more projects →",
     ctaMessage: "Hi! I want a portfolio that sells my work",
     tiers: [
-      { name: "Basic", price: "R$ 997", priceUSD: "$597", popular: false, features: ["Project gallery", "Social media links", "Clean & modern design"] },
-      { name: "Creative", price: "R$ 1.997", priceUSD: "$1,497", popular: true, features: ["Interactive gallery with CMS", "Smooth modern animations", "Case study per project", "Portfolio-focused SEO"] },
-      { name: "Elite", price: "R$ 3.497", priceUSD: "$2,997", popular: false, features: ["Dynamic filters by category", "Password-protected area", "Looping video background", "VIP maintenance 6 months"] }
+      { name: "Basic", price: "R$ 997", priceUSD: "$197", popular: false, features: ["Project gallery", "Social media links", "Clean & modern design"] },
+      { name: "Creative", price: "R$ 1.997", priceUSD: "$397", popular: true, features: ["Interactive gallery with CMS", "Smooth modern animations", "Case study per project", "Portfolio-focused SEO"] },
+      { name: "Elite", price: "R$ 3.497", priceUSD: "$697", popular: false, features: ["Dynamic filters by category", "Password-protected area", "Looping video background", "VIP maintenance 6 months"] }
     ]
   }
 ];
@@ -145,21 +145,21 @@ const monthlyPlansPT = [
 
 const monthlyPlansEN = [
   {
-    id: "basico", name: "Basic", price: "R$ 149/mês", priceUSD: "$49/mo", popular: false,
+    id: "basico", name: "Basic", price: "R$ 149/mês", priceUSD: "$29/mo", popular: false,
     subtitle: "Your site live and running. No hand-holding — but no risk of going down.",
     features: ["Managed SSD hosting", "SSL Certificate (HTTPS)", "Automatic bi-weekly backup", "1 content update/mo"],
     ctaText: "Keep my site running →",
     ctaMessage: "Hi! I want the Basic plan to keep my site running",
   },
   {
-    id: "gestao", name: "Management", price: "R$ 297/mês", priceUSD: "$97/mo", popular: true,
+    id: "gestao", name: "Management", price: "R$ 297/mês", priceUSD: "$59/mo", popular: true,
     subtitle: "Site always fast, updated, and bringing clients. You don't have to think about anything.",
     features: ["Everything in Basic", "Weekly backup", "Weekly uptime monitoring", "Monthly technical maintenance", "4 content updates/mo", "WhatsApp support (up to 8 business hours)", "Monthly performance report", "Bi-annual speed optimization", "Design improvements (up to 1h/mo)", "Domain renewal reminder"],
     ctaText: "Keep my site always optimized →",
     ctaMessage: "Hi! I want the Management plan — site always optimized",
   },
   {
-    id: "premium", name: "Premium", price: "R$ 497/mês", priceUSD: "$197/mo", popular: false,
+    id: "premium", name: "Premium", price: "R$ 497/mês", priceUSD: "$99/mo", popular: false,
     subtitle: "For businesses where 1 hour offline costs more than the whole plan. Total protection.",
     features: ["Everything in Management", "Dedicated server", "DAILY backup", "Continuous 24/7 monitoring", "Bi-weekly maintenance + emergencies", "UNLIMITED content updates", "Priority WhatsApp support (up to 4 business hours)", "Full report with growth insights", "Quarterly speed optimization", "Design improvements (up to 3h/mo)", "Managed domain renewal"],
     ctaText: "I want total protection →",
